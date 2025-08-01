@@ -11,10 +11,10 @@ interface Star {
 }
 
 interface StarFieldProps {
-  isHoveringButton: boolean;
+  starLess: boolean;
 }
 
-export default function StarField({ isHoveringButton }: StarFieldProps) {
+export default function StarField({ starLess }: StarFieldProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animationRef = useRef<number | null>(null);
   const engineRef = useRef<Matter.Engine | null>(null);
@@ -150,7 +150,7 @@ export default function StarField({ isHoveringButton }: StarFieldProps) {
       ctx.save();
       
       // Smooth opacity transition based on hover state
-      const targetOpacity = isHoveringButton ? 0.2 : star.opacity;
+      const targetOpacity = starLess ? 0.2 : star.opacity;
       ctx.globalAlpha = targetOpacity;
       
       // Dynamic glow effect based on opacity
@@ -169,7 +169,7 @@ export default function StarField({ isHoveringButton }: StarFieldProps) {
       ctx.fill();
       ctx.restore();
     });
-  }, [isHoveringButton]);
+  }, [starLess]);
 
   // Animation loop
   const animate = useCallback(() => {
@@ -247,7 +247,7 @@ export default function StarField({ isHoveringButton }: StarFieldProps) {
       className="fixed top-0 left-0 w-full h-full pointer-events-none z-10"
       style={{
         mixBlendMode: 'screen',
-        opacity: isHoveringButton ? 0.3 : 1,
+        opacity: starLess ? 0.3 : 1,
         transition: 'opacity 300ms ease-out'
       }}
     />

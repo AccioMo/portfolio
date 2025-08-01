@@ -1,0 +1,337 @@
+"use client";
+
+import { useEffect, useState, useRef } from "react";
+
+interface Project {
+  id: number;
+  title: string;
+  description: string;
+  tech: string[];
+  year: string;
+  link?: string;
+  github?: string;
+}
+
+const projects: Project[] = [
+  {
+    id: 1,
+    title: "Project Alpha",
+    description: "A modern web application built with Next.js and TypeScript. Features real-time data synchronization and responsive design.",
+    tech: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL"],
+    year: "2024",
+    link: "https://project-alpha.demo",
+    github: "https://github.com/username/project-alpha"
+  },
+  {
+    id: 2,
+    title: "Project Beta",
+    description: "Full-stack e-commerce platform with advanced filtering, payment integration, and admin dashboard.",
+    tech: ["React", "Node.js", "MongoDB", "Stripe"],
+    year: "2024",
+    link: "https://project-beta.demo",
+    github: "https://github.com/username/project-beta"
+  },
+  {
+    id: 3,
+    title: "Project Gamma",
+    description: "Mobile-first progressive web app for task management with offline capabilities and real-time collaboration.",
+    tech: ["Vue.js", "Express", "Socket.io", "Redis"],
+    year: "2023",
+    link: "https://project-gamma.demo",
+    github: "https://github.com/username/project-gamma"
+  },
+  {
+    id: 4,
+    title: "Project Delta",
+    description: "AI-powered analytics dashboard with data visualization and machine learning insights.",
+    tech: ["Python", "Django", "TensorFlow", "D3.js"],
+    year: "2023",
+    link: "https://project-delta.demo",
+    github: "https://github.com/username/project-delta"
+  },
+  {
+    id: 5,
+    title: "Project Epsilon",
+    description: "Microservices architecture with containerized deployment and automated CI/CD pipeline.",
+    tech: ["Docker", "Kubernetes", "Go", "PostgreSQL"],
+    year: "2023",
+    github: "https://github.com/username/project-epsilon"
+  }
+];
+
+export default function Works() {
+  const [activeProject, setActiveProject] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const scrollTop = container.scrollTop;
+      const scrollHeight = container.scrollHeight - container.clientHeight;
+      const progress = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
+      setScrollProgress(progress);
+
+      // Find active project based on scroll position
+      const viewportHeight = container.clientHeight;
+      let currentProject = 0;
+      
+      projectRefs.current.forEach((ref, index) => {
+        if (ref) {
+          const rect = ref.getBoundingClientRect();
+          const containerRect = container.getBoundingClientRect();
+          const relativeTop = rect.top - containerRect.top;
+          
+          if (relativeTop <= viewportHeight / 2 && relativeTop > -viewportHeight / 2) {
+            currentProject = index;
+          }
+        }
+      });
+      
+      setActiveProject(currentProject);
+    };
+
+    container.addEventListener('scroll', handleScroll);
+    handleScroll(); // Initial call
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToProject = (index: number) => {
+    const targetRef = projectRefs.current[index];
+    if (!targetRef) return;
+
+    targetRef.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  };
+
+  return (
+    <div className="h-screen bg-transparent text-white overflow-hidden">
+      {/* Progress indicator */}
+      <div className="fixed top-0 left-0 w-full h-1 bg-gray-900 z-50">
+        <div 
+          className="h-full bg-gradient-to-r from-white-200 via-white-100 to-white transition-all duration-300"
+          style={{ width: `${scrollProgress * 100}%` }}
+        />
+      </div>
+
+      {/* Navigation dots */}
+      <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-8">
+        {projects.map((_, index) => (
+          <button
+            key={index}
+            onClick={() => scrollToProject(index)}
+            className={`w-4 h-4 cursor-none rounded-full border-2 transition-all duration-500 hover:scale-150 transform hover:rotate-45 ${
+              activeProject === index
+                ? 'bg-white-100 border-white-200 shadow-lg shadow-white-200/50'
+                : 'bg-transparent border-gray-500 hover:border-white-200 hover:shadow-md hover:shadow-white-200/30'
+            }`}
+            style={isMounted ? {
+              animation: `float-gentle 3s ease-in-out infinite ${index * 0.2}s`
+            } : undefined}
+          />
+        ))}
+      </div>
+
+      {/* Project counter */}
+      <div className="fixed left-8 top-8 z-40 font-mono text-sm text-gray-400">
+        <span className="text-white">{String(activeProject + 1).padStart(2, '0')}</span>
+        <span className="mx-2">/</span>
+        <span>{String(projects.length).padStart(2, '0')}</span>
+      </div>
+
+      {/* Main content */}
+      <div 
+        ref={containerRef}
+        className="h-full overflow-y-auto overflow-x-hidden scrollbar-hide"
+        style={{ 
+          scrollSnapType: 'y mandatory'
+        }}
+      >
+        {projects.map((project, index) => (
+          <div
+            key={project.id}
+            ref={el => { projectRefs.current[index] = el; }}
+            className="min-h-screen flex items-center justify-center px-8 relative project-area"
+            style={{ scrollSnapAlign: 'start' }}
+          >
+
+            {/* Project content */}
+            <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center z-10"
+            data-project-area="true">
+              {/* Project info */}
+              <div className="space-y-8">
+                <div className="space-y-4">
+                  <div className="flex items-center space-x-4">
+                    <span className="text-sm font-mono text-gray-400">{project.year}</span>
+                    <div className="h-px bg-gray-700 flex-1" />
+                  </div>
+                  
+                  <h1 className="text-5xl lg:text-6xl font-light tracking-tight">
+                    {project.title}
+                  </h1>
+                  
+                  <p className="text-lg text-gray-300 leading-relaxed max-w-lg">
+                    {project.description}
+                  </p>
+                </div>
+
+                {/* Tech stack */}
+                <div className="space-y-3">
+                  <h3 className="text-sm font-mono text-gray-400 uppercase tracking-wider">
+                    Technology Stack
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {project.tech.map((tech, techIndex) => (
+                      <span
+                        key={tech}
+                        className="px-3 py-1 text-xs border border-gray-700 rounded-full text-gray-300 hover:border-white hover:text-white transition-colors duration-300"
+                        style={{
+                          animationDelay: `${techIndex * 0.1}s`
+                        }}
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Links */}
+                <div className="flex space-x-6">
+                  {project.link && (
+                    <a
+                      href={project.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center cursor-none space-x-2 text-white hover:text-purple-400 transition-colors duration-300"
+                    >
+                      <span className="text-sm font-mono">View Project</span>
+                      <svg 
+                        className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" 
+                        fill="none" 
+                        stroke="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                      </svg>
+                    </a>
+                  )}
+                  
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group flex items-center cursor-none space-x-2 text-white hover:text-pink-400 transition-colors duration-300"
+                    >
+                      <span className="text-sm font-mono">Source Code</span>
+                      <svg 
+                        className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" 
+                        fill="currentColor" 
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+                      </svg>
+                    </a>
+                  )}
+                </div>
+              </div>
+
+              {/* Project visual */}
+              <div className="relative">
+                <div className="aspect-video bg-gray-900/50 backdrop-blur-sm rounded-lg border border-gray-700/50 overflow-hidden group shadow-2xl">
+                  <div className="w-full h-full bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-md flex items-center justify-center relative">
+                    {/* 3D Placeholder */}
+                    <div className="text-center space-y-4 relative z-10">
+                      <div className="w-16 h-16 mx-auto rounded-lg bg-gray-700/40 backdrop-blur-sm border border-gray-600/30 shadow-lg transform perspective-1000 rotate-x-12 rotate-y-12 group-hover:rotate-x-6 group-hover:rotate-y-6 transition-all duration-500 flex items-center justify-center">
+                        <div className="w-8 h-8 bg-gray-600/50 rounded backdrop-blur-sm border border-gray-500/30"></div>
+                      </div>
+                      <p className="text-sm text-gray-400 font-mono backdrop-blur-sm">Project Preview</p>
+                    </div>
+                    
+                    {/* Subtle background pattern */}
+                    <div className="absolute inset-0 opacity-10">
+                      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-gray-500/10 to-transparent"></div>
+                      <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_50%)]"></div>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Decorative elements - toned down */}
+                <div className="absolute -top-4 -right-4 w-8 h-8 rounded-full bg-gray-600/20 backdrop-blur-sm border border-gray-500/20 animate-pulse shadow-lg" />
+                <div className="absolute -bottom-6 -left-6 w-6 h-6 rounded-full bg-gray-500/20 backdrop-blur-sm border border-gray-400/20 animate-pulse shadow-lg"
+                     style={{ animationDelay: '1s' }} />
+              </div>
+            </div>
+
+            {/* Scroll indicator for last project */}
+            {index === projects.length - 1 && (
+              <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center space-y-2">
+                <p className="text-sm font-mono text-gray-400">End of Projects</p>
+                <div className="w-px h-8 bg-gray-700 mx-auto" />
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+
+      {/* Custom scrollbar styles and animations */}
+      <style jsx global>{`
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+        
+        .perspective-1000 {
+          perspective: 1000px;
+        }
+        
+        .rotate-x-12 {
+          transform: rotateX(12deg);
+        }
+        
+        .rotate-y-12 {
+          transform: rotateY(12deg);
+        }
+        
+        .rotate-x-6 {
+          transform: rotateX(6deg);
+        }
+        
+        .rotate-y-6 {
+          transform: rotateY(6deg);
+        }
+        
+        @keyframes float-gentle {
+          0% {
+            transform: translateY(0px) rotate(0deg);
+          }
+          25% {
+            transform: translateY(-4px) rotate(45deg);
+          }
+          50% {
+            transform: translateY(-8px) rotate(90deg);
+          }
+          75% {
+            transform: translateY(-4px) rotate(135deg);
+          }
+          100% {
+            transform: translateY(0px) rotate(180deg);
+          }
+        }
+      `}</style>
+    </div>
+  );
+}

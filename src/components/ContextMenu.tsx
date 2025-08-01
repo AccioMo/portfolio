@@ -14,7 +14,7 @@ export default function ContextMenu({ x, y, isVisible, activeDirection, onClose 
   const menuRef = useRef<HTMLDivElement>(null);
 
   const navigationPaths = [
-    { name: 'Works', path: '/projects', direction: 'top' },
+    { name: 'Works', path: '/works', direction: 'top' },
     { name: 'About', path: '/about', direction: 'right' },
     { name: 'Contact', path: '/contact', direction: 'left' },
     { name: 'Inspect', path: '#', direction: 'bottom' },
