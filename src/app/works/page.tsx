@@ -61,24 +61,14 @@ const projects: Project[] = [
 
 export default function Works() {
   const [activeProject, setActiveProject] = useState(0);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [isMounted, setIsMounted] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     const handleScroll = () => {
-      const scrollTop = container.scrollTop;
-      const scrollHeight = container.scrollHeight - container.clientHeight;
-      const progress = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
-      setScrollProgress(progress);
 
       // Find active project based on scroll position
       const viewportHeight = container.clientHeight;
@@ -116,13 +106,6 @@ export default function Works() {
 
   return (
     <div className="h-screen bg-transparent text-white overflow-hidden">
-      {/* Progress indicator */}
-      <div className="fixed top-0 left-0 w-full h-1 bg-gray-900 z-50">
-        <div 
-          className="h-full bg-gradient-to-r from-white-200 via-white-100 to-white transition-all duration-300"
-          style={{ width: `${scrollProgress * 100}%` }}
-        />
-      </div>
 
       {/* Navigation dots */}
       <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-8">
@@ -135,9 +118,9 @@ export default function Works() {
                 ? 'bg-white-100 border-white-200 shadow-lg shadow-white-200/50'
                 : 'bg-transparent border-gray-500 hover:border-white-200 hover:shadow-md hover:shadow-white-200/30'
             }`}
-            style={isMounted ? {
+            style={{
               animation: `float-gentle 3s ease-in-out infinite ${index * 0.2}s`
-            } : undefined}
+            }}
           />
         ))}
       </div>
@@ -166,8 +149,8 @@ export default function Works() {
           >
 
             {/* Project content */}
-            <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center z-10"
-            data-project-area="true">
+            <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center z-10 animate-fade-in"
+            data-project-area="true" style={{ animationDelay: `${index * 0.2}s` }}>
               {/* Project info */}
               <div className="space-y-8">
                 <div className="space-y-4">
@@ -330,6 +313,20 @@ export default function Works() {
           100% {
             transform: translateY(0px) rotate(180deg);
           }
+        }
+        
+        @keyframes fade-in {
+          0% {
+            opacity: 0;
+          }
+          100% {
+            opacity: 1;
+          }
+        }
+        
+        .animate-fade-in {
+          opacity: 0;
+          animation: fade-in 1s ease-in-out forwards;
         }
       `}</style>
     </div>

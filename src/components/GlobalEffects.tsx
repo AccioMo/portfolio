@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import StarField from "./StarField";
 import ContextMenu from "./ContextMenu";
+import PageTransition from "./PageTransition";
 
 interface MousePosition {
   x: number;
@@ -26,9 +27,12 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
     isVisible: false,
     activeDirection: ''
   });
+  
+  const [lastClickTime, setLastClickTime] = useState<number>(0);
+  const [clickCount, setClickCount] = useState<number>(0);
+  const [clickPosition, setClickPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
 
   useEffect(() => {
-    // Set initial document height and update on resize
     const updateDocumentHeight = () => {
       setDocumentHeight(Math.max(
         document.body.scrollHeight,
@@ -40,33 +44,70 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
     };
 
     updateDocumentHeight();
-    window.addEventListener('resize', updateDocumentHeight);
     
-    // Handle mouse down for context menu
     const handleMouseDown = (e: MouseEvent) => {
-      if (e.button === 2) { // Right mouse button
-        e.preventDefault();
-        setContextMenu({
-          x: e.clientX,
-          y: e.clientY,
-          isVisible: true,
-          activeDirection: ''
-        });
+      const RIGHT_MOUSE_BTN = 2;
+      const LEFT_MOUSE_BTN = 0;
+      
+      switch (e.button) {
+        case RIGHT_MOUSE_BTN:
+          e.preventDefault();
+          setContextMenu({
+            x: e.clientX,
+            y: e.clientY,
+            isVisible: true,
+            activeDirection: ''
+          });
+          break;
+          
+        case LEFT_MOUSE_BTN:
+          const currentTime = Date.now();
+          const timeDiff = currentTime - lastClickTime;
+          const positionDiff = Math.sqrt(
+            Math.pow(e.clientX - clickPosition.x, 2) + 
+            Math.pow(e.clientY - clickPosition.y, 2)
+          );
+          
+          // Optimized double-click detection
+          // - Time window: 400ms (slightly more forgiving than system default)
+          // - Position tolerance: 5px (allows for slight mouse movement)
+          if (timeDiff < 400 && positionDiff < 5 && clickCount === 1) {
+            // Double-click detected
+            e.preventDefault();
+            setContextMenu({
+              x: e.clientX,
+              y: e.clientY,
+              isVisible: true,
+              activeDirection: ''
+            });
+            setClickCount(0); // Reset count
+          } else {
+            // First click or reset
+            setClickCount(1);
+            setLastClickTime(currentTime);
+            setClickPosition({ x: e.clientX, y: e.clientY });
+            
+            // Reset click count after timeout to prevent accumulation
+            setTimeout(() => {
+              setClickCount(0);
+            }, 400);
+          }
+          break;
       }
     };
-
-    // Handle mouse up
     const handleMouseUp = (e: MouseEvent) => {
-      if (e.button === 2) { // Right mouse button
+      const RIGHT_MOUSE_BTN = 2;
+      const LEFT_MOUSE_BTN = 0;
+      if (e.button === RIGHT_MOUSE_BTN || e.button === LEFT_MOUSE_BTN) {
         setContextMenu(prev => ({ ...prev, isVisible: false }));
       }
     };
 
-    // Prevent default context menu
     const handleContextMenu = (e: MouseEvent) => {
       e.preventDefault();
     };
 
+    window.addEventListener('resize', updateDocumentHeight);
     document.addEventListener('mousedown', handleMouseDown);
     document.addEventListener('mouseup', handleMouseUp);
     document.addEventListener('contextmenu', handleContextMenu);
@@ -77,7 +118,7 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
       document.removeEventListener('mouseup', handleMouseUp);
       document.removeEventListener('contextmenu', handleContextMenu);
     };
-  }, []);
+  }, [lastClickTime, clickCount, clickPosition]);
 
   useEffect(() => {
     let currentMousePos = { x: 0, y: 0 };
@@ -122,10 +163,11 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
       }
     };
 
-    // Update trail every 50ms with current mouse position
+    // Update trail every 75ms with current mouse position
     const trailInterval = setInterval(() => {
       // Only add points if mouse position is valid, has changed, and not in project area
-      if ((currentMousePos.x !== 0 || currentMousePos.y !== 0) && !isInProjectArea) {
+      // Don't add new points when context menu is visible, but continue fading existing trail
+      if ((currentMousePos.x !== 0 || currentMousePos.y !== 0) && !isInProjectArea && !contextMenu.isVisible) {
         const newPosition: MousePosition = {
           x: currentMousePos.x,
           y: currentMousePos.y,
@@ -136,9 +178,13 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
           const updatedTrail = [...prev, newPosition];
           return updatedTrail.slice(-32);
         });
-      } else if (isInProjectArea) {
-        // Clear trail when in project area
-        // setMouseTrail([]);
+      } else {
+        // When context menu is visible or in project area, gradually fade the trail
+        setMouseTrail(prev => {
+          if (prev.length === 0) return prev;
+          // Remove oldest points to create fading effect
+          return prev.slice(1);
+        });
       }
     }, 75);
 
@@ -234,7 +280,7 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
       </svg>
 
       {/* Mouse Coordinates */}
-      {/* <div
+      <div
         className="fixed pointer-events-none z-50 bg-black/10 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-mono"
         style={{
           opacity: (isHoveringButton || isInProjectArea) ? 0 : 1,
@@ -244,11 +290,11 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
         }}
       >
         {mousePosition.x}, {mousePosition.y}
-      </div> */}
+      </div>
 
       {/* Custom Mouse Cursor Dot */}
       <div
-        className="fixed pointer-events-none z-50 transition-all duration-200 ease-out"
+        className="fixed pointer-events-none z-50"
         style={{
           left: mousePosition.x,
           top: mousePosition.y,
@@ -269,7 +315,6 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
               : '0 0 10px rgba(255, 255, 255, 0.3), 0 0 20px rgba(255, 255, 255, 0.1)'
           }}
         >
-          {/* Inner core dot */}
           <div 
             className={`absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-1 h-1 rounded-full transition-all duration-300 ${
               isHoveringButton ? 'bg-white-50 animate-pulse' : 'bg-white/90'
@@ -278,43 +323,16 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
               animationDuration: isHoveringButton ? '0.8s' : 'none'
             }}
           />
+          {!isHoveringButton && (
+            <div 
+              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full border border-white/40 animate-pulse"
+              style={{
+                animationDuration: '3s'
+              }}
+            />
+          )}
         </div>
-        
-        {/* Outer glow rings when hovering */}
-        {isHoveringButton && (
-          <>
-            <div 
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-8 h-8 rounded-full border border-white-200/60 animate-ping"
-              style={{
-                animationDuration: '1.5s'
-              }}
-            />
-            <div 
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full border border-white-200/30 animate-ping"
-              style={{
-                animationDuration: '2s',
-                animationDelay: '0.3s'
-              }}
-            />
-            <div 
-              className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-white-200/20 animate-pulse"
-              style={{
-                animationDuration: '1s',
-                filter: 'blur(2px)'
-              }}
-            />
-          </>
-        )}
-        
-        {/* Subtle breathing effect for normal state */}
-        {!isHoveringButton && (
-          <div 
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full border border-white/20 animate-pulse"
-            style={{
-              animationDuration: '3s'
-            }}
-          />
-        )}
+
       </div>
 
       {/* Context Menu */}
@@ -326,9 +344,11 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
         onClose={() => setContextMenu(prev => ({ ...prev, isVisible: false }))}
       />
 
-      {/* Page Content */}
+      {/* Page Content with Transitions */}
       <div className="relative z-10">
-        {children}
+        {/* <PageTransition> */}
+          {children}
+        {/* </PageTransition> */}
       </div>
     </div>
   );

@@ -3,26 +3,16 @@
 import { useEffect, useState, useRef } from "react";
 
 export default function About() {
-  const [isMounted, setIsMounted] = useState(false);
   const [activeSection, setActiveSection] = useState(0);
-  const [scrollProgress, setScrollProgress] = useState(0);
   const [visibleSections, setVisibleSections] = useState<Set<number>>(new Set());
   const containerRef = useRef<HTMLDivElement>(null);
   const sectionRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    setIsMounted(true);
-  }, []);
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     const handleScroll = () => {
-      const scrollTop = container.scrollTop;
-      const scrollHeight = container.scrollHeight - container.clientHeight;
-      const progress = scrollHeight > 0 ? scrollTop / scrollHeight : 0;
-      setScrollProgress(progress);
 
       // Find active section based on scroll position
       const viewportHeight = container.clientHeight;
@@ -113,12 +103,12 @@ export default function About() {
   return (
     <div className="h-screen bg-transparent text-white overflow-hidden">
       {/* Progress indicator */}
-      <div className="fixed top-0 left-0 w-full h-1 bg-gray-900 z-50">
+      {/* <div className="fixed top-0 left-0 w-full h-1 bg-gray-900 z-50">
         <div 
           className="h-full bg-gradient-to-r from-white-200 via-white-100 to-white transition-all duration-300"
           style={{ width: `${scrollProgress * 100}%` }}
         />
-      </div>
+      </div> */}
 
       {/* Navigation dots */}
       <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-6">
@@ -174,7 +164,7 @@ export default function About() {
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <div 
               className={`transition-all duration-1000 ${
-                visibleSections.has(0) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                visibleSections.has(0) ? 'opacity-100' : 'opacity-0'
               }`}
             >
               <h1 className="text-4xl sm:text-6xl lg:text-7xl font-light tracking-tight mb-6">
@@ -204,7 +194,7 @@ export default function About() {
           <div className="max-w-6xl mx-auto w-full">
             <h2 
               className={`text-3xl sm:text-4xl font-light mb-16 text-center transition-all duration-1000 ${
-                visibleSections.has(1) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                visibleSections.has(1) ? 'opacity-100' : 'opacity-0'
               }`}
             >
               Technical Skills
@@ -215,7 +205,7 @@ export default function About() {
                 <div 
                   key={skillGroup.category}
                   className={`space-y-6 group transition-all duration-1000 ${
-                    visibleSections.has(1) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                    visibleSections.has(1) ? 'opacity-100' : 'opacity-0'
                   }`}
                   style={{
                     transitionDelay: visibleSections.has(1) ? `${index * 0.2}s` : '0s'
@@ -229,11 +219,11 @@ export default function About() {
                       <div 
                         key={skill}
                         className={`flex items-center space-x-3 group-hover:translate-x-2 transition-all duration-500 ${
-                          visibleSections.has(1) ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
+                          visibleSections.has(1) ? 'opacity-100' : 'opacity-0'
                         }`}
-                        style={{
-                          transitionDelay: visibleSections.has(1) ? `${index * 0.2 + skillIndex * 0.05}s` : '0s'
-                        }}
+                        // style={{
+                        //   transitionDelay: visibleSections.has(1) ? `${index * 0.2 + skillIndex * 0.05}s` : '0s'
+                        // }}
                       >
                         <div className="w-2 h-2 bg-gray-600 rounded-full group-hover:bg-white transition-colors duration-300" />
                         <span className="text-gray-300 group-hover:text-white transition-colors duration-300">
@@ -257,7 +247,7 @@ export default function About() {
           <div className="max-w-4xl mx-auto w-full">
             <h2 
               className={`text-3xl sm:text-4xl font-light mb-16 text-center transition-all duration-1000 ${
-                visibleSections.has(2) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                visibleSections.has(2) ? 'opacity-100' : 'opacity-0'
               }`}
             >
               Experience
@@ -268,7 +258,7 @@ export default function About() {
                 <div 
                   key={exp.year}
                   className={`relative border-l border-gray-800 pl-8 group transition-all duration-1000 ${
-                    visibleSections.has(2) ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'
+                    visibleSections.has(2) ? 'opacity-100' : 'opacity-0'
                   }`}
                   style={{
                     transitionDelay: visibleSections.has(2) ? `${index * 0.2}s` : '0s'
@@ -304,7 +294,7 @@ export default function About() {
           <div className="max-w-4xl mx-auto text-center w-full">
             <h2 
               className={`text-3xl sm:text-4xl font-light mb-12 transition-all duration-1000 ${
-                visibleSections.has(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                visibleSections.has(3) ? 'opacity-100' : 'opacity-0'
               }`}
             >
               Beyond Code
@@ -313,11 +303,11 @@ export default function About() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
               <div 
                 className={`space-y-4 transition-all duration-1000 ${
-                  visibleSections.has(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                  visibleSections.has(3) ? 'opacity-100' : 'opacity-0'
                 }`}
-                style={{
-                  transitionDelay: visibleSections.has(3) ? '0.2s' : '0s'
-                }}
+                // style={{
+                //   transitionDelay: visibleSections.has(3) ? '0.2s' : '0s'
+                // }}
               >
                 <div className="w-12 h-12 bg-gray-800 rounded-lg mx-auto mb-6 flex items-center justify-center">
                   <div className="w-6 h-6 bg-gray-600 rounded" />
@@ -331,11 +321,11 @@ export default function About() {
               
               <div 
                 className={`space-y-4 transition-all duration-1000 ${
-                  visibleSections.has(3) ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-12'
+                  visibleSections.has(3) ? 'opacity-100' : 'opacity-0'
                 }`}
-                style={{
-                  transitionDelay: visibleSections.has(3) ? '0.4s' : '0s'
-                }}
+                // style={{
+                //   transitionDelay: visibleSections.has(3) ? '0.4s' : '0s'
+                // }}
               >
                 <div className="w-12 h-12 bg-gray-800 rounded-lg mx-auto mb-6 flex items-center justify-center">
                   <div className="w-6 h-6 bg-gray-600 rounded-full" />

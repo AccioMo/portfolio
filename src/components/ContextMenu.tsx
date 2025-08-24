@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface ContextMenuProps {
   x: number;
@@ -12,12 +13,13 @@ interface ContextMenuProps {
 
 export default function ContextMenu({ x, y, isVisible, activeDirection, onClose }: ContextMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
+  const router = useRouter();
 
   const navigationPaths = [
     { name: 'Works', path: '/works', direction: 'top' },
     { name: 'About', path: '/about', direction: 'right' },
     { name: 'Contact', path: '/contact', direction: 'left' },
-    { name: 'Inspect', path: '#', direction: 'bottom' },
+    { name: 'Home', path: '/', direction: 'bottom' },
   ];
 
   useEffect(() => {
@@ -36,19 +38,17 @@ export default function ContextMenu({ x, y, isVisible, activeDirection, onClose 
     if (isVisible) {
       document.addEventListener('mousedown', handleClickOutside);
       document.addEventListener('keydown', handleEscape);
-      // Prevent default context menu
-      document.addEventListener('contextmenu', (e) => e.preventDefault());
+      // document.addEventListener('contextmenu', (e) => e.preventDefault());
     }
 
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
       document.removeEventListener('keydown', handleEscape);
-      document.removeEventListener('contextmenu', (e) => e.preventDefault());
+      // document.removeEventListener('contextmenu', (e) => e.preventDefault());
     };
   }, [isVisible, onClose]);
 
   const handleNavigation = (item?: any) => {
-    // If there's an active direction, navigate to that item instead
     let targetItem = item;
     if (activeDirection) {
       targetItem = navigationPaths.find(navItem => navItem.direction === activeDirection);
@@ -58,13 +58,12 @@ export default function ContextMenu({ x, y, isVisible, activeDirection, onClose 
     
     console.log(`Navigating to ${targetItem.name}`);
     if (targetItem.name === 'Inspect') {
-      // Open browser dev tools
-      console.log('Opening dev tools...');
       alert('Press F12 to open Developer Tools');
     } else if (targetItem.path === '#') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     } else {
-        window.location.href = targetItem.path;
+      // Use Next.js router for smooth transitions
+      router.push(targetItem.path);
     }
     onClose();
   };
@@ -72,10 +71,9 @@ export default function ContextMenu({ x, y, isVisible, activeDirection, onClose 
   if (!isVisible) return null;
 
   const centerSize = 20;
-  const x_distance = 80; // Reduced from 100 to make lines shorter
-  const y_distance = 50; // Reduced from 100 to make lines shorter
+  const x_distance = 80;
+  const y_distance = 50;
 
-  // Calculate positions for each direction
   const getItemPosition = (direction: string) => {
     switch (direction) {
       case 'top':
@@ -98,7 +96,6 @@ export default function ContextMenu({ x, y, isVisible, activeDirection, onClose 
         isVisible ? 'opacity-100' : 'opacity-0'
       }`}
       onMouseUp={(e) => {
-        // Navigate based on active direction when clicking anywhere in the menu
         if (activeDirection) {
           e.stopPropagation();
           handleNavigation();
@@ -144,7 +141,7 @@ export default function ContextMenu({ x, y, isVisible, activeDirection, onClose 
       {navigationPaths.map((item, index) => {
         const position = getItemPosition(item.direction);
         const isActive = activeDirection === item.direction;
-        const animationDelay = index * 10; // Staggered entrance animation
+        const animationDelay = index * 2;
         
         return (
           <div
