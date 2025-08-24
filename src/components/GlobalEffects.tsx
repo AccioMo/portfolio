@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import StarField from "./StarField";
 import ContextMenu from "./ContextMenu";
 import PageTransition from "./PageTransition";
+import StarFieldFallback from "./StarFieldFallback";
 
 interface MousePosition {
   x: number;
@@ -197,7 +198,7 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
     }, [contextMenu, isInProjectArea]);  return (
     <div className="min-h-screen cursor-none bg-background text-foreground transition-all duration-500 ease-out">
       {/* Star Field Background */}
-      <StarField starLess={false} />
+      <StarFieldFallback starLess={false} />
       
       {/* Mouse Trail */}
       <svg

@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #171717;
+  --foreground: #ffffff;
   --grid-color: rgba(23, 23, 23, 0.1);
 }
 
@@ -137,6 +137,15 @@
   }
 }
 
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
 @keyframes slide-up {
   0% {
     opacity: 0;
@@ -150,6 +159,10 @@
 
 .animate-fade-in {
   animation: fade-in 2s ease-out forwards;
+}
+
+.animate-fade-out {
+  animation: fade-out 2s ease-out forwards;
 }
 
 .animate-slide-up {

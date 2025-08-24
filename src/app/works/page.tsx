@@ -94,7 +94,7 @@ export default function Works() {
     return () => container.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToProject = (index: number) => {
+  const scrollToSection = (index: number) => {
     const targetRef = projectRefs.current[index];
     if (!targetRef) return;
 

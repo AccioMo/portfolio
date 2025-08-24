@@ -45,37 +45,38 @@ export default function Contact() {
     {
       icon: "📧",
       label: "Email",
-      value: "hello@example.com",
-      link: "mailto:hello@example.com"
+      value: "mo.zeggaf@gmail.com",
+      link: "mailto:mo.zeggaf@gmail.com"
     },
     {
       icon: "💼",
       label: "LinkedIn",
-      value: "/in/yourprofile",
-      link: "https://linkedin.com/in/yourprofile"
+      value: "/in/mozeggaf",
+      link: "https://linkedin.com/in/mozeggaf"
     },
     {
       icon: "🐙",
       label: "GitHub",
-      value: "@yourusername",
-      link: "https://github.com/yourusername"
+      value: "@acciomo",
+      link: "https://github.com/acciomo"
     },
     {
       icon: "🐦",
       label: "Twitter",
-      value: "@yourusername",
-      link: "https://twitter.com/yourusername"
+      value: "@27roundcarots",
+      link: "https://twitter.com/27roundcarots"
     }
   ];
 
   return (
-    <div className="min-h-screen bg-transparent text-white overflow-x-hidden">
+    <div className="min-h-screen bg-transparent text-white overflow-x-hidden animate-fade-in"
+    data-project-area="true">
       {/* Hero Section */}
       <section className="min-h-screen flex items-center justify-center px-4 sm:px-8 lg:px-16">
         <div className="max-w-6xl mx-auto w-full">
           <div 
             className={`text-center mb-16 transition-all duration-1000 ${
-              isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+              isMounted ? 'opacity-100' : 'opacity-0'
             }`}
           >
             <h1 className="text-4xl sm:text-6xl lg:text-7xl font-light tracking-tight mb-6">
@@ -105,8 +106,8 @@ export default function Contact() {
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label htmlFor="name" className="block text-sm font-mono text-gray-400 uppercase tracking-wider">
+                  <div className="space-y-2 text-gray-400 focus-within:text-gray-200 focus-within:font-bold transition-all duration-300">
+                    <label htmlFor="name" className="ml-8 px-2 text-center transform translate-y-5 bg-background inline-block text-sm font-mono uppercase tracking-wider">
                       Name
                     </label>
                     <input
@@ -116,13 +117,13 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:border-white focus:bg-gray-900/70 transition-all duration-300 text-white placeholder-gray-500"
-                      placeholder="Your name"
+                      className="w-full px-4 py-3 bg-gray-900/50 border-2 border-gray-700 rounded-full focus:outline-none focus:border-white focus:bg-gray-900/70 transition-all duration-300 text-white placeholder-gray-500"
+                      // placeholder="Your name"
                     />
                   </div>
                   
-                  <div className="space-y-2">
-                    <label htmlFor="email" className="block text-sm font-mono text-gray-400 uppercase tracking-wider">
+                  <div className="space-y-2 text-gray-400 focus-within:text-gray-200 focus-within:font-bold transition-all duration-300">
+                    <label htmlFor="email" className="ml-8 px-2 text-center transform translate-y-5 bg-background inline-block text-sm font-mono uppercase tracking-wider">
                       Email
                     </label>
                     <input
@@ -132,14 +133,14 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:border-white focus:bg-gray-900/70 transition-all duration-300 text-white placeholder-gray-500"
-                      placeholder="your@email.com"
+                      className="w-full px-4 py-3 bg-gray-900/50 border-2 border-gray-700 rounded-full focus:outline-none focus:border-white focus:bg-gray-900/70 transition-all duration-300 text-white placeholder-gray-500"
+                      // placeholder="your@email.com"
                     />
                   </div>
                 </div>
                 
-                <div className="space-y-2">
-                  <label htmlFor="subject" className="block text-sm font-mono text-gray-400 uppercase tracking-wider">
+                <div className="space-y-2 text-gray-400 focus-within:text-gray-200 focus-within:font-bold transition-all duration-300">
+                  <label htmlFor="subject" className="ml-8 px-2 text-center transform translate-y-5 bg-background inline-block text-sm font-mono uppercase tracking-wider">
                     Subject
                   </label>
                   <input
@@ -149,13 +150,13 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:border-white focus:bg-gray-900/70 transition-all duration-300 text-white placeholder-gray-500"
-                    placeholder="What's this about?"
+                    className="w-full px-4 py-3 bg-gray-900/50 border-2 border-gray-700 rounded-full focus:outline-none focus:border-white focus:bg-gray-900/70 transition-all duration-300 text-white placeholder-gray-500"
+                    // placeholder="What's this about?"
                   />
                 </div>
                 
-                <div className="space-y-2">
-                  <label htmlFor="message" className="block text-sm font-mono text-gray-400 uppercase tracking-wider">
+                <div className="space-y-2 text-gray-400 focus-within:text-gray-200 focus-within:font-bold transition-all duration-300">
+                  <label htmlFor="message" className="ml-8 px-2 text-center transform translate-y-5 bg-background inline-block text-sm font-mono uppercase tracking-wider">
                     Message
                   </label>
                   <textarea
@@ -165,15 +166,15 @@ export default function Contact() {
                     onChange={handleInputChange}
                     required
                     rows={6}
-                    className="w-full px-4 py-3 bg-gray-900/50 border border-gray-700 rounded-lg focus:outline-none focus:border-white focus:bg-gray-900/70 transition-all duration-300 text-white placeholder-gray-500 resize-vertical"
-                    placeholder="Tell me about your project..."
+                    className="w-full px-6 py-5 bg-gray-900/50 border-2 border-gray-700 rounded-3xl resize-none focus:outline-none focus:border-white focus:bg-gray-900/70 transition-all duration-300 text-white placeholder-gray-500 resize-vertical"
+                    // placeholder="Tell me about your project..."
                   />
                 </div>
                 
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full sm:w-auto px-8 py-3 bg-white text-black font-medium rounded-lg hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300group relative overflow-hidden"
+                  className="w-full sm:w-auto px-8 py-3 bg-white text-black font-medium rounded-full hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300group relative overflow-hidden"
                 >
                   <span className={`transition-all duration-300 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
                     {submitStatus === 'success' ? 'Message Sent!' : 'Send Message'}
@@ -209,7 +210,7 @@ export default function Contact() {
                     href={method.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-4 p-4 bg-gray-900/30 border border-gray-800 rounded-lg hover:bg-gray-900/50 hover:border-gray-600 transition-all duration-300 group"
+                    className="flex items-center space-x-4 p-4 bg-gray-900/30 border border-gray-800 rounded-2xl hover:bg-gray-900/50 hover:border-gray-600 transition-all duration-300 group"
                     style={{
                       animation: isMounted ? `fadeInUp 0.6s ease-out ${0.6 + index * 0.1}s both` : 'none'
                     }}
@@ -238,7 +239,7 @@ export default function Contact() {
               </div>
               
               {/* Additional Info */}
-              <div className="mt-12 p-6 bg-gray-900/20 border border-gray-800 rounded-lg">
+              <div className="mt-12 p-6 bg-gray-900/20 border border-gray-800 rounded-2xl">
                 <h3 className="text-lg font-mono text-gray-400 mb-4">Availability</h3>
                 <p className="text-gray-300 leading-relaxed">
                   I'm currently available for freelance projects and full-time opportunities. 
@@ -253,42 +254,6 @@ export default function Contact() {
           </div>
         </div>
       </section>
-
-      {/* Custom animations */}
-      <style jsx global>{`
-        @keyframes slideInLeft {
-          from {
-            opacity: 0;
-            transform: translateX(-50px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        
-        @keyframes slideInRight {
-          from {
-            opacity: 0;
-            transform: translateX(50px);
-          }
-          to {
-            opacity: 1;
-            transform: translateX(0);
-          }
-        }
-        
-        @keyframes fadeInUp {
-          from {
-            opacity: 0;
-            transform: translateY(20px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-      `}</style>
     </div>
   );
 }
