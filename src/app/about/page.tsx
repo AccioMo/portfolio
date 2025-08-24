@@ -102,14 +102,7 @@ export default function About() {
 
   return (
     <div className="h-screen bg-transparent text-white overflow-hidden">
-      {/* Progress indicator */}
-      {/* <div className="fixed top-0 left-0 w-full h-1 bg-gray-900 z-50">
-        <div 
-          className="h-full bg-gradient-to-r from-white-200 via-white-100 to-white transition-all duration-300"
-          style={{ width: `${scrollProgress * 100}%` }}
-        />
-      </div> */}
-
+      
       {/* Navigation dots */}
       <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-6">
         {sections.map((section, index) => (

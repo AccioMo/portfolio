@@ -108,20 +108,32 @@ export default function Works() {
     <div className="h-screen bg-transparent text-white overflow-hidden">
 
       {/* Navigation dots */}
-      <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-8">
-        {projects.map((_, index) => (
+     <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-6">
+        {projects.map((project, index) => (
           <button
-            key={index}
-            onClick={() => scrollToProject(index)}
-            className={`w-4 h-4 cursor-none rounded-full border-2 transition-all duration-500 hover:scale-150 transform hover:rotate-45 ${
-              activeProject === index
-                ? 'bg-white-100 border-white-200 shadow-lg shadow-white-200/50'
-                : 'bg-transparent border-gray-500 hover:border-white-200 hover:shadow-md hover:shadow-white-200/30'
+            key={project.id}
+            onClick={() => scrollToSection(index)}
+            className={`group flex items-center transition-all duration-500 ${
+              activeProject === index ? 'translate-x-0' : 'translate-x-2'
             }`}
-            style={{
-              animation: `float-gentle 3s ease-in-out infinite ${index * 0.2}s`
-            }}
-          />
+          >
+            <div 
+              className={`w-3 h-3 rounded-full border-2 transition-all duration-500 hover:scale-150 ${
+                activeProject === index
+                  ? 'bg-white border-white shadow-lg shadow-white/50'
+                  : 'bg-transparent border-gray-500 hover:border-white'
+              }`}
+            />
+            <span 
+              className={`ml-4 text-xs font-mono uppercase tracking-wider transition-all duration-300 ${
+                activeProject === index 
+                  ? 'opacity-100 translate-x-0 text-white' 
+                  : 'opacity-0 translate-x-4 text-gray-500 group-hover:opacity-100 group-hover:translate-x-0'
+              }`}
+            >
+              {project.title}
+            </span>
+          </button>
         ))}
       </div>
 
