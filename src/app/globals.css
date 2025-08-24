@@ -157,12 +157,22 @@
   }
 }
 
+@keyframes fadeOutIn {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.animate-fade-in-out {
+  animation: fadeOutIn 1s ease-in-out;
+}
+
 .animate-fade-in {
-  animation: fade-in 2s ease-out forwards;
+  animation: fade-in 2.5s ease-out forwards;
 }
 
 .animate-fade-out {
-  animation: fade-out 2s ease-out forwards;
+  animation: fade-out 2.5s ease-out forwards;
 }
 
 .animate-slide-up {

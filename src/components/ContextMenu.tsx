@@ -114,7 +114,7 @@ export default function ContextMenu({ x, y, isVisible, activeDirection, onClose 
           boxShadow: '0 0 15px rgba(255, 255, 255, 0.3)'
         }}
       >
-        <div className="w-2 h-2 bg-white rounded-full opacity-80"></div>
+        <div className="w-2 h-2 bg-white transition-all duration-300 ease-out  rounded-full opacity-80"></div>
       </div>
 
       {/* Active direction indicator */}
@@ -130,14 +130,14 @@ export default function ContextMenu({ x, y, isVisible, activeDirection, onClose 
               activeDirection === 'top' ? '270deg' : 
               activeDirection === 'right' ? '0deg' : 
               activeDirection === 'bottom' ? '90deg' : '180deg'
-            }, rgba(255, 255, 255, 0.1) 0deg, rgba(255, 255, 255, 0.05) 90deg, transparent 90deg)`,
+            }, rgba(255, 255, 255, 0.3) 0deg, rgba(255, 255, 255, 0.05) 90deg, transparent 90deg)`,
             borderRadius: '50%',
-            opacity: 0.6
+            opacity: 0.75
           }}
         />
       )}
 
-      {/* Navigation items */}
+      {/* nav dots */}
       {navigationPaths.map((item, index) => {
         const position = getItemPosition(item.direction);
         const isActive = activeDirection === item.direction;
@@ -146,11 +146,12 @@ export default function ContextMenu({ x, y, isVisible, activeDirection, onClose 
         return (
           <div
             key={index}
-            className={`absolute pointer-events-auto cursor-none transition-all duration-500 ease-out transform ${
+            className={`absolute pointer-events-auto cursor-none transition-all duration-500 ease-out transform animate-fade-in ${
               isActive 
                 ? 'scale-110 opacity-100' 
                 : 'scale-100 opacity-70 hover:opacity-90 hover:scale-105'
             }`}
+            data-project-area="true"
             style={{
               left: position.x,
               top: position.y,
@@ -183,7 +184,7 @@ export default function ContextMenu({ x, y, isVisible, activeDirection, onClose 
         {navigationPaths.map((item, index) => {
           const position = getItemPosition(item.direction);
           const isActive = activeDirection === item.direction;
-          const animationDelay = index * 50;
+          const animationDelay = index * 5;
           
           return (
             <line
@@ -199,7 +200,7 @@ export default function ContextMenu({ x, y, isVisible, activeDirection, onClose 
               style={{
                 filter: isActive ? 'drop-shadow(0 0 6px rgba(255, 255, 255, 0.7))' : undefined,
                 opacity: isVisible ? 1 : 0,
-                animation: isVisible ? `drawLine 0.8s ease-out ${animationDelay + 200}ms both` : undefined
+                animation: isVisible ? `drawLine 0.2s ease-out ms both` : undefined
               }}
             />
           );
@@ -211,11 +212,11 @@ export default function ContextMenu({ x, y, isVisible, activeDirection, onClose 
         @keyframes fadeInScale {
           0% {
             opacity: 0;
-            transform: translate(-50%, -50%) scale(0.3);
+            transform: translate(-50%, -50%);
           }
           100% {
             opacity: 0.7;
-            transform: translate(-50%, -50%) scale(1);
+            transform: translate(-50%, -50%);
           }
         }
         
@@ -225,11 +226,11 @@ export default function ContextMenu({ x, y, isVisible, activeDirection, onClose 
             opacity: 0;
           }
           50% {
-            opacity: 0.4;
+            opacity: 0.6;
           }
           100% {
             stroke-dasharray: 1, 3;
-            opacity: 0.4;
+            opacity: 0.8;
           }
         }
       `}</style>

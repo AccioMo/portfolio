@@ -106,7 +106,7 @@ export default function Contact() {
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="space-y-2 text-gray-400 focus-within:text-gray-200 focus-within:font-bold transition-all duration-300">
+                  <div className="space-y-2 text-gray-400  not-hover:focus-within:text-gray-200 hover:text-gray-300 focus-within:font-bold transition-all duration-300">
                     <label htmlFor="name" className="ml-8 px-2 text-center transform translate-y-5 bg-background inline-block text-sm font-mono uppercase tracking-wider">
                       Name
                     </label>
@@ -117,12 +117,12 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-900/50 border-2 border-gray-700 rounded-full focus:outline-none focus:border-white focus:bg-gray-900/70 transition-all duration-300 text-white placeholder-gray-500"
+                      className="w-full px-9 font-light py-4 bg-gray-900/50 border-2 border-gray-700 rounded-full focus:outline-none hover:border-gray-400 focus:border-white focus:bg-gray-900/70 transition-all duration-300 text-gray-400 focus:text-white placeholder-gray-500"
                       // placeholder="Your name"
                     />
                   </div>
                   
-                  <div className="space-y-2 text-gray-400 focus-within:text-gray-200 focus-within:font-bold transition-all duration-300">
+                  <div className="space-y-2 text-gray-400  not-hover:focus-within:text-gray-200 hover:text-gray-300 focus-within:font-bold transition-all duration-300">
                     <label htmlFor="email" className="ml-8 px-2 text-center transform translate-y-5 bg-background inline-block text-sm font-mono uppercase tracking-wider">
                       Email
                     </label>
@@ -133,13 +133,13 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-900/50 border-2 border-gray-700 rounded-full focus:outline-none focus:border-white focus:bg-gray-900/70 transition-all duration-300 text-white placeholder-gray-500"
+                      className="w-full px-9 font-light py-4 bg-gray-900/50 border-2 border-gray-700 rounded-full focus:outline-none hover:border-gray-400 focus:border-white focus:bg-gray-900/70 transition-all duration-300 text-gray-400 focus:text-white placeholder-gray-500"
                       // placeholder="your@email.com"
                     />
                   </div>
                 </div>
                 
-                <div className="space-y-2 text-gray-400 focus-within:text-gray-200 focus-within:font-bold transition-all duration-300">
+                <div className="space-y-2 text-gray-400  not-hover:focus-within:text-gray-200 hover:text-gray-300 focus-within:font-bold transition-all duration-300">
                   <label htmlFor="subject" className="ml-8 px-2 text-center transform translate-y-5 bg-background inline-block text-sm font-mono uppercase tracking-wider">
                     Subject
                   </label>
@@ -150,12 +150,12 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-900/50 border-2 border-gray-700 rounded-full focus:outline-none focus:border-white focus:bg-gray-900/70 transition-all duration-300 text-white placeholder-gray-500"
+                    className="w-full px-9 font-light py-4 bg-gray-900/50 border-2 border-gray-700 rounded-full focus:outline-none hover:border-gray-400 focus:border-white focus:bg-gray-900/70 transition-all duration-300 text-gray-400 focus:text-white placeholder-gray-500"
                     // placeholder="What's this about?"
                   />
                 </div>
                 
-                <div className="space-y-2 text-gray-400 focus-within:text-gray-200 focus-within:font-bold transition-all duration-300">
+                <div className="space-y-2 text-gray-400  not-hover:focus-within:text-gray-200 hover:text-gray-300 focus-within:font-bold transition-all duration-300">
                   <label htmlFor="message" className="ml-8 px-2 text-center transform translate-y-5 bg-background inline-block text-sm font-mono uppercase tracking-wider">
                     Message
                   </label>
@@ -166,7 +166,7 @@ export default function Contact() {
                     onChange={handleInputChange}
                     required
                     rows={6}
-                    className="w-full px-6 py-5 bg-gray-900/50 border-2 border-gray-700 rounded-3xl resize-none focus:outline-none focus:border-white focus:bg-gray-900/70 transition-all duration-300 text-white placeholder-gray-500 resize-vertical"
+                    className="w-full px-9 py-5 bg-gray-900/50 font-light border-2 border-gray-700 rounded-3xl resize-none focus:outline-none hover:border-gray-400 focus:border-white focus:bg-gray-900/70 transition-all duration-300 text-gray-400 focus:text-white placeholder-gray-500 resize-vertical"
                     // placeholder="Tell me about your project..."
                   />
                 </div>
@@ -174,7 +174,7 @@ export default function Contact() {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full sm:w-auto px-8 py-3 bg-white text-black font-medium rounded-full hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300group relative overflow-hidden"
+                  className="w-full sm:w-auto px-8 py-3 bg-white text-black font-medium rounded-full hover:bg-gray-200 focus:outline-none hover:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300group relative overflow-hidden"
                 >
                   <span className={`transition-all duration-300 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
                     {submitStatus === 'success' ? 'Message Sent!' : 'Send Message'}
@@ -210,7 +210,7 @@ export default function Contact() {
                     href={method.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-4 p-4 bg-gray-900/30 border border-gray-800 rounded-2xl hover:bg-gray-900/50 hover:border-gray-600 transition-all duration-300 group"
+                    className="flex items-center space-x-4 py-4 px-16 bg-gray-900/30 rounded-full border-transparent hover:border-gray-200 transition-all duration-300 group"
                     style={{
                       animation: isMounted ? `fadeInUp 0.6s ease-out ${0.6 + index * 0.1}s both` : 'none'
                     }}

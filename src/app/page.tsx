@@ -1,8 +1,22 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from 'react';
 
 export default function Home() {
+  const [phrase, setPhrase] = useState<string>("Hello.")
+
+  useEffect(() => {
+
+    const phrases = ["Welcome to my portfolio!", "Explore my projects!", "Let's connect!", "Check out my work!"];
+
+    setInterval(() => {
+
+      const index = Math.floor(Math.random()*phrases.length);
+      setPhrase(phrases[index])
+
+    }, 2000)
+
+  }, [])
 
   return (
     <div className="min-h-screen max-h-screen flex justify-center">
@@ -11,7 +25,7 @@ export default function Home() {
         <div className="container mx-auto text-center">
           <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-tr from-neutral-200 mask-t-to-gray-800 bg-clip-text text-transparent animate-fade-in"
             data-project-area="true">
-            Hello.
+            {phrase || "{word}"}
           </h2>
           <p className="text-xl z-50 md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
             
