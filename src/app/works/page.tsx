@@ -5,6 +5,7 @@ import { useEffect, useState, useRef } from "react";
 interface Project {
   id: number;
   title: string;
+  small_title: string,
   description: string;
   tech: string[];
   year: string;
@@ -15,47 +16,52 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
-    title: "Project Alpha",
-    description: "A modern web application built with Next.js and TypeScript. Features real-time data synchronization and responsive design.",
-    tech: ["Next.js", "TypeScript", "Tailwind CSS", "PostgreSQL"],
-    year: "2024",
+    title: "Handwritten Digit Recognizer",
+    small_title: "CNN",
+    description: "Convolutional Neural Network for recognizing handwritten digits, built in C++ with multiple optimizations.",
+    tech: ["C++", "AI", "Neural Net", "AI Vision"],
+    year: "2025",
     link: "https://project-alpha.demo",
-    github: "https://github.com/username/project-alpha"
+    github: "https://github.com/AccioMo/handwritten-digit-recognizer"
   },
   {
     id: 2,
-    title: "Project Beta",
+    title: "Full Stack Chatting Application",
+    small_title: "Chatting App",
     description: "Full-stack e-commerce platform with advanced filtering, payment integration, and admin dashboard.",
-    tech: ["React", "Node.js", "MongoDB", "Stripe"],
+    tech: ["React", "Node.js", "Django", "Daphne"],
     year: "2024",
     link: "https://project-beta.demo",
-    github: "https://github.com/username/project-beta"
+    github: "https://github.com/AccioMo/chatting-web-application"
   },
   {
     id: 3,
-    title: "Project Gamma",
+    title: "Movie Rankings Web App",
+    small_title: "Streaming App",
     description: "Mobile-first progressive web app for task management with offline capabilities and real-time collaboration.",
     tech: ["Vue.js", "Express", "Socket.io", "Redis"],
     year: "2023",
     link: "https://project-gamma.demo",
-    github: "https://github.com/username/project-gamma"
+    github: "https://github.com/AccioMo/project-gamma"
   },
   {
     id: 4,
-    title: "Project Delta",
+    title: "Spotify Playlist Converter",
+    small_title: "yspotify",
     description: "AI-powered analytics dashboard with data visualization and machine learning insights.",
     tech: ["Python", "Django", "TensorFlow", "D3.js"],
     year: "2023",
     link: "https://project-delta.demo",
-    github: "https://github.com/username/project-delta"
+    github: "https://github.com/AccioMo/project-delta"
   },
   {
     id: 5,
-    title: "Project Epsilon",
+    title: "Python Decision Tree",
+    small_title: "yggdrasil",
     description: "Microservices architecture with containerized deployment and automated CI/CD pipeline.",
     tech: ["Docker", "Kubernetes", "Go", "PostgreSQL"],
     year: "2023",
-    github: "https://github.com/username/project-epsilon"
+    github: "https://github.com/AccioMo/project-epsilon"
   }
 ];
 
@@ -70,7 +76,6 @@ export default function Works() {
 
     const handleScroll = () => {
 
-      // Find active project based on scroll position
       const viewportHeight = container.clientHeight;
       let currentProject = 0;
       
@@ -90,7 +95,7 @@ export default function Works() {
     };
 
     container.addEventListener('scroll', handleScroll);
-    handleScroll(); // Initial call
+    handleScroll();
     return () => container.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -108,7 +113,7 @@ export default function Works() {
     <div className="h-screen bg-transparent text-white overflow-hidden">
 
       {/* Navigation dots */}
-     <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-6">
+     <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-6" data-project-area="true">
         {projects.map((project, index) => (
           <button
             key={project.id}
@@ -131,7 +136,7 @@ export default function Works() {
                   : 'opacity-0 translate-x-4 text-gray-500 group-hover:opacity-100 group-hover:translate-x-0'
               }`}
             >
-              {project.title}
+              {project.small_title}
             </span>
           </button>
         ))}

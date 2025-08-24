@@ -7,7 +7,7 @@ export default function Home() {
 
   useEffect(() => {
 
-    const phrases = ["Welcome to my portfolio!", "Explore my projects!", "Let's connect!", "Check out my work!"];
+    const phrases = ["Wassup", "Everything alright?", "Try right clicking...", "Hmmm..."];
 
     setInterval(() => {
 
@@ -23,7 +23,7 @@ export default function Home() {
       {/* Main Space Awesome Very Cool Section */}
       <section className="py-16 px-6 flex items-center justify-center cursor-none select-none">
         <div className="container mx-auto text-center">
-          <h2 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-tr from-neutral-200 mask-t-to-gray-800 bg-clip-text text-transparent animate-fade-in"
+          <h2 className="text-5xl md:text-7xl leading-loose font-bold mb-6 bg-gradient-to-tr from-neutral-200 mask-t-to-gray-800 bg-clip-text text-transparent animate-fade-in"
             data-project-area="true">
             {phrase || "{word}"}
           </h2>
