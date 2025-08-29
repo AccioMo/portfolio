@@ -101,10 +101,10 @@ export default function About() {
   ];
 
   return (
-    <div className="h-screen bg-transparent text-white overflow-hidden">
+    <div className="h-screen bg-transparent text-white animate-fade-in">
       
       {/* Navigation dots */}
-      <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-6">
+      <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-6" data-project-area="true">
         {sections.map((section, index) => (
           <button
             key={section.id}
@@ -153,6 +153,7 @@ export default function About() {
           ref={el => { sectionRefs.current[0] = el as HTMLDivElement; }}
           className="min-h-screen flex items-center justify-center px-4 sm:px-8 lg:px-16"
           style={{ scrollSnapAlign: 'start' }}
+          data-project-area="true"
         >
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <div 
@@ -183,6 +184,7 @@ export default function About() {
           ref={el => { sectionRefs.current[1] = el as HTMLDivElement; }}
           className="min-h-screen flex items-center justify-center py-20 px-4 sm:px-8 lg:px-16"
           style={{ scrollSnapAlign: 'start' }}
+          data-project-area="true"
         >
           <div className="max-w-6xl mx-auto w-full">
             <h2 
@@ -236,6 +238,7 @@ export default function About() {
           ref={el => { sectionRefs.current[2] = el as HTMLDivElement; }}
           className="min-h-screen flex items-center justify-center py-20 px-4 sm:px-8 lg:px-16"
           style={{ scrollSnapAlign: 'start' }}
+          data-project-area="true"
         >
           <div className="max-w-4xl mx-auto w-full">
             <h2 
@@ -283,6 +286,7 @@ export default function About() {
           ref={el => { sectionRefs.current[3] = el as HTMLDivElement; }}
           className="min-h-screen flex items-center justify-center py-20 px-4 sm:px-8 lg:px-16"
           style={{ scrollSnapAlign: 'start' }}
+          data-project-area="true"
         >
           <div className="max-w-4xl mx-auto text-center w-full">
             <h2 

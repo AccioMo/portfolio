@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef } from "react";
+import Image from "next/image";
 
 interface Project {
   id: number;
@@ -11,6 +12,8 @@ interface Project {
   year: string;
   link?: string;
   github?: string;
+  image?: string;
+  video?: string;
 }
 
 const projects: Project[] = [
@@ -23,6 +26,7 @@ const projects: Project[] = [
     year: "2025",
     link: "https://project-alpha.demo",
     github: "https://github.com/AccioMo/handwritten-digit-recognizer"
+  , image: "/screenshot-train.png"
   },
   {
     id: 2,
@@ -33,6 +37,7 @@ const projects: Project[] = [
     year: "2024",
     link: "https://project-beta.demo",
     github: "https://github.com/AccioMo/chatting-web-application"
+  , video: "/videos/project-beta-demo.mp4"
   },
   {
     id: 3,
@@ -69,28 +74,28 @@ export default function Works() {
   const [activeProject, setActiveProject] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
 
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     const handleScroll = () => {
-
       const viewportHeight = container.clientHeight;
       let currentProject = 0;
-      
+
       projectRefs.current.forEach((ref, index) => {
         if (ref) {
           const rect = ref.getBoundingClientRect();
           const containerRect = container.getBoundingClientRect();
           const relativeTop = rect.top - containerRect.top;
-          
+
           if (relativeTop <= viewportHeight / 2 && relativeTop > -viewportHeight / 2) {
             currentProject = index;
           }
         }
       });
-      
+
       setActiveProject(currentProject);
     };
 
@@ -110,10 +115,10 @@ export default function Works() {
   };
 
   return (
-    <div className="h-screen bg-transparent text-white overflow-hidden">
+    <div className="h-screen bg-transparent text-white overflow-hidden animate-fade-in" data-project-area="true">
 
       {/* Navigation dots */}
-     <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-6" data-project-area="true">
+     <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-6">
         {projects.map((project, index) => (
           <button
             key={project.id}
@@ -165,10 +170,9 @@ export default function Works() {
             style={{ scrollSnapAlign: 'start' }}
           >
 
-            {/* Project content */}
             <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center z-10 animate-fade-in"
             data-project-area="true" style={{ animationDelay: `${index * 0.2}s` }}>
-              {/* Project info */}
+              
               <div className="space-y-8">
                 <div className="space-y-4">
                   <div className="flex items-center space-x-4">
@@ -176,7 +180,7 @@ export default function Works() {
                     <div className="h-px bg-gray-700 flex-1" />
                   </div>
                   
-                  <h1 className="text-5xl lg:text-6xl font-light tracking-tight">
+                  <h1 className="text-3xl lg:text-4xl font-light tracking-tight">
                     {project.title}
                   </h1>
                   
@@ -250,14 +254,34 @@ export default function Works() {
               <div className="relative">
                 <div className="aspect-video bg-gray-900/50 backdrop-blur-sm rounded-lg border border-gray-700/50 overflow-hidden group shadow-2xl">
                   <div className="w-full h-full bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-md flex items-center justify-center relative">
-                    {/* 3D Placeholder */}
-                    <div className="text-center space-y-4 relative z-10">
-                      <div className="w-16 h-16 mx-auto rounded-lg bg-gray-700/40 backdrop-blur-sm border border-gray-600/30 shadow-lg transform perspective-1000 rotate-x-12 rotate-y-12 group-hover:rotate-x-6 group-hover:rotate-y-6 transition-all duration-500 flex items-center justify-center">
-                        <div className="w-8 h-8 bg-gray-600/50 rounded backdrop-blur-sm border border-gray-500/30"></div>
+                    {/* Render video or image when provided, otherwise show 3D placeholder */}
+                    {project.video ? (
+                      <video
+                        src={project.video}
+                        className="absolute inset-0 w-full h-full object-cover"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        aria-hidden="true"
+                      />
+                    ) : project.image ? (
+                      <Image
+                        src={project.image}
+                        alt={`${project.title} preview`}
+                        width={1920}
+                        height={100}
+                        className="absolute inset-0 w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="text-center space-y-4 relative z-10">
+                        <div className="w-16 h-16 mx-auto rounded-lg bg-gray-700/40 backdrop-blur-sm border border-gray-600/30 shadow-lg transform perspective-1000 rotate-x-12 rotate-y-12 group-hover:rotate-x-6 group-hover:rotate-y-6 transition-all duration-500 flex items-center justify-center">
+                          <div className="w-8 h-8 bg-gray-600/50 rounded backdrop-blur-sm border border-gray-500/30"></div>
+                        </div>
+                        <p className="text-sm text-gray-400 font-mono backdrop-blur-sm">Project Preview</p>
                       </div>
-                      <p className="text-sm text-gray-400 font-mono backdrop-blur-sm">Project Preview</p>
-                    </div>
-                    
+                    )}
+
                     {/* Subtle background pattern */}
                     <div className="absolute inset-0 opacity-10">
                       <div className="absolute inset-0 bg-gradient-to-br from-transparent via-gray-500/10 to-transparent"></div>
@@ -265,7 +289,7 @@ export default function Works() {
                     </div>
                   </div>
                 </div>
-                
+
                 {/* Decorative elements - toned down */}
                 <div className="absolute -top-4 -right-4 w-8 h-8 rounded-full bg-gray-600/20 backdrop-blur-sm border border-gray-500/20 animate-pulse shadow-lg" />
                 <div className="absolute -bottom-6 -left-6 w-6 h-6 rounded-full bg-gray-500/20 backdrop-blur-sm border border-gray-400/20 animate-pulse shadow-lg"

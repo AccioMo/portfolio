@@ -1,6 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
+
+interface ContactMethod {
+  icon: string;
+  label: string;
+  value: string;
+  link: string;
+}
 
 export default function Contact() {
   const [isMounted, setIsMounted] = useState(false);
@@ -29,7 +37,6 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    // Simulate form submission
     setTimeout(() => {
       setIsSubmitting(false);
       setSubmitStatus('success');
@@ -41,73 +48,57 @@ export default function Contact() {
     }, 1500);
   };
 
-  const contactMethods = [
+  const contactMethods: ContactMethod[] = [
     {
-      icon: "📧",
+      icon: "email.svg",
       label: "Email",
       value: "mo.zeggaf@gmail.com",
       link: "mailto:mo.zeggaf@gmail.com"
     },
     {
-      icon: "💼",
+      icon: "linkedin.svg",
       label: "LinkedIn",
       value: "/in/mozeggaf",
       link: "https://linkedin.com/in/mozeggaf"
     },
     {
-      icon: "🐙",
+      icon: "github.svg",
       label: "GitHub",
       value: "@acciomo",
       link: "https://github.com/acciomo"
-    },
-    {
-      icon: "🐦",
-      label: "Twitter",
-      value: "@27roundcarots",
-      link: "https://twitter.com/27roundcarots"
     }
   ];
 
   return (
-    <div className="min-h-screen bg-transparent text-white overflow-x-hidden animate-fade-in"
-    data-project-area="true">
-      {/* Hero Section */}
-      <section className="min-h-screen flex items-center justify-center px-4 sm:px-8 lg:px-16">
-        <div className="max-w-6xl mx-auto w-full">
-          <div 
-            className={`text-center mb-16 transition-all duration-1000 ${
-              isMounted ? 'opacity-100' : 'opacity-0'
-            }`}
-          >
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-light tracking-tight mb-6">
+    <div className="bg-transparent min-h-screen flex text-white animate-fade-in" data-project-area="true">
+      <section className="py-12 flex m-auto items-center justify-center px-4 sm:px-6 lg:px-8">
+        <div className="max-w-3xl mx-auto w-full">
+          <div className={`text-center mb-8 transition-all duration-700 ${isMounted ? 'opacity-100' : 'opacity-0'}`}>
+            <h1 className="text-3xl sm:text-3xl lg:text-4xl font-light tracking-tight mb-3">
               Get In Touch
-              <span className="block text-2xl sm:text-3xl lg:text-4xl text-gray-400 font-mono mt-2">
-                Let's Create Something Amazing
+              <span className="block text-sm text-gray-400 font-mono mt-1">
+                Let's create something — say hello.
               </span>
             </h1>
-            
-            <div className="w-24 h-px bg-gray-600 mx-auto mb-8" />
-            
-            <p className="text-lg sm:text-xl text-gray-300 leading-relaxed max-w-3xl mx-auto">
-              I'm always interested in hearing about new projects and opportunities. 
-              Whether you have a question or just want to say hi, feel free to reach out.
+
+            <div className="w-16 h-px bg-gray-600 mx-auto mb-6" />
+
+            <p className="text-sm text-gray-300 leading-relaxed max-w-2xl mx-auto">
+              I'm interested in hearing about projects and opportunities. If you'd like to work together, drop a short message below.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+          <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Contact Form */}
-            <div 
-              className="space-y-8"
-              style={{
-                animation: isMounted ? 'slideInLeft 0.8s ease-out 0.2s both' : 'none'
-              }}
+            <div
+              className="space-y-6"
+              style={{ animation: isMounted ? 'slideInLeft 0.6s ease-out 0.15s both' : 'none' }}
             >
-              <h2 className="text-2xl sm:text-3xl font-light mb-8">Send a Message</h2>
-              
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="space-y-2 text-gray-400  not-hover:focus-within:text-gray-200 hover:text-gray-300 focus-within:font-bold transition-all duration-300">
-                    <label htmlFor="name" className="ml-8 px-2 text-center transform translate-y-5 bg-background inline-block text-sm font-mono uppercase tracking-wider">
+
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="text-gray-400 transition-all duration-200">
+                    <label htmlFor="name" className="block text-xs px-3 font-mono text-gray-400 uppercase mb-1">
                       Name
                     </label>
                     <input
@@ -117,13 +108,12 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-9 font-light py-4 bg-gray-900/50 border-2 border-gray-700 rounded-full focus:outline-none hover:border-gray-400 focus:border-white focus:bg-gray-900/70 transition-all duration-300 text-gray-400 focus:text-white placeholder-gray-500"
-                      // placeholder="Your name"
+                      className="w-full px-4 py-2 border border-gray-700 rounded-md focus:outline-none focus:border-white focus:bg-gray-900/50 text-sm text-gray-200 placeholder-gray-500"
                     />
                   </div>
-                  
-                  <div className="space-y-2 text-gray-400  not-hover:focus-within:text-gray-200 hover:text-gray-300 focus-within:font-bold transition-all duration-300">
-                    <label htmlFor="email" className="ml-8 px-2 text-center transform translate-y-5 bg-background inline-block text-sm font-mono uppercase tracking-wider">
+
+                  <div className="text-gray-400 transition-all duration-200">
+                    <label htmlFor="email" className="block text-xs px-3 font-mono text-gray-400 uppercase mb-1">
                       Email
                     </label>
                     <input
@@ -133,14 +123,13 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-9 font-light py-4 bg-gray-900/50 border-2 border-gray-700 rounded-full focus:outline-none hover:border-gray-400 focus:border-white focus:bg-gray-900/70 transition-all duration-300 text-gray-400 focus:text-white placeholder-gray-500"
-                      // placeholder="your@email.com"
+                      className="w-full px-4 py-2 border border-gray-700 rounded-md focus:outline-none focus:border-white focus:bg-gray-900/50 text-sm text-gray-200 placeholder-gray-500"
                     />
                   </div>
                 </div>
-                
-                <div className="space-y-2 text-gray-400  not-hover:focus-within:text-gray-200 hover:text-gray-300 focus-within:font-bold transition-all duration-300">
-                  <label htmlFor="subject" className="ml-8 px-2 text-center transform translate-y-5 bg-background inline-block text-sm font-mono uppercase tracking-wider">
+
+                <div className="text-gray-400 transition-all duration-200">
+                  <label htmlFor="subject" className="block text-xs px-3 font-mono text-gray-400 uppercase mb-1">
                     Subject
                   </label>
                   <input
@@ -150,13 +139,12 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-9 font-light py-4 bg-gray-900/50 border-2 border-gray-700 rounded-full focus:outline-none hover:border-gray-400 focus:border-white focus:bg-gray-900/70 transition-all duration-300 text-gray-400 focus:text-white placeholder-gray-500"
-                    // placeholder="What's this about?"
+                    className="w-full px-4 py-2 border border-gray-700 rounded-md focus:outline-none focus:border-white focus:bg-gray-900/50 text-sm text-gray-200 placeholder-gray-500"
                   />
                 </div>
-                
-                <div className="space-y-2 text-gray-400  not-hover:focus-within:text-gray-200 hover:text-gray-300 focus-within:font-bold transition-all duration-300">
-                  <label htmlFor="message" className="ml-8 px-2 text-center transform translate-y-5 bg-background inline-block text-sm font-mono uppercase tracking-wider">
+
+                <div className="text-gray-400 transition-all duration-200">
+                  <label htmlFor="message" className="block text-xs px-3 font-mono text-gray-400 uppercase mb-1">
                     Message
                   </label>
                   <textarea
@@ -165,70 +153,71 @@ export default function Contact() {
                     value={formData.message}
                     onChange={handleInputChange}
                     required
-                    rows={6}
-                    className="w-full px-9 py-5 bg-gray-900/50 font-light border-2 border-gray-700 rounded-3xl resize-none focus:outline-none hover:border-gray-400 focus:border-white focus:bg-gray-900/70 transition-all duration-300 text-gray-400 focus:text-white placeholder-gray-500 resize-vertical"
-                    // placeholder="Tell me about your project..."
+                    rows={4}
+                    className="w-full px-4 py-3 border border-gray-700 rounded-md resize-none focus:outline-none focus:border-white focus:bg-gray-900/50 text-sm text-gray-200 placeholder-gray-500"
                   />
                 </div>
-                
-                <button
-                  type="submit"
-                  disabled={isSubmitting}
-                  className="w-full sm:w-auto px-8 py-3 bg-white text-black font-medium rounded-full hover:bg-gray-200 focus:outline-none hover:border-gray-400 focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300group relative overflow-hidden"
-                >
-                  <span className={`transition-all duration-300 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
-                    {submitStatus === 'success' ? 'Message Sent!' : 'Send Message'}
-                  </span>
-                  {isSubmitting && (
-                    <div className="absolute inset-0 flex items-center justify-center">
-                      <div className="w-5 h-5 border-2 border-gray-600 border-t-transparent rounded-full animate-spin" />
-                    </div>
+
+                <div className="flex items-center">
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="px-6 py-2 bg-white text-black font-medium rounded-md hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 relative overflow-hidden"
+                  >
+                    <span className={`transition-all duration-200 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
+                      {submitStatus === 'success' ? 'Message Sent!' : 'Send Message'}
+                    </span>
+                    {isSubmitting && (
+                      <div className="absolute inset-0 flex items-center justify-center">
+                        <div className="w-4 h-4 border-2 border-gray-600 border-t-transparent rounded-full animate-spin" />
+                      </div>
+                    )}
+                  </button>
+
+                  {submitStatus === 'success' && (
+                    <p className="text-green-400 text-sm ml-4">
+                      Thanks — I'll get back to you soon.
+                    </p>
                   )}
-                </button>
-                
-                {submitStatus === 'success' && (
-                  <p className="text-green-400 text-sm">
-                    Thanks for reaching out! I'll get back to you soon.
-                  </p>
-                )}
+                </div>
               </form>
             </div>
 
+            <span className="absolute left-1/2 top-0 w-[1px] h-full rounded-full bg-gray-700/60" />
+
             {/* Contact Information */}
-            <div 
-              className="space-y-8"
-              style={{
-                animation: isMounted ? 'slideInRight 0.8s ease-out 0.4s both' : 'none'
-              }}
+            <div
+              className="space-y-6 mt-4"
+              style={{ animation: isMounted ? 'slideInRight 0.6s ease-out 0.25s both' : 'none' }}
             >
-              <h2 className="text-2xl sm:text-3xl font-light mb-8">Other Ways to Connect</h2>
-              
-              <div className="space-y-6">
+              <h2 className="text-base font-light mb-4">Other Ways to Connect</h2>
+
+              <div className="space-y-3">
                 {contactMethods.map((method, index) => (
                   <a
                     key={method.label}
                     href={method.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-4 py-4 px-16 bg-gray-900/30 rounded-full border-transparent hover:border-gray-200 transition-all duration-300 group"
-                    style={{
-                      animation: isMounted ? `fadeInUp 0.6s ease-out ${0.6 + index * 0.1}s both` : 'none'
-                    }}
+                    className="flex items-center space-x-3 py-2 px-4 rounded-md border-transparent hover:border-gray-200 transition-all duration-200 group"
+                    style={{ animation: isMounted ? `fadeInUp 0.5s ease-out ${0.45 + index * 0.06}s both` : 'none' }}
                   >
-                    <div className="text-2xl">{method.icon}</div>
+                    <div className="text-lg">
+                      <Image src={`/${method.icon}`} alt={`${method.label} icon`} width={24} height={24} />
+                    </div>
                     <div>
-                      <div className="text-sm font-mono text-gray-400 uppercase tracking-wider">
+                      <div className="text-xs font-mono text-gray-400 uppercase tracking-wider">
                         {method.label}
                       </div>
-                      <div className="text-white group-hover:text-gray-200 transition-colors duration-300">
+                      <div className="text-sm text-white group-hover:text-gray-200 transition-colors duration-200">
                         {method.value}
                       </div>
                     </div>
                     <div className="ml-auto">
-                      <svg 
-                        className="w-5 h-5 text-gray-600 group-hover:text-white group-hover:translate-x-1 transition-all duration-300" 
-                        fill="none" 
-                        stroke="currentColor" 
+                      <svg
+                        className="w-4 h-4 text-gray-600 group-hover:text-white group-hover:translate-x-1 transition-all duration-200"
+                        fill="none"
+                        stroke="currentColor"
                         viewBox="0 0 24 24"
                       >
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
@@ -237,19 +226,30 @@ export default function Contact() {
                   </a>
                 ))}
               </div>
-              
-              {/* Additional Info */}
-              <div className="mt-12 p-6 bg-gray-900/20 border border-gray-800 rounded-2xl">
-                <h3 className="text-lg font-mono text-gray-400 mb-4">Availability</h3>
-                <p className="text-gray-300 leading-relaxed">
-                  I'm currently available for freelance projects and full-time opportunities. 
-                  I typically respond to messages within 24 hours.
-                </p>
-                <div className="flex items-center space-x-2 mt-4">
-                  <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse" />
-                  <span className="text-sm text-green-400 font-mono">Available for new projects</span>
+
+              {/* Additional Info (minimal, creative availability) */}
+              {/* <div className="mt-6 p-4 bg-gradient-to-r from-gray-900/8 to-transparent border border-gray-800 rounded-md flex items-start space-x-4">
+                <div className="flex-shrink-0 mt-1">
+                  <div className="w-8 h-8 flex items-center justify-center bg-white/6 rounded-full backdrop-blur-sm transform -rotate-6">
+                    <svg className="w-4 h-4 text-green-300" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                      <path strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
                 </div>
-              </div>
+
+                <div className="flex-1">
+                  <div className="flex items-center justify-between">
+                    <h3 className="text-sm font-mono text-gray-300">Availability</h3>
+                    <div className="flex items-center space-x-2">
+                      <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+                      <span className="text-xs text-green-300 font-mono">Open</span>
+                    </div>
+                  </div>
+
+                  <p className="text-gray-300 text-sm mt-2">Freelance & full-time — reply within 24 hours.</p>
+                  <p className="text-gray-400 text-xs mt-2">Model collaborations: limited capacity — inquire for scheduling.</p>
+                </div>
+              </div> */}
             </div>
           </div>
         </div>

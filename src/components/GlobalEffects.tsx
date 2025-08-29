@@ -1,9 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import StarField from "./StarField";
-import ContextMenu from "./ContextMenu";
-import PageTransition from "./PageTransition";
 import StarFieldFallback from "./StarFieldFallback";
 
 interface MousePosition {
@@ -22,16 +20,9 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
   const [isHoveringButton, setIsHoveringButton] = useState(false);
   const [isInProjectArea, setIsInProjectArea] = useState(false);
   const [documentHeight, setDocumentHeight] = useState(0);
-  const [contextMenu, setContextMenu] = useState<{ x: number; y: number; isVisible: boolean; activeDirection: string }>({
-    x: 0,
-    y: 0,
-    isVisible: false,
-    activeDirection: ''
-  });
-  
-  const [lastClickTime, setLastClickTime] = useState<number>(0);
-  const [clickCount, setClickCount] = useState<number>(0);
-  const [clickPosition, setClickPosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
+
+  // Store current mouse position for trail updates using ref
+  const currentMousePos = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     const updateDocumentHeight = () => {
@@ -45,133 +36,42 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
     };
 
     updateDocumentHeight();
-    
-    const handleMouseDown = (e: MouseEvent) => {
-      const RIGHT_MOUSE_BTN = 2;
-      const LEFT_MOUSE_BTN = 0;
-      
-      switch (e.button) {
-        case RIGHT_MOUSE_BTN:
-          e.preventDefault();
-          setContextMenu({
-            x: e.clientX,
-            y: e.clientY,
-            isVisible: true,
-            activeDirection: ''
-          });
-          break;
-          
-        case LEFT_MOUSE_BTN:
-          const currentTime = Date.now();
-          const timeDiff = currentTime - lastClickTime;
-          const positionDiff = Math.sqrt(
-            Math.pow(e.clientX - clickPosition.x, 2) + 
-            Math.pow(e.clientY - clickPosition.y, 2)
-          );
-          
-          // Optimized double-click detection
-          // - Time window: 400ms (slightly more forgiving than system default)
-          // - Position tolerance: 5px (allows for slight mouse movement)
-          if (timeDiff < 400 && positionDiff < 5 && clickCount === 1) {
-            // Double-click detected
-            e.preventDefault();
-            setContextMenu({
-              x: e.clientX,
-              y: e.clientY,
-              isVisible: true,
-              activeDirection: ''
-            });
-            setClickCount(0); // Reset count
-          } else {
-            // First click or reset
-            setClickCount(1);
-            setLastClickTime(currentTime);
-            setClickPosition({ x: e.clientX, y: e.clientY });
-            
-            // Reset click count after timeout to prevent accumulation
-            setTimeout(() => {
-              setClickCount(0);
-            }, 400);
-          }
-          break;
-      }
-    };
-    const handleMouseUp = (e: MouseEvent) => {
-      const RIGHT_MOUSE_BTN = 2;
-      const LEFT_MOUSE_BTN = 0;
-      if (e.button === RIGHT_MOUSE_BTN || e.button === LEFT_MOUSE_BTN) {
-        setContextMenu(prev => ({ ...prev, isVisible: false }));
-      }
-    };
-
-    const handleContextMenu = (e: MouseEvent) => {
-      e.preventDefault();
-    };
 
     window.addEventListener('resize', updateDocumentHeight);
-    document.addEventListener('mousedown', handleMouseDown);
-    document.addEventListener('mouseup', handleMouseUp);
-    document.addEventListener('contextmenu', handleContextMenu);
 
     return () => {
       window.removeEventListener('resize', updateDocumentHeight);
-      document.removeEventListener('mousedown', handleMouseDown);
-      document.removeEventListener('mouseup', handleMouseUp);
-      document.removeEventListener('contextmenu', handleContextMenu);
     };
-  }, [lastClickTime, clickCount, clickPosition]);
+  }, []);
+
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    // For the live mouse position (coordinates display), use clientX/Y
+    setMousePosition({ x: e.clientX, y: e.clientY });
+    
+    // For the trail, use pageX/Y to account for scroll position
+    currentMousePos.current.x = e.pageX;
+    currentMousePos.current.y = e.pageY;
+
+    // Check if mouse is over a project area
+    const elementUnderMouse = document.elementFromPoint(e.clientX, e.clientY);
+    const projectArea = elementUnderMouse?.closest('[data-project-area="true"]');
+    setIsInProjectArea(!!projectArea);
+
+    // Check if mouse is over interactive elements (buttons, links, etc.)
+    const interactiveElement = elementUnderMouse?.closest('button, a, [role="button"], input, textarea, select, .cursor-pointer');
+    setIsHoveringButton(!!interactiveElement);
+
+  }, [setMousePosition, setIsInProjectArea, setIsHoveringButton]);
 
   useEffect(() => {
-    let currentMousePos = { x: 0, y: 0 };
-
-    const handleMouseMove = (e: MouseEvent) => {
-      // For the live mouse position (coordinates display), use clientX/Y
-      setMousePosition({ x: e.clientX, y: e.clientY });
-      
-      // For the trail, use pageX/Y to account for scroll position
-      currentMousePos.x = e.pageX;
-      currentMousePos.y = e.pageY;
-
-      // Check if mouse is over a project area
-      const elementUnderMouse = document.elementFromPoint(e.clientX, e.clientY);
-      const projectArea = elementUnderMouse?.closest('[data-project-area="true"]');
-      setIsInProjectArea(!!projectArea);
-
-      // Check if mouse is over interactive elements (buttons, links, etc.)
-      const interactiveElement = elementUnderMouse?.closest('button, a, [role="button"], input, textarea, select, .cursor-pointer');
-      setIsHoveringButton(!!interactiveElement);
-
-      // If context menu is visible, check direction from center
-      if (contextMenu.isVisible) {
-        const deltaX = e.clientX - contextMenu.x;
-        const deltaY = e.clientY - contextMenu.y;
-        const distance = Math.sqrt(deltaX * deltaX + deltaY * deltaY);
-        
-        if (distance > 30) { // Only activate when moving away from center
-          let activeDirection = '';
-          
-          // Determine primary direction
-          if (Math.abs(deltaY) > Math.abs(deltaX)) {
-            activeDirection = deltaY < 0 ? 'top' : 'bottom';
-          } else {
-            activeDirection = deltaX > 0 ? 'right' : 'left';
-          }
-          
-          setContextMenu(prev => ({ ...prev, activeDirection }));
-        } else {
-          setContextMenu(prev => ({ ...prev, activeDirection: '' }));
-        }
-      }
-    };
-
     // Update trail every 75ms with current mouse position
     const trailInterval = setInterval(() => {
       // Only add points if mouse position is valid, has changed, and not in project area
       // Don't add new points when context menu is visible, but continue fading existing trail
-      if ((currentMousePos.x !== 0 || currentMousePos.y !== 0) && !isInProjectArea && !contextMenu.isVisible) {
+      if ((currentMousePos.current.x !== 0 || currentMousePos.current.y !== 0) && !isInProjectArea) {
         const newPosition: MousePosition = {
-          x: currentMousePos.x,
-          y: currentMousePos.y,
+          x: currentMousePos.current.x,
+          y: currentMousePos.current.y,
           timestamp: Date.now()
         };
 
@@ -195,7 +95,9 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
         window.removeEventListener('mousemove', handleMouseMove);
         clearInterval(trailInterval);
       };
-    }, [contextMenu, isInProjectArea]);  return (
+    }, [handleMouseMove, isInProjectArea]);
+    
+    return (
     <div className="min-h-screen cursor-none bg-background text-foreground transition-all duration-500 ease-out">
       {/* Star Field Background */}
       <StarFieldFallback starLess={false} />
@@ -335,15 +237,6 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
         </div>
 
       </div>
-
-      {/* Context Menu */}
-      <ContextMenu
-        x={contextMenu.x}
-        y={contextMenu.y}
-        isVisible={contextMenu.isVisible}
-        activeDirection={contextMenu.activeDirection}
-        onClose={() => setContextMenu(prev => ({ ...prev, isVisible: false }))}
-      />
 
       {/* Page Content with Transitions */}
       <div className="relative z-10">

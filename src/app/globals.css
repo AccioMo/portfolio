@@ -4,6 +4,7 @@
   --background: #171717;
   --foreground: #ffffff;
   --grid-color: rgba(23, 23, 23, 0.1);
+  --font-sans: 'Comfortaa', sans-serif;
 }
 
 * {
@@ -12,11 +13,15 @@
   -moz-user-select: none;
 }
 
+*:hover, *:focus, *:active {
+  cursor: none;
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-sans);
+  /* --font-mono: var(--font-geist-mono); */
 }
 
 @media (prefers-color-scheme: dark) {

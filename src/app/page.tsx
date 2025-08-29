@@ -1,45 +1,134 @@
 "use client";
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function Home() {
-  const [phrase, setPhrase] = useState<string>("Hello.")
+  // Visible text and fade flag
+  const [phrase, setPhrase] = useState<string>('[nullptr]');
+  const [visible, setVisible] = useState<boolean>(true);
+
+  // Refs for mouse speed calculation and timers
+  const lastPosRef = useRef<{ x: number; y: number } | null>(null);
+  const lastTimeRef = useRef<number | null>(null);
+  // const speedRef = useRef<number>(0); // px/sec moving average
+  // const speedSamplesRef = useRef<number[]>([]);
+  const timerRef = useRef<number | null>(null);
+
+  const FADE_MS = 1000;
+
+  // Phrase pools
+  const calmPhrases = [
+    'Good morning.',
+    'Bon matin.',
+    'Bonjour.',
+    'Buongiorno.',
+    'Guten Morgen.',
+    'Доброе утро.',
+  ];
+
+  // const activePhrases = [
+  //   'try right clicking...',
+  //   'hmmm...',
+  // ];
+
+  // Utility: pick phrase based on current average speed
+  const pickPhrase = () => {
+    // const speed = speedRef.current || 0;
+    // const threshold = 300; // px/sec -> above this considered "active"
+    const pool = calmPhrases;
+    const index = Math.floor(Math.random() * pool.length);
+    return pool[index];
+  };
+
+  // Clear running timer
+  const clearTimer = () => {
+    if (timerRef.current != null) {
+      window.clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+  };
+
+  // Schedule next phrase change based on speed
+  const scheduleNext = () => {
+    clearTimer();
+    // const speed = speedRef.current || 0;
+    // slower changes when calm, faster when active
+    const base = 3000;
+    timerRef.current = window.setTimeout(() => {
+      // trigger fade-out, swap phrase, fade-in
+      setVisible(false);
+      window.setTimeout(() => {
+        setPhrase(pickPhrase());
+        setVisible(true);
+        // schedule next after this transition completes
+        scheduleNext();
+      }, FADE_MS);
+    }, base);
+  };
 
   useEffect(() => {
+    // Mouse move handler computes instantaneous speed and keeps a short moving average
+    // const handleMouseMove = (e: MouseEvent) => {
+    //   const now = performance.now();
+    //   const pos = { x: e.clientX, y: e.clientY };
+    //   const lastPos = lastPosRef.current;
+    //   const lastTime = lastTimeRef.current;
 
-    const phrases = ["Wassup", "Everything alright?", "Try right clicking...", "Hmmm..."];
+    //   if (lastPos && lastTime) {
+    //     const dx = pos.x - lastPos.x;
+    //     const dy = pos.y - lastPos.y;
+    //     const dist = Math.sqrt(dx * dx + dy * dy);
+    //     const dt = Math.max(1, now - lastTime);
+    //     const speed = (dist / dt) * 1000; // px/sec
 
-    setInterval(() => {
+    //     // keep small sample window
+    //     const samples = speedSamplesRef.current;
+    //     samples.push(speed);
+    //     if (samples.length > 8) samples.shift();
+    //     const avg = samples.reduce((s, v) => s + v, 0) / samples.length;
+    //     speedRef.current = avg;
+    //   }
 
-      const index = Math.floor(Math.random()*phrases.length);
-      setPhrase(phrases[index])
+    //   lastPosRef.current = pos;
+    //   lastTimeRef.current = now;
+    // };
 
-    }, 2000)
+    // window.addEventListener('mousemove', handleMouseMove);
 
-  }, [])
+    // Start scheduler
+    scheduleNext();
+
+    return () => {
+      // window.removeEventListener('mousemove', handleMouseMove);
+      clearTimer();
+    };
+    // We intentionally omit deps to set up once on mount
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <div className="min-h-screen max-h-screen flex justify-center">
-      {/* Main Space Awesome Very Cool Section */}
+    <div className="relative min-h-screen flex justify-center animate-fade-in">
+        {/* <div className="absolute flex justify-center w-24 h-full right-0 top-0" data-project-area="true">
+          <a className="rotate-90 my-auto opacity-65 hover:opacity-80 transition-all duration-300" href="/works">Works</a>
+        </div>
+        <div className="absolute flex justify-center w-24 h-full left-0 top-0" data-project-area="true">
+          <a className="-rotate-90 my-auto opacity-65 hover:opacity-80 transition-all duration-300" href="/contact">Contact</a>
+        </div>
+        <div className="absolute flex justify-center h-24 w-full left-0 bottom-0" data-project-area="true">
+          <a className="my-auto opacity-65 hover:opacity-80 transition-all duration-300" href="/about">About</a>
+        </div> */}
       <section className="py-16 px-6 flex items-center justify-center cursor-none select-none">
         <div className="container mx-auto text-center">
-          <h2 className="text-5xl md:text-7xl leading-loose font-bold mb-6 bg-gradient-to-tr from-neutral-200 mask-t-to-gray-800 bg-clip-text text-transparent animate-fade-in"
-            data-project-area="true">
-            {phrase || "{word}"}
-          </h2>
-          <p className="text-xl z-50 md:text-2xl text-gray-600 dark:text-gray-300 mb-8 max-w-3xl mx-auto">
-            
-          </p>
-          {/* <a 
-            href="#projects" 
-            className="relative z-50 inline-block bg-neutral-700/30 text-white px-8 py-4 rounded-full backdrop-blur-md shadow-lg hover:bg-neutral-600/40 transition-all duration-500 font-medium border border-white/20 cursor-none group overflow-hidden"
-            onMouseEnter={() => setIsHoveringButton(true)}
-            onMouseLeave={() => setIsHoveringButton(false)}
+          <h2
+            className={
+              'text-5xl xl:text-5xl 3xl:text-8xl mb-1 font-bold bg-gradient-to-tr from-neutral-200 mask-t-to-gray-800 bg-clip-text text-transparent'
+            }
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 rounded-full opacity-0 group-hover:opacity-100 transform scale-0 group-hover:scale-150 transition-all duration-700 ease-out blur-sm group-hover:blur-md"></div>
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-400/10 via-purple-400/10 to-pink-400/10 rounded-full opacity-0 group-hover:opacity-100 transform scale-0 group-hover:scale-125 transition-all duration-500 ease-out blur-xs"></div>
-            <span className="text-lg font-light relative z-10 flex items-center justify-center leading-none">Jump</span>
-          </a> */}
+            Hello.
+          </h2>
+          <p className={"text-xl z-50 md:text-sm text-gray-600 dark:text-gray-300 transition-opacity duration-1000 transform"
+              + (visible ? ' opacity-100' : ' opacity-0')
+            }>{phrase}</p>
         </div>
       </section>
     </div>
