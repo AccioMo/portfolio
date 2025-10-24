@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useContext } from 'react';
 
 interface Star {
   x: number;
@@ -63,6 +63,7 @@ export default function StarFieldFallback({ starLess }: StarFieldProps) {
 
   // Update star positions
   const updateStars = useCallback(() => {
+    console.log('Momentum:', mouseMomentum.toFixed(2));
     const mouse = mouseRef.current;
     const { width, height } = dimensionsRef.current;
     
@@ -74,7 +75,7 @@ export default function StarFieldFallback({ starLess }: StarFieldProps) {
         const dx = star.x - mouse.x;
         const dy = star.y - mouse.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        const pushRadius = 60;
+        const pushRadius = 60 * mouseMomentum;
         
         if (distance < pushRadius && distance > 0.1) {
           const force = (pushRadius - distance) / pushRadius * 0.02;
@@ -176,7 +177,6 @@ export default function StarFieldFallback({ starLess }: StarFieldProps) {
     }
   }, [updateStars, render]);
 
-  // Mouse move handler
   const handleMouseMove = useCallback((e: MouseEvent) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -188,7 +188,6 @@ export default function StarFieldFallback({ starLess }: StarFieldProps) {
     };
   }, []);
 
-  // Resize handler
   const handleResize = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;

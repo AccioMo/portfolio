@@ -20,6 +20,7 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
   const [isHoveringButton, setIsHoveringButton] = useState(false);
   const [isInProjectArea, setIsInProjectArea] = useState(false);
   const [documentHeight, setDocumentHeight] = useState(0);
+  const [mouseMomentum, setMouseMomentum] = useState(1);
 
   // Store current mouse position for trail updates using ref
   const currentMousePos = useRef({ x: 0, y: 0 });
@@ -55,6 +56,11 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
     // Check if mouse is over a project area
     const elementUnderMouse = document.elementFromPoint(e.clientX, e.clientY);
     const projectArea = elementUnderMouse?.closest('[data-project-area="true"]');
+    const cursorHidden = elementUnderMouse?.closest('.my-cursor-none');
+    if (cursorHidden) {
+      setMousePosition({ x: -5, y: -5 });
+      return;
+    }
     setIsInProjectArea(!!projectArea);
 
     // Check if mouse is over interactive elements (buttons, links, etc.)
@@ -64,10 +70,7 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
   }, [setMousePosition, setIsInProjectArea, setIsHoveringButton]);
 
   useEffect(() => {
-    // Update trail every 75ms with current mouse position
     const trailInterval = setInterval(() => {
-      // Only add points if mouse position is valid, has changed, and not in project area
-      // Don't add new points when context menu is visible, but continue fading existing trail
       if ((currentMousePos.current.x !== 0 || currentMousePos.current.y !== 0) && !isInProjectArea) {
         const newPosition: MousePosition = {
           x: currentMousePos.current.x,
@@ -75,6 +78,7 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
           timestamp: Date.now()
         };
 
+        console.log('Mouse Momentum:', mouseMomentum.toFixed(2));
         setMouseTrail(prev => {
           const updatedTrail = [...prev, newPosition];
           return updatedTrail.slice(-32);
@@ -83,7 +87,6 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
         // When context menu is visible or in project area, gradually fade the trail
         setMouseTrail(prev => {
           if (prev.length === 0) return prev;
-          // Remove oldest points to create fading effect
           return prev.slice(1);
         });
       }
@@ -100,7 +103,7 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
     return (
     <div className="min-h-screen cursor-none bg-background text-foreground transition-all duration-500 ease-out">
       {/* Star Field Background */}
-      <StarFieldFallback starLess={false} />
+      {/* <StarFieldFallback starLess={false} /> */}
       
       {/* Mouse Trail */}
       <svg
@@ -183,7 +186,7 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
       </svg>
 
       {/* Mouse Coordinates */}
-      <div
+      {/* <div
         className="fixed pointer-events-none z-50 bg-black/10 backdrop-blur-sm text-white px-2 py-1 rounded text-xs font-mono"
         style={{
           opacity: (isHoveringButton || isInProjectArea) ? 0 : 1,
@@ -193,7 +196,7 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
         }}
       >
         {mousePosition.x}, {mousePosition.y}
-      </div>
+      </div> */}
 
       {/* Custom Mouse Cursor Dot */}
       <div
@@ -206,11 +209,12 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
       >
         {/* Main cursor dot */}
         <div 
-          className={`rounded-full border-2 transition-all duration-300 relative ${
-            isHoveringButton 
-              ? 'w-4 h-4 bg-white-200 border-white-100 shadow-lg shadow-white-200/80 scale-150' 
-              : 'w-2 h-2 bg-white/80 border-white/60 shadow-md shadow-white/80'
-          }`}
+          className={`rounded-full border-2 transition-all duration-300 relative w-2 h-2 bg-white/80 border-white/60 shadow-md shadow-white/80`}
+          // ${
+          //   isHoveringButton 
+          //     ? 'w-3 h-3 bg-white-200 border-white-100 shadow-lg shadow-white-200/80 scale-150' 
+          //     : 'w-2 h-2 bg-white/80 border-white/60 shadow-md shadow-white/80'
+          // }`}
           style={{
             backdropFilter: 'blur(4px)',
             boxShadow: isHoveringButton 
@@ -226,14 +230,14 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
               animationDuration: isHoveringButton ? '0.8s' : 'none'
             }}
           />
-          {!isHoveringButton && (
+          {/* {!isHoveringButton && (
             <div 
               className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-6 h-6 rounded-full border border-white/40 animate-pulse"
               style={{
                 animationDuration: '3s'
               }}
             />
-          )}
+          )} */}
         </div>
 
       </div>

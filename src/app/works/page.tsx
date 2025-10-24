@@ -128,7 +128,7 @@ export default function Works() {
             }`}
           >
             <div 
-              className={`w-3 h-3 rounded-full border-2 transition-all duration-500 hover:scale-150 ${
+              className={`w-[11px] h-[11px] rounded-full border-2 after:hidden after:content-[''] hover:after:block flex justify-center items-center after:w-1 after:h-1 after:bg-white after:rounded-full my-cursor-none transition-all duration-100 hover:scale-150 hover:after:scale-150 ${
                 activeProject === index
                   ? 'bg-white border-white shadow-lg shadow-white/50'
                   : 'bg-transparent border-gray-500 hover:border-white'
