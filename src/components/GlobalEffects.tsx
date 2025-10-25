@@ -101,7 +101,7 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
     }, [handleMouseMove, isInProjectArea]);
     
     return (
-    <div className="min-h-screen cursor-none bg-background text-foreground transition-all duration-500 ease-out">
+    <div className="min-h-screen cursor-none transition-all duration-500 ease-out">
       {/* Star Field Background */}
       {/* <StarFieldFallback starLess={false} /> */}
       

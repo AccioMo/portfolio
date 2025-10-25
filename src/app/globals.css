@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 :root {
-  --background: #171717;
-  --foreground: #ffffff;
-  --grid-color: rgba(23, 23, 23, 0.1);
+  --background: #b38383;
+  --foreground: #544747;
+  --grid-color: rgb(255, 255, 255);
   --font-sans: 'Comfortaa', sans-serif;
 }
 
@@ -26,9 +26,11 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --grid-color: rgba(237, 237, 237, 0.1);
+    --background: #564D4A;
+    --foreground: #F8F7F9;
+    --primary: #ededed;
+    --secondary: #b38383;
+    --grid-color: #ededed;
   }
 }
 

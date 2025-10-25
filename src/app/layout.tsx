@@ -26,7 +26,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${fontSans.variable} antialiased overflow-hidden`}>
+      <body className={`${fontSans.variable} antialiased overflow-hidden bg-background text-foreground`}>
         <NavBar logo={false}></NavBar>
         <GlobalEffects>{children}</GlobalEffects>
       </body>
