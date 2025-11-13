@@ -70,20 +70,20 @@ export default function Contact() {
   ];
 
   return (
-    <div className="bg-transparent min-h-screen flex text-white animate-fade-in" data-project-area="true">
+  <div className="bg-site-bg min-h-screen flex text-site-text animate-fade-in" data-project-area="true">
       <section className="py-12 flex m-auto items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto w-full">
           <div className={`text-center mb-8 transition-all duration-700 ${isMounted ? 'opacity-100' : 'opacity-0'}`}>
             <h1 className="text-3xl sm:text-3xl lg:text-4xl font-light tracking-tight mb-3">
               Get In Touch
-              <span className="block text-sm text-gray-400 font-mono mt-1">
+              <span className="block text-sm text-site-accent font-mono mt-1">
                 Let's create something — say hello.
               </span>
             </h1>
 
-            <div className="w-16 h-px bg-gray-600 mx-auto mb-6" />
+            <div className="w-16 h-px bg-site-accent mx-auto mb-6" />
 
-            <p className="text-sm text-gray-300 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-sm text-site-accent leading-relaxed max-w-2xl mx-auto">
               I'm interested in hearing about projects and opportunities. If you'd like to work together, drop a short message below.
             </p>
           </div>
@@ -97,8 +97,8 @@ export default function Contact() {
 
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="text-gray-400 transition-all duration-200">
-                    <label htmlFor="name" className="block text-xs px-3 font-mono text-gray-400 uppercase mb-1">
+                  <div className="text-site-accent transition-all duration-200">
+                    <label htmlFor="name" className="block text-xs px-3 font-mono text-site-accent uppercase mb-1">
                       Name
                     </label>
                     <input
@@ -108,12 +108,12 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-2 border border-gray-700 rounded-md focus:outline-none focus:border-white focus:bg-gray-900/50 text-sm text-gray-200 placeholder-gray-500"
+                      className="w-full px-4 py-2 border border-site-accent rounded-md focus:outline-none focus:border-site-text focus:bg-site-bg text-sm text-site-text placeholder-site-accent"
                     />
                   </div>
 
-                  <div className="text-gray-400 transition-all duration-200">
-                    <label htmlFor="email" className="block text-xs px-3 font-mono text-gray-400 uppercase mb-1">
+                  <div className="text-site-accent transition-all duration-200">
+                    <label htmlFor="email" className="block text-xs px-3 font-mono text-site-accent uppercase mb-1">
                       Email
                     </label>
                     <input
@@ -123,13 +123,13 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-2 border border-gray-700 rounded-md focus:outline-none focus:border-white focus:bg-gray-900/50 text-sm text-gray-200 placeholder-gray-500"
+                      className="w-full px-4 py-2 border border-site-accent rounded-md focus:outline-none focus:border-site-text focus:bg-site-bg text-sm text-site-text placeholder-site-accent"
                     />
                   </div>
                 </div>
 
-                <div className="text-gray-400 transition-all duration-200">
-                  <label htmlFor="subject" className="block text-xs px-3 font-mono text-gray-400 uppercase mb-1">
+                <div className="text-site-accent transition-all duration-200">
+                  <label htmlFor="subject" className="block text-xs px-3 font-mono text-site-accent uppercase mb-1">
                     Subject
                   </label>
                   <input
@@ -139,12 +139,12 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-2 border border-gray-700 rounded-md focus:outline-none focus:border-white focus:bg-gray-900/50 text-sm text-gray-200 placeholder-gray-500"
+                    className="w-full px-4 py-2 border border-site-accent rounded-md focus:outline-none focus:border-site-text focus:bg-site-bg text-sm text-site-text placeholder-site-accent"
                   />
                 </div>
 
-                <div className="text-gray-400 transition-all duration-200">
-                  <label htmlFor="message" className="block text-xs px-3 font-mono text-gray-400 uppercase mb-1">
+                <div className="text-site-accent transition-all duration-200">
+                  <label htmlFor="message" className="block text-xs px-3 font-mono text-site-accent uppercase mb-1">
                     Message
                   </label>
                   <textarea
@@ -154,7 +154,7 @@ export default function Contact() {
                     onChange={handleInputChange}
                     required
                     rows={4}
-                    className="w-full px-4 py-3 border border-gray-700 rounded-md resize-none focus:outline-none focus:border-white focus:bg-gray-900/50 text-sm text-gray-200 placeholder-gray-500"
+                    className="w-full px-4 py-3 border border-site-accent rounded-md resize-none focus:outline-none focus:border-site-text focus:bg-site-bg text-sm text-site-text placeholder-site-accent"
                   />
                 </div>
 
@@ -162,20 +162,20 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="px-6 py-2 bg-white text-black font-medium rounded-md hover:bg-gray-200 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 relative overflow-hidden"
+                    className="px-6 py-2 bg-site-text text-site-bg font-medium rounded-md hover:bg-site-accent disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 relative overflow-hidden"
                   >
                     <span className={`transition-all duration-200 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
                       {submitStatus === 'success' ? 'Message Sent!' : 'Send Message'}
                     </span>
                     {isSubmitting && (
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-4 h-4 border-2 border-gray-600 border-t-transparent rounded-full animate-spin" />
+                        <div className="w-4 h-4 border-2 border-site-accent border-t-transparent rounded-full animate-spin" />
                       </div>
                     )}
                   </button>
 
                   {submitStatus === 'success' && (
-                    <p className="text-green-400 text-sm ml-4">
+                    <p className="text-site-accent text-sm ml-4">
                       Thanks — I'll get back to you soon.
                     </p>
                   )}
@@ -183,7 +183,7 @@ export default function Contact() {
               </form>
             </div>
 
-            <span className="absolute left-1/2 top-0 w-[1px] h-full rounded-full bg-gray-700/60" />
+            <span className="absolute left-1/2 top-0 w-[1px] h-full rounded-full bg-site-accent" />
 
             {/* Contact Information */}
             <div
@@ -199,23 +199,23 @@ export default function Contact() {
                     href={method.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-3 py-2 px-4 rounded-md border-transparent hover:border-gray-200 transition-all duration-200 group"
+                    className="flex items-center space-x-3 py-2 px-4 rounded-md border-transparent hover:border-site-accent transition-all duration-200 group"
                     style={{ animation: isMounted ? `fadeInUp 0.5s ease-out ${0.45 + index * 0.06}s both` : 'none' }}
                   >
                     <div className="text-lg">
                       <Image src={`/${method.icon}`} alt={`${method.label} icon`} width={24} height={24} />
                     </div>
                     <div>
-                      <div className="text-xs font-mono text-gray-400 uppercase tracking-wider">
+                      <div className="text-xs font-mono text-site-accent uppercase tracking-wider">
                         {method.label}
                       </div>
-                      <div className="text-sm text-white group-hover:text-gray-200 transition-colors duration-200">
+                      <div className="text-sm text-site-text group-hover:text-site-accent transition-colors duration-200">
                         {method.value}
                       </div>
                     </div>
                     <div className="ml-auto">
                       <svg
-                        className="w-4 h-4 text-gray-600 group-hover:text-white group-hover:translate-x-1 transition-all duration-200"
+                        className="w-4 h-4 text-site-accent group-hover:text-site-text group-hover:translate-x-1 transition-all duration-200"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"

@@ -127,7 +127,7 @@ export default function Home() {
             Hello.
           </h2>
           <p className={"text-xl z-50 md:text-sm text-gray-600 dark:text-gray-300 transition-opacity duration-1000 transform"
-              + (visible ? ' opacity-100' : ' opacity-0')
+              + (visible ? ' opacity-40' : ' opacity-0')
             }>{phrase}</p>
         </div>
       </section>

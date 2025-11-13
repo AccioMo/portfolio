@@ -9,6 +9,11 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        site: {
+          bg: 'var(--site-bg)',
+          text: 'var(--site-text)',
+          accent: 'var(--site-accent)'
+        },
         background: "rgb(var(--background) / <alpha-value>)",
         foreground: "rgb(var(--foreground) / <alpha-value>)",
         primary: "rgb(var(--primary) / <alpha-value>)",

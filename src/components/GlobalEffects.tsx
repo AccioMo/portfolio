@@ -12,9 +12,10 @@ interface MousePosition {
 
 interface GlobalEffectsProps {
   children: React.ReactNode;
+  enableMouseTrail?: boolean;
 }
 
-export default function GlobalEffects({ children }: GlobalEffectsProps) {
+export default function GlobalEffects({ children, enableMouseTrail = true }: GlobalEffectsProps) {
   const [mouseTrail, setMouseTrail] = useState<MousePosition[]>([]);
   const [mousePosition, setMousePosition] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [isHoveringButton, setIsHoveringButton] = useState(false);
@@ -71,7 +72,7 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
 
   useEffect(() => {
     const trailInterval = setInterval(() => {
-      if ((currentMousePos.current.x !== 0 || currentMousePos.current.y !== 0) && !isInProjectArea) {
+      if (enableMouseTrail && (currentMousePos.current.x !== 0 || currentMousePos.current.y !== 0) && !isInProjectArea) {
         const newPosition: MousePosition = {
           x: currentMousePos.current.x,
           y: currentMousePos.current.y,
@@ -98,7 +99,7 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
         window.removeEventListener('mousemove', handleMouseMove);
         clearInterval(trailInterval);
       };
-    }, [handleMouseMove, isInProjectArea]);
+    }, [handleMouseMove, isInProjectArea, enableMouseTrail]);
     
     return (
     <div className="min-h-screen cursor-none transition-all duration-500 ease-out">
@@ -110,7 +111,7 @@ export default function GlobalEffects({ children }: GlobalEffectsProps) {
         className="fixed w-full h-full top-0 left-0 pointer-events-none z-40 transition-opacity duration-300"
         style={{ 
           mixBlendMode: 'difference',
-          opacity: (isHoveringButton || isInProjectArea) ? 0 : 1,
+          opacity: (isHoveringButton || isInProjectArea || !enableMouseTrail) ? 0 : 1,
           height: `${documentHeight}px`
         }}
       >

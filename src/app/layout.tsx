@@ -28,7 +28,9 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${fontSans.variable} antialiased overflow-hidden bg-background text-foreground`}>
         <NavBar logo={false}></NavBar>
-        <GlobalEffects>{children}</GlobalEffects>
+        <GlobalEffects enableMouseTrail={false}>
+			{children}
+		</GlobalEffects>
       </body>
     </html>
   );
