@@ -101,10 +101,10 @@ export default function About() {
   ];
 
   return (
-    <div className="h-screen bg-transparent text-white animate-fade-in">
+    <div className="h-screen relative bg-transparent text-white animate-fade-in">
       
       {/* Navigation dots */}
-      <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-6" data-project-area="true">
+      <div className="absolute right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-6" data-project-area="true">
         {sections.map((section, index) => (
           <button
             key={section.id}
@@ -134,7 +134,7 @@ export default function About() {
       </div>
 
       {/* Section counter */}
-      <div className="fixed left-8 top-8 z-40 font-mono text-sm text-gray-400">
+      <div className="absolute right-8 top-8 z-40 font-mono text-sm text-gray-400">
         <span className="text-white">{String(activeSection + 1).padStart(2, '0')}</span>
         <span className="mx-2">/</span>
         <span>{String(sections.length).padStart(2, '0')}</span>

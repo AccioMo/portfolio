@@ -117,7 +117,7 @@ export default function Home() {
         <div className="absolute flex justify-center h-24 w-full left-0 bottom-0" data-project-area="true">
           <a className="my-auto opacity-65 hover:opacity-80 transition-all duration-300" href="/about">About</a>
         </div> */}
-      <section className="py-16 px-6 flex items-center justify-center cursor-none select-none">
+      <section className="py-16 px-6 flex items-center justify-center select-none">
         <div className="container mx-auto text-center">
           <h2
             className={

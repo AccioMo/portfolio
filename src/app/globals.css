@@ -13,13 +13,13 @@
 }
 
 * {
-  cursor: none;
+  /* cursor: none; */
   user-select: none;
   -moz-user-select: none;
 }
 
 *:hover, *:focus, *:active {
-  cursor: none;
+  /* cursor: none; */
 }
 
 @theme inline {

@@ -26,11 +26,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${fontSans.variable} antialiased overflow-hidden bg-background text-foreground`}>
-        <NavBar logo={false}></NavBar>
-        <GlobalEffects enableMouseTrail={false}>
+      <body className={`${fontSans.variable} mx-auto px-20 antialiased bg-background text-foreground`}>
+		<div className="relative min-w-[1080px] m-auto px-4 border-x-1 border-white/20 overflow-hidden">
+			<NavBar logo={false}></NavBar>
 			{children}
-		</GlobalEffects>
+		</div>
       </body>
     </html>
   );
