@@ -101,7 +101,7 @@ export default function About() {
   ];
 
   return (
-    <div className="h-screen relative bg-transparent text-white animate-fade-in">
+    <div className="h-screen relative bg-background text-primary animate-fade-in">
       
       {/* Navigation dots */}
       <div className="absolute right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-6" data-project-area="true">
@@ -114,17 +114,17 @@ export default function About() {
             }`}
           >
             <div 
-              className={`w-[11px] h-[11px] rounded-full border-2 after:hidden after:content-[''] hover:after:block flex justify-center items-center after:w-1 after:h-1 after:bg-white after:rounded-full my-cursor-none transition-all duration-100 hover:scale-150 hover:after:scale-150 ${
+              className={`w-2 h-2 rounded-full my-cursor-none transition-all duration-100 hover:scale-150 ${
                 activeSection === index
-                  ? 'bg-white border-white shadow-lg shadow-white/50'
-                  : 'bg-transparent border-site-accent/40 hover:border-white'
+                  ? 'bg-primary'
+                  : 'bg-secondary hover:bg-primary'
               }`}
             />
             <span 
               className={`ml-4 text-xs font-mono uppercase tracking-wider transition-all duration-300 ${
                 activeSection === index 
-                  ? 'opacity-100 translate-x-0 text-white' 
-                  : 'opacity-0 translate-x-4 text-site-accent/60 group-hover:opacity-100 group-hover:translate-x-0'
+                  ? 'text-primary' 
+                  : 'text-secondary group-hover:text-primary'
               }`}
             >
               {section.title}
@@ -134,8 +134,8 @@ export default function About() {
       </div>
 
       {/* Section counter */}
-      <div className="absolute right-8 top-8 z-40 font-mono text-sm text-site-accent/70">
-        <span className="text-white">{String(activeSection + 1).padStart(2, '0')}</span>
+      <div className="absolute right-8 top-8 z-40 font-mono text-sm text-secondary">
+        <span className="text-primary">{String(activeSection + 1).padStart(2, '0')}</span>
         <span className="mx-2">/</span>
         <span>{String(sections.length).padStart(2, '0')}</span>
       </div>
@@ -161,16 +161,13 @@ export default function About() {
                 visibleSections.has(0) ? 'opacity-100' : 'opacity-0'
               }`}
             >
-              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-light tracking-tight mb-6">
+              <h1 className="text-4xl sm:text-6xl lg:text-7xl font-light tracking-tight mb-6 text-primary">
                 About
-                <span className="block text-2xl sm:text-3xl lg:text-4xl text-site-accent/80 font-mono mt-2">
-                  Developer & Creator
-                </span>
               </h1>
               
-              <div className="w-24 h-px bg-site-accent/50 mx-auto mb-8" />
+              <div className="w-16 h-px bg-secondary mx-auto mb-8" />
               
-              <p className="text-lg sm:text-xl text-site-text/90 leading-relaxed max-w-3xl mx-auto">
+              <p className="text-lg sm:text-xl text-primary leading-relaxed max-w-3xl mx-auto">
                 I'm a passionate full-stack developer with a love for creating 
                 innovative digital experiences. I specialize in modern web technologies 
                 and enjoy turning complex problems into simple, beautiful solutions.
@@ -187,11 +184,7 @@ export default function About() {
           data-project-area="true"
         >
           <div className="max-w-6xl mx-auto w-full">
-            <h2 
-              className={`text-3xl sm:text-4xl font-light mb-16 text-center transition-all duration-1000 ${
-                visibleSections.has(1) ? 'opacity-100' : 'opacity-0'
-              }`}
-            >
+            <h2 className="text-3xl sm:text-4xl font-light mb-16 text-center text-primary">
               Technical Skills
             </h2>
             
@@ -206,7 +199,7 @@ export default function About() {
                     transitionDelay: visibleSections.has(1) ? `${index * 0.2}s` : '0s'
                   }}
                 >
-                  <h3 className="text-xl font-mono text-site-accent/80 uppercase tracking-wider border-b border-site-accent/20 pb-3">
+                  <h3 className="text-xl font-mono text-primary uppercase tracking-wider border-b border-secondary pb-3">
                     {skillGroup.category}
                   </h3>
                   <div className="space-y-3">
@@ -220,8 +213,8 @@ export default function About() {
                         //   transitionDelay: visibleSections.has(1) ? `${index * 0.2 + skillIndex * 0.05}s` : '0s'
                         // }}
                       >
-                        <div className="w-2 h-2 bg-site-accent/50 rounded-full group-hover:bg-white transition-colors duration-300" />
-                        <span className="text-site-text/85 group-hover:text-white transition-colors duration-300">
+                        <div className="w-2 h-2 bg-secondary rounded-full group-hover:bg-primary transition-colors duration-300" />
+                        <span className="text-primary group-hover:text-primary transition-colors duration-300">
                           {skill}
                         </span>
                       </div>
@@ -241,11 +234,7 @@ export default function About() {
           data-project-area="true"
         >
           <div className="max-w-4xl mx-auto w-full">
-            <h2 
-              className={`text-3xl sm:text-4xl font-light mb-16 text-center transition-all duration-1000 ${
-                visibleSections.has(2) ? 'opacity-100' : 'opacity-0'
-              }`}
-            >
+            <h2 className="text-3xl sm:text-4xl font-light mb-16 text-center text-primary">
               Experience
             </h2>
             
@@ -253,25 +242,20 @@ export default function About() {
               {experiences.map((exp, index) => (
                 <div 
                   key={exp.year}
-                  className={`relative border-l border-site-accent/20 pl-8 group transition-all duration-1000 ${
-                    visibleSections.has(2) ? 'opacity-100' : 'opacity-0'
-                  }`}
-                  style={{
-                    transitionDelay: visibleSections.has(2) ? `${index * 0.2}s` : '0s'
-                  }}
+                  className="relative border-l border-secondary pl-8 group"
                 >
                   {/* Timeline dot */}
-                  <div className="absolute -left-2 top-0 w-4 h-4 bg-site-accent/40 rounded-full border-2 border-site-accent/50 group-hover:bg-white group-hover:border-white transition-all duration-300" />
+                  <div className="absolute -left-1.5 top-0 w-3 h-3 bg-secondary rounded-full group-hover:bg-primary transition-all duration-300" />
                   
-                  <div className="space-y-3">
+                  <div className="space-y-2">
                     <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                      <h3 className="text-xl sm:text-2xl font-light">{exp.title}</h3>
-                      <span className="text-sm font-mono text-site-accent/70">{exp.year}</span>
+                      <h3 className="text-xl sm:text-2xl font-light text-primary">{exp.title}</h3>
+                      <span className="text-sm font-mono text-secondary">{exp.year}</span>
                     </div>
                     
-                    <p className="text-site-accent/80 font-medium">{exp.company}</p>
+                    <p className="text-secondary font-medium">{exp.company}</p>
                     
-                    <p className="text-site-text/85 leading-relaxed max-w-2xl">
+                    <p className="text-primary leading-relaxed max-w-2xl">
                       {exp.description}
                     </p>
                   </div>
@@ -289,46 +273,22 @@ export default function About() {
           data-project-area="true"
         >
           <div className="max-w-4xl mx-auto text-center w-full">
-            <h2 
-              className={`text-3xl sm:text-4xl font-light mb-12 transition-all duration-1000 ${
-                visibleSections.has(3) ? 'opacity-100' : 'opacity-0'
-              }`}
-            >
+            <h2 className="text-3xl sm:text-4xl font-light mb-12 text-primary">
               Beyond Code
             </h2>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
-              <div 
-                className={`space-y-4 transition-all duration-1000 ${
-                  visibleSections.has(3) ? 'opacity-100' : 'opacity-0'
-                }`}
-                // style={{
-                //   transitionDelay: visibleSections.has(3) ? '0.2s' : '0s'
-                // }}
-              >
-                <div className="w-12 h-12 bg-site-accent/10 rounded-lg mx-auto mb-6 flex items-center justify-center">
-                  <div className="w-6 h-6 bg-site-accent/40 rounded" />
-                </div>
-                <h3 className="text-xl font-mono text-site-accent/80">Philosophy</h3>
-                <p className="text-site-text/85 leading-relaxed">
+              <div className="space-y-4">
+                <h3 className="text-xl font-mono text-primary">Philosophy</h3>
+                <p className="text-primary leading-relaxed">
                   I believe in writing clean, maintainable code and creating 
                   user experiences that are both functional and delightful.
                 </p>
               </div>
               
-              <div 
-                className={`space-y-4 transition-all duration-1000 ${
-                  visibleSections.has(3) ? 'opacity-100' : 'opacity-0'
-                }`}
-                // style={{
-                //   transitionDelay: visibleSections.has(3) ? '0.4s' : '0s'
-                // }}
-              >
-                <div className="w-12 h-12 bg-site-accent/10 rounded-lg mx-auto mb-6 flex items-center justify-center">
-                  <div className="w-6 h-6 bg-site-accent/40 rounded-full" />
-                </div>
-                <h3 className="text-xl font-mono text-site-accent/80">Interests</h3>
-                <p className="text-site-text/85 leading-relaxed">
+              <div className="space-y-4">
+                <h3 className="text-xl font-mono text-primary">Interests</h3>
+                <p className="text-primary leading-relaxed">
                   When I'm not coding, you'll find me exploring new technologies, 
                   contributing to open source, or enjoying the great outdoors.
                 </p>

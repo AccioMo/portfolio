@@ -1,14 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
-
-interface ContactMethod {
-  icon: string;
-  label: string;
-  value: string;
-  link: string;
-}
 
 export default function Contact() {
   const [isMounted, setIsMounted] = useState(false);
@@ -48,57 +40,63 @@ export default function Contact() {
     }, 1500);
   };
 
-  const contactMethods: ContactMethod[] = [
+  const contactMethods = [
     {
-      icon: "email.svg",
       label: "Email",
       value: "mo.zeggaf@gmail.com",
-      link: "mailto:mo.zeggaf@gmail.com"
+      link: "mailto:mo.zeggaf@gmail.com",
+      icon: (
+        <svg className="w-5 h-5 text-secondary group-hover:text-primary transition-colors duration-200" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+          <polyline points="22,6 12,13 2,6" fill="none" stroke="black" strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} />
+        </svg>
+      )
     },
     {
-      icon: "linkedin.svg",
       label: "LinkedIn",
       value: "/in/mozeggaf",
-      link: "https://linkedin.com/in/mozeggaf"
+      link: "https://linkedin.com/in/mozeggaf",
+      icon: (
+        <svg className="w-5 h-5 text-secondary group-hover:text-primary transition-colors duration-200" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.32 1.39v-1.2h-2.84v8.37h2.84v-4.13c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.13h2.84M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z" />
+        </svg>
+      )
     },
     {
-      icon: "github.svg",
       label: "GitHub",
       value: "@acciomo",
-      link: "https://github.com/acciomo"
+      link: "https://github.com/acciomo",
+      icon: (
+        <svg className="w-5 h-5 text-secondary group-hover:text-primary transition-colors duration-200" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.17 6.839 9.49.5.092.682-.217.682-.482 0-.237-.008-.868-.013-1.703-2.782.603-3.369-1.343-3.369-1.343-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.544 2.914 1.186.092-.923.35-1.545.636-1.9-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.167 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
+        </svg>
+      )
     }
   ];
 
   return (
-  <div className="bg-site-bg min-h-screen flex text-site-text animate-fade-in" data-project-area="true">
+  <div className="bg-background min-h-screen flex text-primary animate-fade-in" data-project-area="true">
       <section className="py-12 flex m-auto items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto w-full">
-          <div className={`text-center mb-8 transition-all duration-700 ${isMounted ? 'opacity-100' : 'opacity-0'}`}>
-            <h1 className="text-3xl sm:text-3xl lg:text-4xl font-light tracking-tight mb-3">
+          <div className="text-center mb-8">
+            <h1 className="text-3xl sm:text-3xl lg:text-4xl font-light tracking-tight mb-3 text-primary">
               Get In Touch
-              <span className="block text-sm text-site-accent font-mono mt-1">
-                Let's create something — say hello.
-              </span>
             </h1>
 
-            <div className="w-16 h-px bg-site-accent mx-auto mb-6" />
+            <div className="w-16 h-px bg-secondary mx-auto mb-6" />
 
-            <p className="text-sm text-site-accent leading-relaxed max-w-2xl mx-auto">
+            <p className="text-sm text-primary leading-relaxed max-w-2xl mx-auto">
               I'm interested in hearing about projects and opportunities. If you'd like to work together, drop a short message below.
             </p>
           </div>
 
           <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
             {/* Contact Form */}
-            <div
-              className="space-y-6"
-              style={{ animation: isMounted ? 'slideInLeft 0.6s ease-out 0.15s both' : 'none' }}
-            >
-
+            <div className="space-y-6">
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="text-site-accent transition-all duration-200">
-                    <label htmlFor="name" className="block text-xs px-3 font-mono text-site-accent uppercase mb-1">
+                  <div className="group">
+                    <label htmlFor="name" className="block text-xs px-3 font-mono text-secondary uppercase mb-1 group-focus-within:text-primary/80">
                       Name
                     </label>
                     <input
@@ -108,12 +106,12 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-2 border border-site-accent rounded-md focus:outline-none focus:border-site-text focus:bg-site-bg text-sm text-site-text placeholder-site-accent"
+                      className="w-full px-4 py-2 border border-secondary rounded-md focus:outline-none focus:border-primary focus:bg-background text-sm text-primary placeholder-secondary"
                     />
                   </div>
 
-                  <div className="text-site-accent transition-all duration-200">
-                    <label htmlFor="email" className="block text-xs px-3 font-mono text-site-accent uppercase mb-1">
+                  <div className="group">
+                    <label htmlFor="email" className="block text-xs px-3 font-mono text-secondary uppercase mb-1 group-focus-within:text-primary/80">
                       Email
                     </label>
                     <input
@@ -123,13 +121,13 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-2 border border-site-accent rounded-md focus:outline-none focus:border-site-text focus:bg-site-bg text-sm text-site-text placeholder-site-accent"
+                      className="w-full px-4 py-2 border border-secondary rounded-md focus:outline-none focus:border-primary focus:bg-background text-sm text-primary placeholder-secondary"
                     />
                   </div>
                 </div>
 
-                <div className="text-site-accent transition-all duration-200">
-                  <label htmlFor="subject" className="block text-xs px-3 font-mono text-site-accent uppercase mb-1">
+                <div className="group">
+                  <label htmlFor="subject" className="block text-xs px-3 font-mono text-secondary uppercase mb-1 group-focus-within:text-primary/80">
                     Subject
                   </label>
                   <input
@@ -139,12 +137,12 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-2 border border-site-accent rounded-md focus:outline-none focus:border-site-text focus:bg-site-bg text-sm text-site-text placeholder-site-accent"
+                    className="w-full px-4 py-2 border border-secondary rounded-md focus:outline-none focus:border-primary focus:bg-background text-sm text-primary placeholder-secondary"
                   />
                 </div>
 
-                <div className="text-site-accent transition-all duration-200">
-                  <label htmlFor="message" className="block text-xs px-3 font-mono text-site-accent uppercase mb-1">
+                <div className="group">
+                  <label htmlFor="message" className="block text-xs px-3 font-mono text-secondary uppercase mb-1 group-focus-within:text-primary/80">
                     Message
                   </label>
                   <textarea
@@ -154,7 +152,7 @@ export default function Contact() {
                     onChange={handleInputChange}
                     required
                     rows={4}
-                    className="w-full px-4 py-3 border border-site-accent rounded-md resize-none focus:outline-none focus:border-site-text focus:bg-site-bg text-sm text-site-text placeholder-site-accent"
+                    className="w-full px-4 py-3 border border-secondary rounded-md resize-none focus:outline-none focus:border-primary focus:bg-background text-sm text-primary placeholder-secondary"
                   />
                 </div>
 
@@ -162,20 +160,20 @@ export default function Contact() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="px-6 py-2 bg-site-text text-site-bg font-medium rounded-md hover:bg-site-accent disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 relative overflow-hidden"
+                    className="px-6 py-2 bg-primary text-background font-medium rounded-md hover:bg-secondary disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 relative overflow-hidden"
                   >
                     <span className={`transition-all duration-200 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
                       {submitStatus === 'success' ? 'Message Sent!' : 'Send Message'}
                     </span>
                     {isSubmitting && (
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <div className="w-4 h-4 border-2 border-site-accent border-t-transparent rounded-full animate-spin" />
+                        <div className="w-4 h-4 border-2 border-secondary border-t-transparent rounded-full animate-spin" />
                       </div>
                     )}
                   </button>
 
                   {submitStatus === 'success' && (
-                    <p className="text-site-accent text-sm ml-4">
+                    <p className="text-secondary text-sm ml-4">
                       Thanks — I'll get back to you soon.
                     </p>
                   )}
@@ -183,14 +181,11 @@ export default function Contact() {
               </form>
             </div>
 
-            <span className="absolute left-1/2 top-0 w-[1px] h-full rounded-full bg-site-accent" />
+            <span className="absolute left-1/2 top-0 w-[1px] h-full rounded-full bg-secondary" />
 
             {/* Contact Information */}
-            <div
-              className="space-y-6 mt-4"
-              style={{ animation: isMounted ? 'slideInRight 0.6s ease-out 0.25s both' : 'none' }}
-            >
-              <h2 className="text-base font-light mb-4">Other Ways to Connect</h2>
+            <div className="space-y-6 mt-4">
+              <h2 className="text-base font-light mb-4 text-primary">Other Ways to Connect</h2>
 
               <div className="space-y-3">
                 {contactMethods.map((method, index) => (
@@ -199,23 +194,22 @@ export default function Contact() {
                     href={method.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center space-x-3 py-2 px-4 rounded-md border-transparent hover:border-site-accent transition-all duration-200 group"
-                    style={{ animation: isMounted ? `fadeInUp 0.5s ease-out ${0.45 + index * 0.06}s both` : 'none' }}
+                    className="flex items-center space-x-3 py-2 px-4 rounded-md border-transparent hover:border-secondary transition-all duration-200 group"
                   >
                     <div className="text-lg">
-                      <Image src={`/${method.icon}`} alt={`${method.label} icon`} width={24} height={24} />
+                      {method.icon}
                     </div>
                     <div>
-                      <div className="text-xs font-mono text-site-accent uppercase tracking-wider">
+                      <div className="text-xs font-mono text-secondary uppercase tracking-wider transition-all duration-200 group-hover:text-primary/80">
                         {method.label}
                       </div>
-                      <div className="text-sm text-site-text group-hover:text-site-accent transition-colors duration-200">
+                      <div className="text-sm text-primary/40 group-hover:text-primary transition-all duration-200">
                         {method.value}
                       </div>
                     </div>
                     <div className="ml-auto">
                       <svg
-                        className="w-4 h-4 text-site-accent group-hover:text-site-text group-hover:translate-x-1 transition-all duration-200"
+                        className="w-4 h-4 text-secondary group-hover:text-primary group-hover:translate-x-1 transition-all duration-200"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"

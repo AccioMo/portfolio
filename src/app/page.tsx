@@ -4,41 +4,41 @@ import { useEffect, useRef, useState } from 'react';
 
 export default function Home() {
   // Visible text and fade flag
-  const [phrase, setPhrase] = useState<string>('[nullptr]');
+  const [phrase, setPhrase] = useState<string>('how\'s it going');
   const [visible, setVisible] = useState<boolean>(true);
 
-  // Refs for mouse speed calculation and timers
-  const lastPosRef = useRef<{ x: number; y: number } | null>(null);
-  const lastTimeRef = useRef<number | null>(null);
-  // const speedRef = useRef<number>(0); // px/sec moving average
-  // const speedSamplesRef = useRef<number[]>([]);
   const timerRef = useRef<number | null>(null);
 
   const FADE_MS = 1000;
+  const CHANGE_MS = 3000;
 
   // Phrase pools
   const calmPhrases = [
-    'Good morning.',
-    'Bon matin.',
-    'Bonjour.',
-    'Buongiorno.',
-    'Guten Morgen.',
-    'Доброе утро.',
+    'how\'s it going',
+    'this is work in progress',
+    'please leave a message',
+    'no need to rush',
+    '"Good things take time" -Deb Sofield',
+    'relax...',
+    'take a deep breath...',
+    'it took 13.8 billion years to get you here...',
+	'I can take a couple decades to make a portfolio',
+	'have some chil, my friend',
+	'did u know u can\'t actually scroll here',
+	'here play a game https://y8.com',
+	'or just stay here ig..',
+	'...',
+	'this is awkward',
+	'well fuck off',
+	'...',
+	'you are one stubborn son of a bitch',
+	'i can just kick you myself',
   ];
 
   // const activePhrases = [
   //   'try right clicking...',
   //   'hmmm...',
   // ];
-
-  // Utility: pick phrase based on current average speed
-  const pickPhrase = () => {
-    // const speed = speedRef.current || 0;
-    // const threshold = 300; // px/sec -> above this considered "active"
-    const pool = calmPhrases;
-    const index = Math.floor(Math.random() * pool.length);
-    return pool[index];
-  };
 
   // Clear running timer
   const clearTimer = () => {
@@ -53,84 +53,51 @@ export default function Home() {
     clearTimer();
     // const speed = speedRef.current || 0;
     // slower changes when calm, faster when active
-    const base = 3000;
     timerRef.current = window.setTimeout(() => {
       // trigger fade-out, swap phrase, fade-in
       setVisible(false);
       window.setTimeout(() => {
-        setPhrase(pickPhrase());
+        setPhrase(prev => {
+          const currentIndex = calmPhrases.indexOf(prev);
+          const nextIndex = (currentIndex + 1) % calmPhrases.length;
+          return calmPhrases[nextIndex];
+        });
         setVisible(true);
         // schedule next after this transition completes
         scheduleNext();
       }, FADE_MS);
-    }, base);
+    }, CHANGE_MS);
   };
 
   useEffect(() => {
-    // Mouse move handler computes instantaneous speed and keeps a short moving average
-    // const handleMouseMove = (e: MouseEvent) => {
-    //   const now = performance.now();
-    //   const pos = { x: e.clientX, y: e.clientY };
-    //   const lastPos = lastPosRef.current;
-    //   const lastTime = lastTimeRef.current;
-
-    //   if (lastPos && lastTime) {
-    //     const dx = pos.x - lastPos.x;
-    //     const dy = pos.y - lastPos.y;
-    //     const dist = Math.sqrt(dx * dx + dy * dy);
-    //     const dt = Math.max(1, now - lastTime);
-    //     const speed = (dist / dt) * 1000; // px/sec
-
-    //     // keep small sample window
-    //     const samples = speedSamplesRef.current;
-    //     samples.push(speed);
-    //     if (samples.length > 8) samples.shift();
-    //     const avg = samples.reduce((s, v) => s + v, 0) / samples.length;
-    //     speedRef.current = avg;
-    //   }
-
-    //   lastPosRef.current = pos;
-    //   lastTimeRef.current = now;
-    // };
-
-    // window.addEventListener('mousemove', handleMouseMove);
-
-    // Start scheduler
     scheduleNext();
+	window.setTimeout(() => {window.location.replace("https://www.youtube.com/watch?v=NOpS4qGILyY")}, calmPhrases.length * (FADE_MS+CHANGE_MS))
 
     return () => {
-      // window.removeEventListener('mousemove', handleMouseMove);
       clearTimer();
     };
-    // We intentionally omit deps to set up once on mount
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <div className="relative min-h-screen flex justify-center animate-fade-in">
-        {/* <div className="absolute flex justify-center w-24 h-full right-0 top-0" data-project-area="true">
-          <a className="rotate-90 my-auto opacity-65 hover:opacity-80 transition-all duration-300" href="/works">Works</a>
-        </div>
-        <div className="absolute flex justify-center w-24 h-full left-0 top-0" data-project-area="true">
-          <a className="-rotate-90 my-auto opacity-65 hover:opacity-80 transition-all duration-300" href="/contact">Contact</a>
-        </div>
-        <div className="absolute flex justify-center h-24 w-full left-0 bottom-0" data-project-area="true">
-          <a className="my-auto opacity-65 hover:opacity-80 transition-all duration-300" href="/about">About</a>
-        </div> */}
       <section className="py-16 px-6 flex items-center justify-center select-none">
-        <div className="container mx-auto text-center">
+        <div className="container relative mx-auto text-center">
           <h2
             className={
-              'text-5xl xl:text-5xl 3xl:text-8xl mb-1 font-bold bg-gradient-to-tr from-site-text to-site-accent bg-clip-text text-transparent'
+              'text-5xl xl:text-5xl 3xl:text-8xl mb-1 font-bold bg-gradient-to-tr from-primary to-secondary bg-clip-text text-transparent'
             }
           >
             Hello.
           </h2>
-          <p className={"text-xl z-50 md:text-sm text-site-accent/70 transition-opacity duration-1000 transform"
+          <p className={"text-xl min-w-56 max-w-64 absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full z-50 md:text-sm text-secondary transition-opacity duration-1000 transform"
               + (visible ? ' opacity-60' : ' opacity-0')
             }>{phrase}</p>
         </div>
       </section>
-    </div>
+		<div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center space-y-2">
+				<p className="text-sm font-mono text-secondary">Try scrolling</p>
+				<div className="w-px h-4 bg-secondary mx-auto" />
+				</div>
+		</div>
   );
 }
