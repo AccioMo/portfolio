@@ -6,27 +6,31 @@
   --grid-color: rgb(255, 255, 255);
   --font-sans: 'Comfortaa', sans-serif;
 
-  /* Site color tokens (three variables) */
-  --site-bg: #0b1220;     /* page background */
-  --site-text: #e6edf3;   /* primary text */
-  --site-accent: #7e8593; /* muted / borders / accents */
+  /* Site color tokens (RGB format for Tailwind opacity support) */
+  --site-bg-rgb: 11 18 32;        /* #0b1220 - page background */
+  --site-text-rgb: 230 237 243;   /* #e6edf3 - primary text */
+  --site-accent-rgb: 126 133 147; /* #7e8593 - muted / borders / accents */
 }
 
 * {
-  /* cursor: none; */
+  cursor: none;
   user-select: none;
   -moz-user-select: none;
 }
 
 *:hover, *:focus, *:active {
-  /* cursor: none; */
+  cursor: none;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-sans);
-  /* --font-mono: var(--font-geist-mono); */
+  
+  /* Site colors - Tailwind v4 will handle opacity modifiers automatically */
+  --color-site-bg: #0b1220;
+  --color-site-text: #e6edf3;
+  --color-site-accent: #7e8593;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -37,10 +41,16 @@
     --secondary: #b38383;
     --grid-color: #ededed;
 
-    /* dark-mode overrides for site tokens */
-    --site-bg: #05060a;
-    --site-text: #edf2f7;
-    --site-accent: #6b7280;
+    /* dark-mode overrides for site tokens (RGB format) */
+    --site-bg-rgb: 5 6 10;          /* #05060a */
+    --site-text-rgb: 237 242 247;   /* #edf2f7 */
+    --site-accent-rgb: 107 114 128; /* #6b7280 */
+  }
+  
+  @theme inline {
+    --color-site-bg: #05060a;
+    --color-site-text: #edf2f7;
+    --color-site-accent: #6b7280;
   }
 }
 

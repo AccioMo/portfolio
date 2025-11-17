@@ -121,13 +121,13 @@ export default function Home() {
         <div className="container mx-auto text-center">
           <h2
             className={
-              'text-5xl xl:text-5xl 3xl:text-8xl mb-1 font-bold bg-gradient-to-tr from-neutral-200 mask-t-to-gray-800 bg-clip-text text-transparent'
+              'text-5xl xl:text-5xl 3xl:text-8xl mb-1 font-bold bg-gradient-to-tr from-site-text to-site-accent bg-clip-text text-transparent'
             }
           >
             Hello.
           </h2>
-          <p className={"text-xl z-50 md:text-sm text-gray-600 dark:text-gray-300 transition-opacity duration-1000 transform"
-              + (visible ? ' opacity-40' : ' opacity-0')
+          <p className={"text-xl z-50 md:text-sm text-site-accent/70 transition-opacity duration-1000 transform"
+              + (visible ? ' opacity-60' : ' opacity-0')
             }>{phrase}</p>
         </div>
       </section>

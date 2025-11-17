@@ -6,7 +6,7 @@ export default function NavBar({logo}: {logo: boolean}) {
     const pathname = usePathname() ?? '';
 
     return (
-        <div className="absolute m-auto justify-between p-8 z-40 font-mono text-sm text-gray-300" data-project-area="true">
+        <div className="absolute m-auto justify-between p-8 z-40 font-mono text-sm text-site-text/80" data-project-area="true">
         {/* <div>
           {logo && <span className="text-white">Logo</span>}
         </div> */}

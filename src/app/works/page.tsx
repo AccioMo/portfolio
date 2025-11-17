@@ -118,7 +118,7 @@ export default function Works() {
     <div className="h-screen bg-transparent text-foreground overflow-hidden animate-fade-in" data-project-area="true">
 
       {/* Navigation dots */}
-     <div className="fixed right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-6">
+     <div className="absolute right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-6">
         {projects.map((project, index) => (
           <button
             key={project.id}
@@ -128,17 +128,17 @@ export default function Works() {
             }`}
           >
             <div 
-              className={`w-[11px] h-[11px] rounded-full border-2 after:hidden after:content-[''] hover:after:block flex justify-center items-center after:w-1 after:h-1 after:bg-white after:rounded-full my-cursor-none transition-all duration-100 hover:scale-150 hover:after:scale-150 ${
+              className={`w-[12px] h-[12px] rounded-full border-2 after:hidden after:content-[''] hover:after:block flex justify-center items-center after:w-[5px] after:h-[5px] after:bg-white after:rounded-full my-cursor-none transition-all duration-100 hover:scale-150 ${
                 activeProject === index
                   ? 'bg-white border-white shadow-lg shadow-white/50'
-                  : 'bg-transparent border-grid/60 hover:border-white'
+                  : 'bg-transparent border-site-accent/80 hover:border-white'
               }`}
             />
             <span 
               className={`ml-4 text-xs font-mono uppercase tracking-wider transition-all duration-300 ${
                 activeProject === index 
-                  ? 'opacity-100 translate-x-0 text-foreground' 
-                  : 'opacity-0 translate-x-4 text-secondary group-hover:opacity-100 group-hover:translate-x-0'
+                  ? 'opacity-100 translate-x-0 text-site-text' 
+                  : 'opacity-0 translate-x-4 text-site-accent/80 group-hover:opacity-100 group-hover:translate-x-0'
               }`}
             >
               {project.small_title}
@@ -148,8 +148,8 @@ export default function Works() {
       </div>
 
       {/* Project counter */}
-      <div className="fixed left-8 top-8 z-40 font-mono text-sm text-secondary/70">
-        <span className="text-foreground">{String(activeProject + 1).padStart(2, '0')}</span>
+      <div className="absolute right-8 top-8 z-40 font-mono text-sm text-site-accent/70">
+        <span className="text-site-text">{String(activeProject + 1).padStart(2, '0')}</span>
         <span className="mx-2">/</span>
         <span>{String(projects.length).padStart(2, '0')}</span>
       </div>
@@ -176,29 +176,29 @@ export default function Works() {
               <div className="space-y-8">
                 <div className="space-y-4">
                   <div className="flex items-center space-x-4">
-                    <span className="text-sm font-mono text-secondary/80">{project.year}</span>
-                    <div className="h-px bg-grid/60 flex-1" />
+                    <span className="text-sm font-mono text-site-accent/70">{project.year}</span>
+                    <div className="h-px bg-site-accent/40 flex-1" />
                   </div>
                   
                   <h1 className="text-3xl lg:text-4xl font-light tracking-tight">
                     {project.title}
                   </h1>
                   
-                  <p className="text-lg text-primary/90 leading-relaxed max-w-lg">
+                  <p className="text-lg text-site-text/90 leading-relaxed max-w-lg">
                     {project.description}
                   </p>
                 </div>
 
                 {/* Tech stack */}
                 <div className="space-y-3">
-                  <h3 className="text-sm font-mono text-secondary/10 uppercase tracking-wider">
+                  <h3 className="text-sm font-mono text-site-accent/50 uppercase tracking-wider">
                     Technology Stack
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {project.tech.map((tech, techIndex) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 text-xs border border-grid/70 rounded-full text-primary/85 hover:border-white hover:text-foreground transition-colors duration-300"
+                        className="px-3 py-1 text-xs border border-site-accent/50 rounded-full text-site-text/80 hover:border-white hover:text-white transition-colors duration-300"
                         style={{
                           animationDelay: `${techIndex * 0.1}s`
                         }}
@@ -216,7 +216,7 @@ export default function Works() {
                       href={project.link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center cursor-none space-x-2 text-foreground hover:text-purple-400 transition-colors duration-300"
+                      className="group flex items-center cursor-none space-x-2 text-site-text hover:text-white transition-colors duration-300"
                     >
                       <span className="text-sm font-mono">View Project</span>
                       <svg 
@@ -235,7 +235,7 @@ export default function Works() {
                       href={project.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group flex items-center cursor-none space-x-2 text-foreground hover:text-pink-400 transition-colors duration-300"
+                      className="group flex items-center cursor-none space-x-2 text-site-text hover:text-white transition-colors duration-300"
                     >
                       <span className="text-sm font-mono">Source Code</span>
                       <svg 
@@ -252,7 +252,7 @@ export default function Works() {
 
               {/* Project visual */}
               <div className="relative">
-                <div className="aspect-video bg-background/60 backdrop-blur-sm rounded-lg border border-grid/40 overflow-hidden group shadow-2xl">
+                <div className="aspect-video bg-site-bg/60 backdrop-blur-sm rounded-lg border border-site-accent/30 overflow-hidden group shadow-2xl">
                   <div className="w-full h-full bg-gradient-to-br from-grid/20 to-background/40 backdrop-blur-md flex items-center justify-center relative">
                     {/* Render video or image when provided, otherwise show 3D placeholder */}
                     {project.video ? (
@@ -275,10 +275,10 @@ export default function Works() {
                       />
                     ) : (
                       <div className="text-center space-y-4 relative z-10">
-                        <div className="w-16 h-16 mx-auto rounded-lg bg-grid/30 backdrop-blur-sm border border-grid/40 shadow-lg transform perspective-1000 rotate-x-12 rotate-y-12 group-hover:rotate-x-6 group-hover:rotate-y-6 transition-all duration-500 flex items-center justify-center">
-                          <div className="w-8 h-8 bg-grid/40 rounded backdrop-blur-sm border border-grid/50"></div>
+                        <div className="w-16 h-16 mx-auto rounded-lg bg-site-accent/20 backdrop-blur-sm border border-site-accent/30 shadow-lg transform perspective-1000 rotate-x-12 rotate-y-12 group-hover:rotate-x-6 group-hover:rotate-y-6 transition-all duration-500 flex items-center justify-center">
+                          <div className="w-8 h-8 bg-site-accent/30 rounded backdrop-blur-sm border border-site-accent/40"></div>
                         </div>
-                        <p className="text-sm text-secondary/80 font-mono backdrop-blur-sm">Project Preview</p>
+                        <p className="text-sm text-site-accent/70 font-mono backdrop-blur-sm">Project Preview</p>
                       </div>
                     )}
 
@@ -291,8 +291,8 @@ export default function Works() {
                 </div>
 
                 {/* Decorative elements - toned down */}
-                <div className="absolute -top-4 -right-4 w-8 h-8 rounded-full bg-grid/15 backdrop-blur-sm border border-grid/30 animate-pulse shadow-lg" />
-                <div className="absolute -bottom-6 -left-6 w-6 h-6 rounded-full bg-grid/15 backdrop-blur-sm border border-grid/25 animate-pulse shadow-lg"
+                <div className="absolute -top-4 -right-4 w-8 h-8 rounded-full bg-site-accent/10 backdrop-blur-sm border border-site-accent/25 animate-pulse shadow-lg" />
+                <div className="absolute -bottom-6 -left-6 w-6 h-6 rounded-full bg-site-accent/10 backdrop-blur-sm border border-site-accent/20 animate-pulse shadow-lg"
                      style={{ animationDelay: '1s' }} />
               </div>
             </div>
@@ -300,8 +300,8 @@ export default function Works() {
             {/* Scroll indicator for last project */}
             {index === projects.length - 1 && (
               <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center space-y-2">
-                <p className="text-sm font-mono text-secondary/70">End of Projects</p>
-                <div className="w-px h-8 bg-grid/60 mx-auto" />
+                <p className="text-sm font-mono text-site-accent/60">End of Projects</p>
+                <div className="w-px h-8 bg-site-accent/40 mx-auto" />
               </div>
             )}
           </div>

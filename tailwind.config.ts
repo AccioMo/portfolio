@@ -6,22 +6,7 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  theme: {
-    extend: {
-      colors: {
-        site: {
-          bg: 'var(--site-bg)',
-          text: 'var(--site-text)',
-          accent: 'var(--site-accent)'
-        },
-        background: "rgb(var(--background) / <alpha-value>)",
-        foreground: "rgb(var(--foreground) / <alpha-value>)",
-        primary: "rgb(var(--primary) / <alpha-value>)",
-        secondary: "rgb(var(--secondary) / <alpha-value>)",
-        grid: "rgb(var(--grid-color) / <alpha-value>)",
-      },
-    },
-  },
+  // Using Tailwind v4 - colors defined in @theme in globals.css
   plugins: [],
 };
 export default config;

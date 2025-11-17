@@ -63,7 +63,6 @@ export default function StarFieldFallback({ starLess }: StarFieldProps) {
 
   // Update star positions
   const updateStars = useCallback(() => {
-    console.log('Momentum:', mouseMomentum.toFixed(2));
     const mouse = mouseRef.current;
     const { width, height } = dimensionsRef.current;
     
@@ -75,7 +74,7 @@ export default function StarFieldFallback({ starLess }: StarFieldProps) {
         const dx = star.x - mouse.x;
         const dy = star.y - mouse.y;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        const pushRadius = 60 * mouseMomentum;
+        const pushRadius = 60;
         
         if (distance < pushRadius && distance > 0.1) {
           const force = (pushRadius - distance) / pushRadius * 0.02;

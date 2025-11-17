@@ -29,7 +29,9 @@ export default function RootLayout({
       <body className={`${fontSans.variable} mx-auto px-20 antialiased bg-background text-foreground`}>
 		<div className="relative min-w-[1080px] m-auto px-4 border-x-1 border-white/20 overflow-hidden">
 			<NavBar logo={false}></NavBar>
-			{children}
+			<GlobalEffects>
+				{children}
+			</GlobalEffects>
 		</div>
       </body>
     </html>
