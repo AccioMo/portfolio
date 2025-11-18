@@ -81,23 +81,23 @@ export default function About() {
 
   const experiences = [
     {
-      year: "2024",
-      title: "Senior Full Stack Developer",
-      company: "Tech Innovations Inc.",
+      year: "2023 - Present",
+      title: "Software Engineering",
+      company: "1337 | 42 Network",
       description: "Leading development of scalable web applications using modern tech stack."
     },
+	{
+	  year: "2024",
+	  title: "Full Stack Developer",
+	  company: "ByPixel Digital Agency",
+	  description: "Built responsive and interactive user interfaces."
+	},
     {
-      year: "2023",
-      title: "Full Stack Developer",
-      company: "StartupXYZ",
-      description: "Built and maintained multiple client projects from conception to deployment."
+      year: "2025 - Present",
+      title: "Freelance Web Developer",
+      company: "Freelance",
+      description: "Built and maintained client projects from conception to deployment."
     },
-    {
-      year: "2022",
-      title: "Frontend Developer",
-      company: "Digital Agency",
-      description: "Focused on creating responsive and interactive user interfaces."
-    }
   ];
 
   return (

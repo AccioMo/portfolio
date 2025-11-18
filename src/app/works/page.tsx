@@ -24,7 +24,7 @@ const projects: Project[] = [
     description: "Convolutional Neural Network for recognizing handwritten digits, built in C++ with multiple optimizations.",
     tech: ["C++", "AI", "Neural Net", "AI Vision"],
     year: "2025",
-    link: "https://project-alpha.demo",
+    link: "",
     github: "https://github.com/AccioMo/handwritten-digit-recognizer"
   , image: "/screenshot-train.png"
   },
@@ -32,10 +32,10 @@ const projects: Project[] = [
     id: 2,
     title: "Full Stack Chatting Application",
     small_title: "Chatting App",
-    description: "Full-stack e-commerce platform with advanced filtering, payment integration, and admin dashboard.",
+    description: "Full-stack real-time chatting application built with React JS and Django.",
     tech: ["React", "Node.js", "Django", "Daphne"],
     year: "2024",
-    link: "https://project-beta.demo",
+    link: "",
     github: "https://github.com/AccioMo/chatting-web-application"
   , video: "/videos/project-beta-demo.mp4"
   },
@@ -43,29 +43,29 @@ const projects: Project[] = [
     id: 3,
     title: "Movie Rankings Web App",
     small_title: "Streaming App",
-    description: "Mobile-first progressive web app for task management with offline capabilities and real-time collaboration.",
-    tech: ["Vue.js", "Express", "Socket.io", "Redis"],
-    year: "2023",
-    link: "https://project-gamma.demo",
-    github: "https://github.com/AccioMo/project-gamma"
+    description: "Full-Stack Next JS Application for exploring and watching movies, using TMDB and Comsumet API to get the most updated lists.",
+    tech: ["Next.js", "TMDB", "APIs", "Redis"],
+    year: "2024",
+    link: "",
+    github: "https://github.com/AccioMo/watchmen"
   },
   {
     id: 4,
-    title: "Spotify Playlist Converter",
-    small_title: "yspotify",
-    description: "AI-powered analytics dashboard with data visualization and machine learning insights.",
-    tech: ["Python", "Django", "TensorFlow", "D3.js"],
-    year: "2023",
-    link: "https://project-delta.demo",
-    github: "https://github.com/AccioMo/project-delta"
+    title: "Webserv",
+    small_title: "webserv",
+    description: "High-performance web server engine built in C++. It provides a robust framework for serving HTTP requests and managing web content with minimal dependencies.",
+    tech: ["C++", "Sockets", "Networking", "HTTP"],
+    year: "2025",
+    link: "",
+    github: "https://github.com/zouhairDe/HTTPEngine42"
   },
   {
     id: 5,
-    title: "Python Decision Tree",
-    small_title: "yggdrasil",
-    description: "Microservices architecture with containerized deployment and automated CI/CD pipeline.",
-    tech: ["Docker", "Kubernetes", "Go", "PostgreSQL"],
-    year: "2023",
+    title: "Transcendence",
+    small_title: "transcendence",
+    description: "End of studies project. A full-stack chatting web application with multiplayer ping-pong game, with support for tournaments, multi-level bots, and a rating system.",
+    tech: ["Next.js", "Fastify", "Docker", "PostgreSQL"],
+    year: "2025",
     github: "https://github.com/AccioMo/project-epsilon"
   }
 ];

@@ -29,10 +29,7 @@ export default function Home() {
 	'or just stay here ig..',
 	'...',
 	'this is awkward',
-	'well fuck off',
 	'...',
-	'you are one stubborn son of a bitch',
-	'i can just kick you myself',
   ];
 
   // const activePhrases = [
@@ -71,7 +68,6 @@ export default function Home() {
 
   useEffect(() => {
     scheduleNext();
-	window.setTimeout(() => {window.location.replace("https://www.youtube.com/watch?v=NOpS4qGILyY")}, calmPhrases.length * (FADE_MS+CHANGE_MS))
 
     return () => {
       clearTimer();
@@ -90,13 +86,13 @@ export default function Home() {
             Hello.
           </h2>
           <p className={"text-xl min-w-56 max-w-64 absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full z-50 md:text-sm text-secondary transition-opacity duration-1000 transform"
-              + (visible ? ' opacity-60' : ' opacity-0')
+              + (visible ? ' opacity-80' : ' opacity-0')
             }>{phrase}</p>
         </div>
       </section>
 		<div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center space-y-2">
-				<p className="text-sm font-mono text-secondary">Try scrolling</p>
-				<div className="w-px h-4 bg-secondary mx-auto" />
+				<p className="text-sm font-mono text-secondary/80">try scrolling</p>
+				<div className="w-px h-4 bg-secondary/80 mx-auto" />
 				</div>
 		</div>
   );

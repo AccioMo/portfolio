@@ -6,7 +6,7 @@ export default function NavBar({logo}: {logo: boolean}) {
     const pathname = usePathname() ?? '';
 
     return (
-        <div className="absolute m-auto justify-between p-8 z-40 font-mono text-sm text-primary" data-project-area="true">
+        <div className="absolute m-auto justify-between px-16 py-12 z-40 font-mono text-sm text-primary" data-project-area="true">
         <div className="flex">
             <Link href="/" className={`flex px-3 items-center group transition-all duration-300 ${
               pathname === '/' ? 'text-primary' : 'text-secondary group-hover:text-primary'
