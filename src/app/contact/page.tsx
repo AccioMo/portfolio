@@ -29,15 +29,34 @@ export default function Contact() {
     e.preventDefault();
     setIsSubmitting(true);
     
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setSubmitStatus('success');
-      setFormData({ name: '', email: '', subject: '', message: '' });
-      
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+        setTimeout(() => {
+          setSubmitStatus('idle');
+        }, 3000);
+      } else {
+        setSubmitStatus('error');
+        setTimeout(() => {
+          setSubmitStatus('idle');
+        }, 3000);
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitStatus('error');
       setTimeout(() => {
         setSubmitStatus('idle');
       }, 3000);
-    }, 1500);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactMethods = [
@@ -163,7 +182,7 @@ export default function Contact() {
                     className="px-6 py-2 bg-primary text-background font-medium rounded-md hover:bg-secondary disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 relative overflow-hidden"
                   >
                     <span className={`transition-all duration-200 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
-                      {submitStatus === 'success' ? 'Message Sent!' : 'Send Message'}
+                      {submitStatus === 'success' ? 'Message Sent!' : submitStatus === 'error' ? 'Error Sending' : 'Send Message'}
                     </span>
                     {isSubmitting && (
                       <div className="absolute inset-0 flex items-center justify-center">
@@ -175,6 +194,11 @@ export default function Contact() {
                   {submitStatus === 'success' && (
                     <p className="text-secondary text-sm ml-4">
                       Thanks — I'll get back to you soon.
+                    </p>
+                  )}
+                  {submitStatus === 'error' && (
+                    <p className="text-red-500 text-sm ml-4">
+                      Error sending message. Please try again.
                     </p>
                   )}
                 </div>

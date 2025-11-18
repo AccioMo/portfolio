@@ -83,7 +83,7 @@ export default function Home() {
               'text-4xl xl:text-4xl 3xl:text-7xl mb-1 font-bold bg-gradient-to-tr from-primary to-secondary bg-clip-text text-transparent'
             }
           >
-            Still a mess
+            Under construction
           </h2>
           <p className={"text-xl min-w-56 max-w-64 absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full z-50 md:text-sm text-secondary transition-opacity duration-1000 transform"
               + (visible ? ' opacity-80' : ' opacity-0')
