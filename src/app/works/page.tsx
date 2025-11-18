@@ -115,7 +115,7 @@ export default function Works() {
   };
 
   return (
-    <div className="h-screen bg-background text-primary overflow-hidden animate-fade-in" data-project-area="true">
+    <div className="h-screen text-primary overflow-hidden animate-fade-in" data-project-area="true">
 
       {/* Navigation dots */}
      <div className="absolute right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-6">

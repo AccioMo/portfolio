@@ -84,7 +84,7 @@ export default function About() {
       year: "2023 - Present",
       title: "Software Engineering",
       company: "1337 | 42 Network",
-      description: "Leading development of scalable web applications using modern tech stack."
+      description: "14 projects covering algorithms, systems programming, and software architecture."
     },
 	{
 	  year: "2024",
@@ -96,15 +96,16 @@ export default function About() {
       year: "2025 - Present",
       title: "Freelance Web Developer",
       company: "Freelance",
-      description: "Built and maintained client projects from conception to deployment."
+      description: "Building and maintaining client projects from conception to deployment."
     },
   ];
 
   return (
-    <div className="h-screen relative bg-background text-primary animate-fade-in">
+    <div className="h-screen relative text-primary animate-fade-in"
+		data-project-area="true">
       
       {/* Navigation dots */}
-      <div className="absolute right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-6" data-project-area="true">
+     <div className="absolute right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-6">
         {sections.map((section, index) => (
           <button
             key={section.id}
@@ -114,7 +115,7 @@ export default function About() {
             }`}
           >
             <div 
-              className={`w-2 h-2 rounded-full my-cursor-none transition-all duration-100 hover:scale-150 ${
+              className={`w-2 h-2 rounded-full my-cursor-none transition-all duration-100 group-hover:scale-150 ${
                 activeSection === index
                   ? 'bg-primary'
                   : 'bg-secondary hover:bg-primary'
@@ -153,7 +154,6 @@ export default function About() {
           ref={el => { sectionRefs.current[0] = el as HTMLDivElement; }}
           className="min-h-screen flex items-center justify-center px-4 sm:px-8 lg:px-16"
           style={{ scrollSnapAlign: 'start' }}
-          data-project-area="true"
         >
           <div className="max-w-4xl mx-auto text-center space-y-8">
             <div 

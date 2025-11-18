@@ -4,6 +4,7 @@ import NavBar from '@/components/NavBar';
 import "./globals.css";
 import GlobalEffects from "../components/GlobalEffects";
 import StarField from '@/components/StarField';
+import VideoBackground from "@/components/VideoBackground";
 
 const fontSans = Barlow_Condensed({
   variable: "--font-sans",
@@ -27,7 +28,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${fontSans.variable} mx-auto px-20 antialiased bg-background text-foreground`}>
-		<div className="relative min-w-[1080px] m-auto px-4 border-x-1 border-white/20 overflow-hidden">
+		<VideoBackground />
+		<div className="relative min-w-[1080px] m-auto px-4 overflow-hidden">
 			<NavBar logo={false}></NavBar>
 			<GlobalEffects>
 				{children}

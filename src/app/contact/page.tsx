@@ -75,7 +75,7 @@ export default function Contact() {
   ];
 
   return (
-  <div className="bg-background min-h-screen flex text-primary animate-fade-in" data-project-area="true">
+  <div className="min-h-screen flex text-primary animate-fade-in" data-project-area="true">
       <section className="py-12 flex m-auto items-center justify-center px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto w-full">
           <div className="text-center mb-8">
@@ -106,7 +106,7 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-2 border border-secondary rounded-md focus:outline-none focus:border-primary focus:bg-background text-sm text-primary placeholder-secondary"
+                      className="w-full px-4 py-2 border border-secondary rounded-md focus:outline-none focus:border-primary text-sm text-primary placeholder-secondary"
                     />
                   </div>
 
@@ -121,7 +121,7 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-2 border border-secondary rounded-md focus:outline-none focus:border-primary focus:bg-background text-sm text-primary placeholder-secondary"
+                      className="w-full px-4 py-2 border border-secondary rounded-md focus:outline-none focus:border-primary text-sm text-primary placeholder-secondary"
                     />
                   </div>
                 </div>
@@ -137,7 +137,7 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-2 border border-secondary rounded-md focus:outline-none focus:border-primary focus:bg-background text-sm text-primary placeholder-secondary"
+                    className="w-full px-4 py-2 border border-secondary rounded-md focus:outline-none focus:border-primary text-sm text-primary placeholder-secondary"
                   />
                 </div>
 
@@ -152,7 +152,7 @@ export default function Contact() {
                     onChange={handleInputChange}
                     required
                     rows={4}
-                    className="w-full px-4 py-3 border border-secondary rounded-md resize-none focus:outline-none focus:border-primary focus:bg-background text-sm text-primary placeholder-secondary"
+                    className="w-full px-4 py-3 border border-secondary rounded-md resize-none focus:outline-none focus:border-primary text-sm text-primary placeholder-secondary"
                   />
                 </div>
 

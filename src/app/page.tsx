@@ -75,15 +75,15 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex justify-center animate-fade-in">
+    <div className="relative min-h-screen flex justify-center animate-fade-in z-10 grain bg-black/30 backdrop-blur-sm">
       <section className="py-16 px-6 flex items-center justify-center select-none">
         <div className="container relative mx-auto text-center">
           <h2
             className={
-              'text-5xl xl:text-5xl 3xl:text-8xl mb-1 font-bold bg-gradient-to-tr from-primary to-secondary bg-clip-text text-transparent'
+              'text-4xl xl:text-4xl 3xl:text-7xl mb-1 font-bold bg-gradient-to-tr from-primary to-secondary bg-clip-text text-transparent'
             }
           >
-            Hello.
+            Still a mess
           </h2>
           <p className={"text-xl min-w-56 max-w-64 absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full z-50 md:text-sm text-secondary transition-opacity duration-1000 transform"
               + (visible ? ' opacity-80' : ' opacity-0')
