@@ -103,7 +103,7 @@ export default function About() {
   return (
     <div className="h-screen relative text-primary animate-fade-in"
 		data-project-area="true">
-      
+
       {/* Navigation dots */}
      <div className="absolute right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-6">
         {sections.map((section, index) => (
@@ -132,13 +132,6 @@ export default function About() {
             </span>
           </button>
         ))}
-      </div>
-
-      {/* Section counter */}
-      <div className="absolute right-8 top-8 z-40 font-mono text-sm text-secondary">
-        <span className="text-primary">{String(activeSection + 1).padStart(2, '0')}</span>
-        <span className="mx-2">/</span>
-        <span>{String(sections.length).padStart(2, '0')}</span>
       </div>
 
       {/* Main content */}

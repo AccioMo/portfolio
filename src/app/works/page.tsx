@@ -147,13 +147,6 @@ export default function Works() {
         ))}
       </div>
 
-      {/* Project counter */}
-      <div className="absolute right-8 top-8 z-40 font-mono text-sm text-secondary">
-        <span className="text-primary">{String(activeProject + 1).padStart(2, '0')}</span>
-        <span className="mx-2">/</span>
-        <span>{String(projects.length).padStart(2, '0')}</span>
-      </div>
-
       {/* Main content */}
       <div 
         ref={containerRef}

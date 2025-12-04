@@ -69,18 +69,30 @@ export default function Home() {
   useEffect(() => {
     scheduleNext();
 
-    return () => {
-      clearTimer();
-    };
+    const handleWheel = (e: WheelEvent) => {
+		console.log(e.deltaX, e.deltaY)
+    e.preventDefault(); // Prevent actual scrolling
+	if (e.deltaY == 0) {
+		const update = Number(e.deltaX > 0)*(-2)+1
+
+	}
+  };
+
+  window.addEventListener('wheel', handleWheel, { passive: false });
+
+  return () => {
+    clearTimer();
+    window.removeEventListener('wheel', handleWheel);
+  };
   }, []);
 
   return (
-    <div className="relative min-h-screen flex justify-center animate-fade-in z-10 grain bg-black/30 backdrop-blur-sm">
+    <div className="relative min-h-screen flex justify-center animate-fade-in backdrop-blur-sm">
       <section className="py-16 px-6 flex items-center justify-center select-none">
         <div className="container relative mx-auto text-center">
           <h2
             className={
-              'text-4xl xl:text-4xl 3xl:text-7xl mb-1 font-bold bg-gradient-to-tr from-primary to-secondary bg-clip-text text-transparent'
+              'text-5xl xl:text-6xl 3xl:text-7xl mb-1 font-bold bg-gradient-to-tr from-primary to-secondary bg-clip-text text-transparent'
             }
           >
             Under construction
@@ -89,11 +101,14 @@ export default function Home() {
               + (visible ? ' opacity-80' : ' opacity-0')
             }>{phrase}</p>
         </div>
+		{/* <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center space-y-2">
+			<p className="text-sm font-mono text-secondary/80">try scrolling</p>
+			<div className="w-px h-4 bg-secondary/80 mx-auto" />
+		</div> */}
       </section>
-		<div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-center space-y-2">
-				<p className="text-sm font-mono text-secondary/80">try scrolling</p>
-				<div className="w-px h-4 bg-secondary/80 mx-auto" />
-				</div>
-		</div>
+	  <section>
+
+	  </section>
+	</div>
   );
 }

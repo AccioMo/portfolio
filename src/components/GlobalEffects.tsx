@@ -2,7 +2,7 @@
 
 import { useEffect, useState, useCallback, useRef } from "react";
 import StarField from "./StarField";
-import StarFieldFallback from "./StarFieldFallback";
+import StarrySky from "./StarrySky";
 
 interface MousePosition {
   x: number;
@@ -82,7 +82,7 @@ export default function GlobalEffects({ children, enableMouseTrail = true }: Glo
         console.log('Mouse Momentum:', mouseMomentum.toFixed(2));
         setMouseTrail(prev => {
           const updatedTrail = [...prev, newPosition];
-          return updatedTrail.slice(-32);
+          return updatedTrail.slice(-56);
         });
       } else {
         // When context menu is visible or in project area, gradually fade the trail
@@ -91,7 +91,7 @@ export default function GlobalEffects({ children, enableMouseTrail = true }: Glo
           return prev.slice(1);
         });
       }
-    }, 75);
+    }, 25);
 
     window.addEventListener('mousemove', handleMouseMove);
 
@@ -103,9 +103,7 @@ export default function GlobalEffects({ children, enableMouseTrail = true }: Glo
     
     return (
     <div className="min-h-screen cursor-none transition-all duration-500 ease-out">
-      {/* Star Field Background */}
-      {/* <StarFieldFallback starLess={false} /> */}
-      
+
       {/* Mouse Trail */}
       <svg
         className="fixed w-full h-full top-0 left-0 pointer-events-none z-40 transition-opacity duration-300"
@@ -137,13 +135,14 @@ export default function GlobalEffects({ children, enableMouseTrail = true }: Glo
           
           return (
             <line
+			className="transition-all duration-500 "
               key={`line-${point.timestamp}-${index}`}
               x1={prevPoint.x}
               y1={prevPoint.y}
               x2={point.x}
               y2={point.y}
               stroke="rgba(228, 228, 228, 0.8)"
-              strokeWidth="2"
+              strokeWidth="1"
               strokeLinecap="round"
               style={{ opacity: lineOpacity }}
             />
@@ -153,21 +152,21 @@ export default function GlobalEffects({ children, enableMouseTrail = true }: Glo
         {mouseTrail.map((point, index) => {
           // Fade based on position in trail only (no time-based fade)
           const opacity = mouseTrail.length > 1 ? index / (mouseTrail.length - 1) : 1;
-          const size = 2;
+          const size = 1;
           if (point.x == mouseTrail[index-1]?.x && point.y == mouseTrail[index-1]?.y) {
             return null; // Skip rendering if the point is the same as the previous one
           }
           return (
             <g key={`${point.timestamp}-${index}`}>
-              <circle
+              {/* <circle
                 cx={point.x}
                 cy={point.y}
                 r={size}
                 fill="rgba(228, 228, 228, 0.8)"
                 style={{ opacity }}
-              />
+              /> */}
               {/* Coordinates text on each dot */}
-              <text
+              {/* <text
                 x={point.x}
                 y={point.y - 8}
                 textAnchor="middle"
@@ -180,7 +179,7 @@ export default function GlobalEffects({ children, enableMouseTrail = true }: Glo
                 }}
               >
                 {point.x},{point.y}
-              </text>
+              </text> */}
             </g>
           );
         })}
@@ -210,7 +209,7 @@ export default function GlobalEffects({ children, enableMouseTrail = true }: Glo
       >
         {/* Main cursor dot */}
         <div 
-          className={`rounded-full border-2 transition-all duration-300 relative w-2 h-2 bg-white/80 border-white/60 shadow-md shadow-white/80`}
+          className={`rounded-full border-2 transition-all duration-300 relative w-1 h-1 bg-white/80 border-white/60 shadow-md shadow-white/80`}
           // ${
           //   isHoveringButton 
           //     ? 'w-3 h-3 bg-white-200 border-white-100 shadow-lg shadow-white-200/80 scale-150' 
@@ -244,7 +243,7 @@ export default function GlobalEffects({ children, enableMouseTrail = true }: Glo
       </div>
 
       {/* Page Content with Transitions */}
-      <div className="relative z-10">
+      <div className="relative">
         {/* <PageTransition> */}
           {children}
         {/* </PageTransition> */}

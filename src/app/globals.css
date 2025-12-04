@@ -4,7 +4,16 @@
   --background: #0a0a0a;
   --primary: #ffffff;
   --secondary: #666666;
-  --font-sans: 'Comfortaa', sans-serif;
+  --font-title: 'Ibarra Real Nova', serif;
+  --font-sans: 'Barlow Condensed', sans-serif;
+}
+
+html {
+  font-family: var(--font-sans);
+}
+
+h1, h2, h3, h4, h5, h6, .title {
+  font-family: var(--font-title);
 }
 
 * {
@@ -21,7 +30,8 @@
   --color-background: var(--background);
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
-  --font-sans: var(--font-sans);
+  --font-family-title: var(--font-title);
+  --font-family-sans: var(--font-sans);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -203,15 +213,15 @@
 }
 
 .grain {
-  position: fixed;
+  /* position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 100%; */
   background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" result="noise"/></filter><rect width="256" height="256" fill="%23000" filter="url(%23noise)" opacity="0.03"/></svg>');
   background-size: 256px 256px;
   animation: grain 8s steps(10) infinite;
-  pointer-events: none;
-  z-index: 9999;
-  mix-blend-mode: overlay;
+  /* pointer-events: none; */
+  /* z-index: -50;
+  mix-blend-mode: overlay; */
 }

@@ -1,15 +1,28 @@
 import type { Metadata } from "next";
-import { Barlow_Condensed } from "next/font/google";
+import { Ibarra_Real_Nova, Barlow_Condensed, Comfortaa } from "next/font/google";
 import NavBar from '@/components/NavBar';
 import "./globals.css";
 import GlobalEffects from "../components/GlobalEffects";
 import StarField from '@/components/StarField';
 import VideoBackground from "@/components/VideoBackground";
+import StarrySky from "@/components/StarrySky";
 
-const fontSans = Barlow_Condensed({
+const ibarraRealNova = Ibarra_Real_Nova({
+  variable: "--font-title",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const barlowCondensed = Barlow_Condensed({
   variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
+  weight: ["100", "200", "300", "400", "500", "600", "700"],
+});
+
+const fontComfortaa = Comfortaa({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -25,17 +38,19 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className={`${fontSans.variable} mx-auto px-20 antialiased bg-background text-foreground`}>
-		<VideoBackground />
-		<div className="relative min-w-[1080px] m-auto px-4 overflow-hidden">
-			<NavBar logo={false}></NavBar>
-			<GlobalEffects>
-				{children}
-			</GlobalEffects>
-		</div>
-      </body>
-    </html>
+
+	return (
+	<html lang="en" className={`${ibarraRealNova.variable} ${barlowCondensed.variable}`}>
+		<body className={`mx-auto antialiased bg-background text-foreground`}>
+			<StarrySky>
+				<NavBar logo={true} />
+				<GlobalEffects>
+					<div className="relative mx-20 min-w-[1080px] m-auto overflow-hidden">
+						{children}
+					</div>
+				</GlobalEffects>
+			</StarrySky>
+		</body>
+	</html>
   );
 }
