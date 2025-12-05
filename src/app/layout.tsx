@@ -45,7 +45,7 @@ export default function RootLayout({
 			<StarrySky>
 				<NavBar logo={true} />
 				<GlobalEffects>
-					<div className="relative mx-20 min-w-[1080px] m-auto overflow-hidden">
+					<div className="relative px-4 sm:px-8 md:px-12 lg:px-20 m-auto overflow-hidden">
 						{children}
 					</div>
 				</GlobalEffects>

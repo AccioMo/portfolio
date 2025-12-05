@@ -12,18 +12,103 @@ html {
   font-family: var(--font-sans);
 }
 
+/* Consolidated cursor hiding - prevents cursor from appearing on element margins/padding */
+* {
+  cursor: none !important;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  caret-color: transparent !important;
+}
+
+html, body {
+  cursor: none !important;
+}
+
 h1, h2, h3, h4, h5, h6, .title {
   font-family: var(--font-title);
 }
 
-* {
-  cursor: none;
-  user-select: none;
-  -moz-user-select: none;
+/* Explicit cursor suppression on interactive elements to prevent margin click cursor appearance */
+button,
+a,
+input,
+textarea,
+select,
+[role="button"],
+[role="link"],
+[role="menuitem"],
+[onclick] {
+  cursor: none !important;
+  caret-color: transparent !important;
 }
 
-*:hover, *:focus, *:active {
-  cursor: none;
+/* Ensure all states suppress cursor */
+button:hover,
+button:focus,
+button:active,
+a:hover,
+a:focus,
+a:active,
+input:hover,
+input:focus,
+input:active,
+textarea:hover,
+textarea:focus,
+textarea:active,
+select:hover,
+select:focus,
+select:active,
+[role="button"]:hover,
+[role="button"]:focus,
+[role="button"]:active {
+  cursor: none !important;
+}
+
+/* Cover pseudo-elements thoroughly */
+*::before, *::after {
+  cursor: none !important;
+  caret-color: transparent !important;
+}
+
+/* Override any link styling */
+a {
+  user-select: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+}
+
+/* Prevent text caret in input fields */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="search"],
+input[type="url"],
+textarea {
+  caret-color: transparent !important;
+}
+
+/* Catch all state combinations */
+*:hover, *:focus, *:active, *::-webkit-any-link {
+  cursor: none !important;
+}
+
+::selection {
+  cursor: none !important;
+  background: transparent;
+  color: inherit;
+}
+
+::-moz-selection {
+  cursor: none !important;
+  background: transparent;
+  color: inherit;
 }
 
 @theme inline {
@@ -203,6 +288,19 @@ h1, h2, h3, h4, h5, h6, .title {
   border-bottom: 20px solid currentColor;
 }
 
+.scrollbar-hide {
+	  /* For WebKit browsers (Chrome, Safari, Edge) */
+  &::-webkit-scrollbar {
+    display: none; /* Hides the scrollbar entirely */
+  }
+
+  /* For Internet Explorer and older Edge versions */
+  -ms-overflow-style: none;
+
+  /* For Firefox */
+  scrollbar-width: none;
+}
+
 @keyframes grain {
   0% {
     background-position: 0 0;
@@ -223,5 +321,10 @@ h1, h2, h3, h4, h5, h6, .title {
   animation: grain 8s steps(10) infinite;
   /* pointer-events: none; */
   /* z-index: -50;
+}
+
+.cursor-none {
+  cursor: none !important;
+}
   mix-blend-mode: overlay; */
 }

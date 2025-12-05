@@ -22,9 +22,22 @@ export default function GlobalEffects({ children, enableMouseTrail = true }: Glo
   const [isInProjectArea, setIsInProjectArea] = useState(false);
   const [documentHeight, setDocumentHeight] = useState(0);
   const [mouseMomentum, setMouseMomentum] = useState(1);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
 
   // Store current mouse position for trail updates using ref
   const currentMousePos = useRef({ x: 0, y: 0 });
+
+  // Detect touch device on mount
+  useEffect(() => {
+    const checkTouchDevice = () => {
+      // Check if device has touch capability and lacks precise pointer (like a mouse)
+      const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+      const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
+      setIsTouchDevice(hasTouch && !hasFinePointer);
+    };
+    
+    checkTouchDevice();
+  }, []);
 
   useEffect(() => {
     const updateDocumentHeight = () => {
@@ -71,6 +84,9 @@ export default function GlobalEffects({ children, enableMouseTrail = true }: Glo
   }, [setMousePosition, setIsInProjectArea, setIsHoveringButton]);
 
   useEffect(() => {
+    // Don't set up mouse effects on touch devices
+    if (isTouchDevice) return;
+
     const trailInterval = setInterval(() => {
       if (enableMouseTrail && (currentMousePos.current.x !== 0 || currentMousePos.current.y !== 0) && !isInProjectArea) {
         const newPosition: MousePosition = {
@@ -99,12 +115,13 @@ export default function GlobalEffects({ children, enableMouseTrail = true }: Glo
         window.removeEventListener('mousemove', handleMouseMove);
         clearInterval(trailInterval);
       };
-    }, [handleMouseMove, isInProjectArea, enableMouseTrail]);
+    }, [handleMouseMove, isInProjectArea, enableMouseTrail, isTouchDevice]);
     
     return (
-    <div className="min-h-screen cursor-none transition-all duration-500 ease-out">
+    <div className={`min-h-screen transition-all duration-500 ease-out ${isTouchDevice ? 'cursor-auto' : 'cursor-none'}`}>
 
-      {/* Mouse Trail */}
+      {/* Mouse Trail - Hidden on touch devices */}
+      {!isTouchDevice && (
       <svg
         className="fixed w-full h-full top-0 left-0 pointer-events-none z-40 transition-opacity duration-300"
         style={{ 
@@ -184,6 +201,7 @@ export default function GlobalEffects({ children, enableMouseTrail = true }: Glo
           );
         })}
       </svg>
+      )}
 
       {/* Mouse Coordinates */}
       {/* <div
@@ -194,11 +212,10 @@ export default function GlobalEffects({ children, enableMouseTrail = true }: Glo
           top: mousePosition.y - 30,
           transform: typeof window !== 'undefined' && mousePosition.x > window.innerWidth - 100 ? 'translateX(-100%)' : 'none'
         }}
-      >
-        {mousePosition.x}, {mousePosition.y}
       </div> */}
 
-      {/* Custom Mouse Cursor Dot */}
+      {/* Custom Mouse Cursor Dot - Hidden on touch devices */}
+      {!isTouchDevice && (
       <div
         className="fixed pointer-events-none z-50"
         style={{
@@ -241,6 +258,7 @@ export default function GlobalEffects({ children, enableMouseTrail = true }: Glo
         </div>
 
       </div>
+      )}
 
       {/* Page Content with Transitions */}
       <div className="relative">

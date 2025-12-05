@@ -78,8 +78,13 @@ export default function StarField({ starLess }: StarFieldProps) {
       Matter.World.add(engine.world, walls);
       
       // Create stars with bounds checking
+      // Adjust star count based on screen size - fewer on mobile for better performance
       const stars: Star[] = [];
-      const starCount = Math.min(200, Math.max(50, Math.floor((width * height) / 5000)));
+      const isMobile = width < 768;
+      const baseStarCount = isMobile 
+        ? Math.floor((width * height) / 8000) // Fewer stars on mobile
+        : Math.floor((width * height) / 5000);
+      const starCount = Math.min(200, Math.max(isMobile ? 30 : 50, baseStarCount));
       
       for (let i = 0; i < starCount; i++) {
         const x = Math.random() * (width - 20) + 10; // Keep away from edges
@@ -150,7 +155,10 @@ export default function StarField({ starLess }: StarFieldProps) {
         const dx = star.body.position.x - clampedX;
         const dy = star.body.position.y - clampedY;
         const distance = Math.sqrt(dx * dx + dy * dy);
-        const pushRadius = 40;
+        // Smaller push radius on mobile for better touch interaction
+        const { width } = dimensionsRef.current;
+        const isMobile = width < 768;
+        const pushRadius = isMobile ? 30 : 40;
         
         if (distance < pushRadius && distance > 0.1) { // Avoid division by very small numbers
           const normalizedDistance = distance / pushRadius;
@@ -212,6 +220,10 @@ export default function StarField({ starLess }: StarFieldProps) {
       ctx.save();
       
       // Render stars
+      const isMobile = width < 768;
+      const centerX = width / 2;
+      const centerY = height / 2;
+      
       starsRef.current.forEach((star, index) => {
         if (!star.body || !star.body.position) return;
         
@@ -222,7 +234,27 @@ export default function StarField({ starLess }: StarFieldProps) {
         if (x < -10 || x > width + 10 || y < -10 || y > height + 10) return;
         
         // Smooth opacity transition based on hover state
-        const targetOpacity = starLess ? 0.2 : star.opacity;
+        let targetOpacity = starLess ? 0.2 : star.opacity;
+        
+        // On mobile, fade out stars near the center
+        if (isMobile) {
+          const distanceFromCenter = Math.sqrt(
+            Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2)
+          );
+          const maxDistance = Math.min(width, height) / 2;
+          const clearRadius = maxDistance * 0.35; // Clear 35% from center
+          
+          if (distanceFromCenter < clearRadius) {
+            const fadeStart = clearRadius * 0.5;
+            if (distanceFromCenter < fadeStart) {
+              targetOpacity = 0; // Fully transparent in center
+            } else {
+              // Gradual fade between fadeStart and clearRadius
+              const fadeAmount = (distanceFromCenter - fadeStart) / (clearRadius - fadeStart);
+              targetOpacity *= fadeAmount;
+            }
+          }
+        }
         
         // Ensure opacity is valid
         if (!isFinite(targetOpacity) || targetOpacity <= 0) return;

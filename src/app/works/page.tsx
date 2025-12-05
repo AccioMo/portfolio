@@ -117,8 +117,8 @@ export default function Works() {
   return (
     <div className="h-screen text-primary overflow-hidden animate-fade-in" data-project-area="true">
 
-      {/* Navigation dots */}
-     <div className="absolute right-6 top-1/2 transform -translate-y-1/2 z-40 flex flex-col space-y-6">
+      {/* Navigation dots - Desktop: right side, Mobile: bottom center */}
+     <div className="hidden md:flex absolute right-4 lg:right-6 top-1/2 transform -translate-y-1/2 z-40 flex-col space-y-4 lg:space-y-6">
         {projects.map((project, index) => (
           <button
             key={project.id}
@@ -135,7 +135,7 @@ export default function Works() {
               }`}
             />
             <span 
-              className={`ml-4 text-xs font-mono uppercase tracking-wider transition-all duration-300 ${
+              className={`ml-3 lg:ml-4 text-xs font-mono uppercase tracking-wider transition-all duration-300 ${
                 activeProject === index 
                   ? 'text-primary' 
                   : 'text-secondary group-hover:text-primary'
@@ -143,6 +143,25 @@ export default function Works() {
             >
               {project.small_title}
             </span>
+          </button>
+        ))}
+      </div>
+
+      {/* Mobile Navigation dots - Bottom center */}
+      <div className="md:hidden absolute bottom-8 left-1/2 transform -translate-x-1/2 z-40 flex space-x-3">
+        {projects.map((project, index) => (
+          <button
+            key={project.id}
+            onClick={() => scrollToSection(index)}
+            className="group transition-all duration-300"
+          >
+            <div 
+              className={`w-2 h-2 rounded-full my-cursor-none transition-all duration-100 ${
+                activeProject === index
+                  ? 'bg-primary scale-125'
+                  : 'bg-secondary/60 hover:bg-primary'
+              }`}
+            />
           </button>
         ))}
       </div>
@@ -159,36 +178,36 @@ export default function Works() {
           <div
             key={project.id}
             ref={el => { projectRefs.current[index] = el; }}
-            className="min-h-screen flex items-center justify-center px-8 relative project-area"
+            className="min-h-screen flex items-center justify-center px-4 sm:px-6 md:px-8 py-16 md:py-0 relative project-area"
             style={{ scrollSnapAlign: 'start' }}
           >
 
-            <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center z-10 animate-fade-in"
+            <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center z-10 animate-fade-in"
             data-project-area="true" style={{ animationDelay: `${index * 0.2}s` }}>
               
-              <div className="space-y-8">
-                <div className="space-y-4">
-                  <span className="text-sm font-mono text-secondary">{project.year}</span>
+              <div className="space-y-6 md:space-y-8">
+                <div className="space-y-3 md:space-y-4">
+                  <span className="text-xs sm:text-sm font-mono text-secondary">{project.year}</span>
                   
-                  <h1 className="text-3xl lg:text-4xl font-light tracking-tight text-primary">
+                  <h1 className="text-2xl sm:text-3xl lg:text-4xl font-light tracking-tight text-primary">
                     {project.title}
                   </h1>
                   
-                  <p className="text-lg text-primary leading-relaxed max-w-lg">
+                  <p className="text-base sm:text-lg text-primary leading-relaxed max-w-lg">
                     {project.description}
                   </p>
                 </div>
 
                 {/* Tech stack */}
-                <div className="space-y-3">
-                  <h3 className="text-sm font-mono text-secondary uppercase tracking-wider">
+                <div className="space-y-2 md:space-y-3">
+                  <h3 className="text-xs sm:text-sm font-mono text-secondary uppercase tracking-wider">
                     Technology Stack
                   </h3>
                   <div className="flex flex-wrap gap-2">
                     {project.tech.map((tech, techIndex) => (
                       <span
                         key={tech}
-                        className="px-3 py-1 text-xs border border-secondary rounded-full text-primary hover:bg-secondary hover:text-background transition-colors duration-300"
+                        className="px-2.5 sm:px-3 py-1 text-xs border border-secondary rounded-full text-primary hover:bg-secondary hover:text-background transition-colors duration-300"
                         style={{
                           animationDelay: `${techIndex * 0.1}s`
                         }}
@@ -200,7 +219,7 @@ export default function Works() {
                 </div>
 
                 {/* Links */}
-                <div className="flex space-x-6">
+                <div className="flex flex-wrap gap-4 sm:gap-6">
                   {project.link && (
                     <a
                       href={project.link}
@@ -208,9 +227,9 @@ export default function Works() {
                       rel="noopener noreferrer"
                       className="group flex items-center cursor-none space-x-2 text-primary hover:text-secondary transition-colors duration-300"
                     >
-                      <span className="text-sm font-mono">View Project</span>
+                      <span className="text-xs sm:text-sm font-mono">View Project</span>
                       <svg 
-                        className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" 
+                        className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform duration-300" 
                         fill="none" 
                         stroke="currentColor" 
                         viewBox="0 0 24 24"
@@ -227,9 +246,9 @@ export default function Works() {
                       rel="noopener noreferrer"
                       className="group flex items-center cursor-none space-x-2 text-primary hover:text-secondary transition-colors duration-300"
                     >
-                      <span className="text-sm font-mono">Source Code</span>
+                      <span className="text-xs sm:text-sm font-mono">Source Code</span>
                       <svg 
-                        className="w-4 h-4 group-hover:scale-110 transition-transform duration-300" 
+                        className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:scale-110 transition-transform duration-300" 
                         fill="currentColor" 
                         viewBox="0 0 24 24"
                       >
@@ -241,7 +260,7 @@ export default function Works() {
               </div>
 
               {/* Project visual */}
-              <div className="relative">
+              <div className="relative order-first lg:order-last">
                 <div className="aspect-video bg-secondary/10 rounded-lg border border-secondary overflow-hidden group">
                   <div className="w-full h-full flex items-center justify-center relative">
                     {/* Render video or image when provided, otherwise show placeholder */}

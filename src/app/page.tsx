@@ -25,11 +25,7 @@ export default function Home() {
 	'I can take a couple decades to make a portfolio',
 	'have some chil, my friend',
 	'did u know u can\'t actually scroll here',
-	'here play a game https://y8.com',
-	'or just stay here ig..',
-	'...',
-	'this is awkward',
-	'...',
+	'here play a game https://y8.com'
   ];
 
   // const activePhrases = [
@@ -87,17 +83,17 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="relative min-h-screen flex justify-center animate-fade-in backdrop-blur-sm">
-      <section className="py-16 px-6 flex items-center justify-center select-none">
+    <div className="relative min-h-screen flex justify-center animate-fade-in">
+      <section className="py-8 sm:py-12 md:py-16 px-4 sm:px-6 flex items-center justify-center select-none">
         <div className="container relative mx-auto text-center">
           <h2
             className={
-              'text-5xl xl:text-6xl 3xl:text-7xl mb-1 font-bold bg-gradient-to-tr from-primary to-secondary bg-clip-text text-transparent'
+              'text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl mb-1 font-bold bg-gradient-to-tr from-primary to-secondary bg-clip-text text-transparent'
             }
           >
             Under construction
           </h2>
-          <p className={"text-xl min-w-56 max-w-64 absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full z-50 md:text-sm text-secondary transition-opacity duration-1000 transform"
+          <p className={"text-sm sm:text-base md:text-lg lg:text-xl min-w-[200px] max-w-[250px] sm:max-w-xs absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-full z-50 text-secondary transition-opacity duration-1000 transform"
               + (visible ? ' opacity-80' : ' opacity-0')
             }>{phrase}</p>
         </div>

@@ -95,27 +95,27 @@ export default function Contact() {
 
   return (
   <div className="min-h-screen flex text-primary animate-fade-in" data-project-area="true">
-      <section className="py-12 flex m-auto items-center justify-center px-4 sm:px-6 lg:px-8">
+      <section className="my-12 py-8 md:py-12 flex m-auto items-center justify-center px-4 sm:px-6 lg:px-8 w-full">
         <div className="max-w-3xl mx-auto w-full">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl sm:text-3xl lg:text-4xl font-light tracking-tight mb-3 text-primary">
+          <div className="text-center mb-6 md:mb-8">
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-light tracking-tight mb-2 md:mb-3 text-primary">
               Get In Touch
             </h1>
 
-            <div className="w-16 h-px bg-secondary mx-auto mb-6" />
+            <div className="w-12 md:w-16 h-px bg-secondary mx-auto mb-4 md:mb-6" />
 
-            <p className="text-sm text-primary leading-relaxed max-w-2xl mx-auto">
+            <p className="text-xs sm:text-sm text-primary leading-relaxed max-w-2xl mx-auto px-4">
               I'm interested in hearing about projects and opportunities. If you'd like to work together, drop a short message below.
             </p>
           </div>
 
-          <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+          <div className="relative grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 lg:gap-12">
             {/* Contact Form */}
-            <div className="space-y-6">
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="space-y-4 md:space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-3 md:space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4">
                   <div className="group">
-                    <label htmlFor="name" className="block text-xs px-3 font-mono text-secondary uppercase mb-1 group-focus-within:text-primary/80">
+                    <label htmlFor="name" className="block text-xs px-2 md:px-3 font-mono text-secondary uppercase mb-1 group-focus-within:text-primary/80">
                       Name
                     </label>
                     <input
@@ -125,12 +125,12 @@ export default function Contact() {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-2 border border-secondary rounded-md focus:outline-none focus:border-primary text-sm text-primary placeholder-secondary"
+                      className="w-full px-3 md:px-4 py-2 border border-secondary rounded-md focus:outline-none focus:border-primary text-xs sm:text-sm text-primary placeholder-secondary"
                     />
                   </div>
 
                   <div className="group">
-                    <label htmlFor="email" className="block text-xs px-3 font-mono text-secondary uppercase mb-1 group-focus-within:text-primary/80">
+                    <label htmlFor="email" className="block text-xs px-2 md:px-3 font-mono text-secondary uppercase mb-1 group-focus-within:text-primary/80">
                       Email
                     </label>
                     <input
@@ -140,13 +140,13 @@ export default function Contact() {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-2 border border-secondary rounded-md focus:outline-none focus:border-primary text-sm text-primary placeholder-secondary"
+                      className="w-full px-3 md:px-4 py-2 border border-secondary rounded-md focus:outline-none focus:border-primary text-xs sm:text-sm text-primary placeholder-secondary"
                     />
                   </div>
                 </div>
 
                 <div className="group">
-                  <label htmlFor="subject" className="block text-xs px-3 font-mono text-secondary uppercase mb-1 group-focus-within:text-primary/80">
+                  <label htmlFor="subject" className="block text-xs px-2 md:px-3 font-mono text-secondary uppercase mb-1 group-focus-within:text-primary/80">
                     Subject
                   </label>
                   <input
@@ -156,12 +156,12 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-2 border border-secondary rounded-md focus:outline-none focus:border-primary text-sm text-primary placeholder-secondary"
+                    className="w-full px-3 md:px-4 py-2 border border-secondary rounded-md focus:outline-none focus:border-primary text-xs sm:text-sm text-primary placeholder-secondary"
                   />
                 </div>
 
                 <div className="group">
-                  <label htmlFor="message" className="block text-xs px-3 font-mono text-secondary uppercase mb-1 group-focus-within:text-primary/80">
+                  <label htmlFor="message" className="block text-xs px-2 md:px-3 font-mono text-secondary uppercase mb-1 group-focus-within:text-primary/80">
                     Message
                   </label>
                   <textarea
@@ -171,15 +171,15 @@ export default function Contact() {
                     onChange={handleInputChange}
                     required
                     rows={4}
-                    className="w-full px-4 py-3 border border-secondary rounded-md resize-none focus:outline-none focus:border-primary text-sm text-primary placeholder-secondary"
+                    className="w-full px-3 md:px-4 py-2 md:py-3 border border-secondary rounded-md resize-none focus:outline-none focus:border-primary text-xs sm:text-sm text-primary placeholder-secondary"
                   />
                 </div>
 
-                <div className="flex items-center">
+                <div className="flex flex-col sm:flex-row sm:items-center gap-3">
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="px-6 py-2 bg-primary text-background font-medium rounded-md hover:bg-secondary disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 relative overflow-hidden"
+                    className="px-5 md:px-6 py-2 bg-primary text-background text-sm md:text-base font-medium rounded-md hover:bg-secondary disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 relative overflow-hidden"
                   >
                     <span className={`transition-all duration-200 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
                       {submitStatus === 'success' ? 'Message Sent!' : submitStatus === 'error' ? 'Error Sending' : 'Send Message'}
@@ -192,12 +192,12 @@ export default function Contact() {
                   </button>
 
                   {submitStatus === 'success' && (
-                    <p className="text-secondary text-sm ml-4">
+                    <p className="text-secondary text-xs sm:text-sm">
                       Thanks — I'll get back to you soon.
                     </p>
                   )}
                   {submitStatus === 'error' && (
-                    <p className="text-red-500 text-sm ml-4">
+                    <p className="text-red-500 text-xs sm:text-sm">
                       Error sending message. Please try again.
                     </p>
                   )}
@@ -205,35 +205,36 @@ export default function Contact() {
               </form>
             </div>
 
-            <span className="absolute left-1/2 top-0 w-[1px] h-full rounded-full bg-secondary" />
+            <span className="hidden lg:block absolute left-1/2 top-0 w-[1px] h-full rounded-full bg-secondary" />
+            <div className="lg:hidden w-full h-[1px] my-6 bg-secondary" />
 
             {/* Contact Information */}
-            <div className="space-y-6 mt-4">
-              <h2 className="text-base font-light mb-4 text-primary">Other Ways to Connect</h2>
+            <div className="space-y-4 md:space-y-6 mt-0 lg:mt-4">
+              <h2 className="text-sm md:text-base font-light mb-3 md:mb-4 text-primary">Other Ways to Connect</h2>
 
-              <div className="space-y-3">
+              <div className="space-y-2 md:space-y-3">
                 {contactMethods.map((method, index) => (
                   <a
                     key={method.label}
                     href={method.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center space-x-3 py-2 px-4 rounded-md border-transparent hover:border-secondary transition-all duration-200 group"
+                    // target="_blank"
+                    // rel="noopener noreferrer"
+                    className="flex items-center space-x-2 md:space-x-3 py-2 px-3 md:px-4 rounded-md border-transparent cursor-none hover:border-secondary transition-all duration-200 group"
                   >
-                    <div className="text-lg">
+                    <div className="text-base md:text-lg">
                       {method.icon}
                     </div>
-                    <div>
+                    <div className="flex-1 min-w-0">
                       <div className="text-xs font-mono text-secondary uppercase tracking-wider transition-all duration-200 group-hover:text-primary/80">
                         {method.label}
                       </div>
-                      <div className="text-sm text-primary/40 group-hover:text-primary transition-all duration-200">
+                      <div className="text-xs sm:text-sm text-primary/40 group-hover:text-primary transition-all duration-200 truncate">
                         {method.value}
                       </div>
                     </div>
-                    <div className="ml-auto">
+                    <div className="ml-auto flex-shrink-0">
                       <svg
-                        className="w-4 h-4 text-secondary group-hover:text-primary group-hover:translate-x-1 transition-all duration-200"
+                        className="w-3.5 h-3.5 md:w-4 md:h-4 text-secondary group-hover:text-primary group-hover:translate-x-1 transition-all duration-200"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
