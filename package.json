@@ -9,18 +9,15 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@types/matter-js": "^0.19.8",
-    "@types/three": "^0.180.0",
+    "@types/matter-js": "^0.20.2",
     "matter-js": "^0.20.0",
     "next": "^16.0.7",
     "nodemailer": "^7.0.10",
     "react": "^19.2.1",
-    "react-dom": "^19.2.1",
-    "three": "^0.180.0"
+    "react-dom": "^19.2.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
-    "@types/leaflet": "^1.9.21",
     "@types/node": "^20",
     "@types/nodemailer": "^7.0.4",
     "@types/react": "^19",
