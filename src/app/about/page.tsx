@@ -66,16 +66,28 @@ export default function About() {
 
 	const skills = [
 		{
+			category: "Languages",
+			items: ["Python", "JavaScript", "TypeScript", "C/C++"]
+		},
+		{
 			category: "Frontend",
-			items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Vue.js"]
+			items: ["React", "Next.js", "TypeScript", "Tailwind CSS"]
 		},
 		{
 			category: "Backend",
-			items: ["Node.js", "Python", "Go", "PostgreSQL", "MongoDB"]
+			items: ["^.*js$", "Django", "Websockets", "^.*SQL.*$"]
 		},
 		{
 			category: "Tools",
-			items: ["Docker", "Kubernetes", "Git", "AWS", "Vercel"]
+			items: ["Docker", "Git", "AWS | they banned me :(", "Azure | closed my account :(("]
+		},
+		{
+			category: "AI (APIs)",
+			items: ["Gemini", "OpenAI", "Claude", "Anthropic"]
+		},
+		{
+			category: "AI (Building)",
+			items: ["scikit-learn", "TensorFlow", "PyTorch", "NumPy"]
 		}
 	];
 
@@ -115,14 +127,14 @@ export default function About() {
 					>
 						<div
 							className={`w-2 h-2 rounded-full my-cursor-none transition-all duration-100 group-hover:scale-150 ${activeSection === index
-									? 'bg-primary'
-									: 'bg-secondary hover:bg-primary'
+								? 'bg-primary'
+								: 'bg-secondary hover:bg-primary'
 								}`}
 						/>
 						<span
 							className={`ml-3 lg:ml-4 text-xs font-mono uppercase tracking-wider transition-all duration-300 ${activeSection === index
-									? 'text-primary'
-									: 'text-secondary group-hover:text-primary'
+								? 'text-primary'
+								: 'text-secondary group-hover:text-primary'
 								}`}
 						>
 							{section.title}
@@ -141,8 +153,8 @@ export default function About() {
 					>
 						<div
 							className={`w-2 h-2 rounded-full my-cursor-none transition-all duration-100 ${activeSection === index
-									? 'bg-primary scale-125'
-									: 'bg-secondary/60 hover:bg-primary'
+								? 'bg-primary scale-125'
+								: 'bg-secondary/60 hover:bg-primary'
 								}`}
 						/>
 					</button>
@@ -196,37 +208,39 @@ export default function About() {
 						</h2>
 
 						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 lg:gap-12">
-							{skills.map((skillGroup, index) => (
-								<div
-									key={skillGroup.category}
-									className={`space-y-4 md:space-y-6 group transition-all duration-1000 ${visibleSections.has(1) ? 'opacity-100' : 'opacity-0'
-										}`}
-									style={{
-										transitionDelay: visibleSections.has(1) ? `${index * 0.2}s` : '0s'
-									}}
-								>
-									<h3 className="text-lg md:text-xl font-mono text-primary uppercase tracking-wider border-b border-secondary pb-2 md:pb-3">
-										{skillGroup.category}
-									</h3>
-									<div className="space-y-2 md:space-y-3">
-										{skillGroup.items.map((skill, skillIndex) => (
-											<div
-												key={skill}
-												className={`flex items-center space-x-2 md:space-x-3 group-hover:translate-x-2 transition-all duration-500 ${visibleSections.has(1) ? 'opacity-100' : 'opacity-0'
-													}`}
-											// style={{
-											//   transitionDelay: visibleSections.has(1) ? `${index * 0.2 + skillIndex * 0.05}s` : '0s'
-											// }}
-											>
-												<div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-secondary rounded-full group-hover:bg-primary transition-colors duration-300" />
-												<span className="text-sm md:text-base text-primary group-hover:text-primary transition-colors duration-300">
-													{skill}
-												</span>
-											</div>
-										))}
+							{skills.map((skillGroup, index) => {
+								return (
+									<div
+										key={skillGroup.category}
+										className={`space-y-4 md:space-y-6 group transition-all duration-1000 ${visibleSections.has(1) ? 'opacity-100' : 'opacity-0'
+											}`}
+										style={{
+											transitionDelay: visibleSections.has(1) ? `${index * 0.2}s` : '0s'
+										}}
+									>
+										<h3 className="text-lg md:text-xl font-mono text-primary uppercase tracking-wider border-b border-secondary pb-2 md:pb-3">
+											{skillGroup.category}
+										</h3>
+										<div className="space-y-2 md:space-y-3">
+											{skillGroup.items.map((skill, skillIndex) => (
+												<div
+													key={skill}
+													className={`flex items-center space-x-2 md:space-x-3 group-hover:translate-x-2 transition-all duration-500 ${visibleSections.has(1) ? 'opacity-100' : 'opacity-0'
+														}`}
+												// style={{
+												//   transitionDelay: visibleSections.has(1) ? `${index * 0.2 + skillIndex * 0.05}s` : '0s'
+												// }}
+												>
+													<div className="w-1.5 h-1.5 md:w-2 md:h-2 bg-secondary rounded-full group-hover:bg-primary transition-colors duration-300" />
+													<span className="text-sm md:text-base text-primary group-hover:text-primary transition-colors duration-300">
+														{skill}
+													</span>
+												</div>
+											))}
+										</div>
 									</div>
-								</div>
-							))}
+								)
+							})}
 						</div>
 					</div>
 				</section>

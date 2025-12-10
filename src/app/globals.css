@@ -10,6 +10,8 @@
 
 html {
   font-family: var(--font-sans);
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
 }
 
 /* Consolidated cursor hiding - prevents cursor from appearing on element margins/padding */

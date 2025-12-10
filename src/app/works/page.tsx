@@ -46,7 +46,7 @@ const projects: Project[] = [
 		description: "Full-Stack Next JS Application for exploring and watching movies, using TMDB and Comsumet API to get the most updated lists.",
 		tech: ["Next.js", "TMDB", "APIs", "Redis"],
 		year: "2024",
-		link: "",
+		link: "https://watchmen.vercel.app/",
 		github: "https://github.com/AccioMo/watchmen"
 	},
 	{
@@ -66,7 +66,7 @@ const projects: Project[] = [
 		description: "End of studies project. A full-stack chatting web application with multiplayer ping-pong game, with support for tournaments, multi-level bots, and a rating system.",
 		tech: ["Next.js", "Fastify", "Docker", "PostgreSQL"],
 		year: "2025",
-		github: "https://github.com/AccioMo/project-epsilon"
+		github: "https://github.com/AccioMo/transcendence"
 	}
 ];
 
@@ -128,14 +128,14 @@ export default function Works() {
 					>
 						<div
 							className={`w-2 h-2 rounded-full my-cursor-none transition-all duration-100 group-hover:scale-150 ${activeProject === index
-									? 'bg-primary'
-									: 'bg-secondary hover:bg-primary'
+								? 'bg-primary'
+								: 'bg-secondary hover:bg-primary'
 								}`}
 						/>
 						<span
 							className={`ml-3 lg:ml-4 text-xs font-mono uppercase tracking-wider transition-all duration-300 ${activeProject === index
-									? 'text-primary'
-									: 'text-secondary group-hover:text-primary'
+								? 'text-primary'
+								: 'text-secondary group-hover:text-primary'
 								}`}
 						>
 							{project.small_title}
@@ -154,8 +154,8 @@ export default function Works() {
 					>
 						<div
 							className={`w-2 h-2 rounded-full my-cursor-none transition-all duration-100 ${activeProject === index
-									? 'bg-primary scale-125'
-									: 'bg-secondary/60 hover:bg-primary'
+								? 'bg-primary scale-125'
+								: 'bg-secondary/60 hover:bg-primary'
 								}`}
 						/>
 					</button>
@@ -195,15 +195,15 @@ export default function Works() {
 								</div>
 
 								{/* Tech stack */}
-								<div className="space-y-2 md:space-y-3">
-									<h3 className="text-xs sm:text-sm font-mono text-secondary uppercase tracking-wider">
+								<div className="group space-y-2 md:space-y-3">
+									<h3 className="text-xs sm:text-sm font-mono text-secondary group-hover:text-primary transition-colors duration-300 uppercase tracking-wider">
 										Technology Stack
 									</h3>
 									<div className="flex flex-wrap gap-2">
 										{project.tech.map((tech, techIndex) => (
 											<span
 												key={tech}
-												className="px-2.5 sm:px-3 py-1 text-xs border border-secondary rounded-full text-primary hover:bg-secondary hover:text-background transition-colors duration-300"
+												className="px-2.5 sm:px-3 py-1 text-xs border border-secondary rounded-full text-secondary hover:border-primary hover:text-primary transition-colors duration-300"
 												style={{
 													animationDelay: `${techIndex * 0.1}s`
 												}}
@@ -221,7 +221,7 @@ export default function Works() {
 											href={project.link}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="group flex items-center cursor-none space-x-2 text-primary hover:text-secondary transition-colors duration-300"
+											className="group flex items-center cursor-none space-x-2 text-secondary hover:text-primary transition-colors duration-300"
 										>
 											<span className="text-xs sm:text-sm font-mono">View Project</span>
 											<svg
@@ -240,7 +240,7 @@ export default function Works() {
 											href={project.github}
 											target="_blank"
 											rel="noopener noreferrer"
-											className="group flex items-center cursor-none space-x-2 text-primary hover:text-secondary transition-colors duration-300"
+											className="group flex items-center cursor-none space-x-2 text-secondary hover:text-primary transition-colors duration-300"
 										>
 											<span className="text-xs sm:text-sm font-mono">Source Code</span>
 											<svg

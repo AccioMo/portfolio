@@ -1,4 +1,4 @@
-export default function StarrySky({children}: {children: React.ReactNode}) {
+export default function StarrySky({ children }: { children: React.ReactNode }) {
 
 	const stars = Array.from({ length: 1000 }, (_, i) => {
 		const brightness = Math.random();
@@ -19,7 +19,7 @@ export default function StarrySky({children}: {children: React.ReactNode}) {
 	});
 
 	return (
-		<div className="w-full h-screen relative bg-[#171717] grain md:overflow-hidden overflow-x-hidden scrollbar-hide">
+		<div className="w-full min-h-screen relative bg-[#171717] grain overflow-x-hidden scrollbar-hide">
 			<div className="absolute inset-0 pointer-events-none z-0">
 				{stars.map(star => (
 					<div

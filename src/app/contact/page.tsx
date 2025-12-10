@@ -28,7 +28,7 @@ export default function Contact() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     try {
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -94,7 +94,7 @@ export default function Contact() {
   ];
 
   return (
-  <div className="min-h-screen flex text-primary animate-fade-in" data-project-area="true">
+    <div className="min-h-screen flex text-primary animate-fade-in" data-project-area="true">
       <section className="my-12 py-8 md:py-12 flex m-auto items-center justify-center px-4 sm:px-6 lg:px-8 w-full">
         <div className="max-w-3xl mx-auto w-full">
           <div className="text-center mb-6 md:mb-8">
@@ -182,7 +182,11 @@ export default function Contact() {
                     className="px-5 md:px-6 py-2 bg-primary text-background text-sm md:text-base font-medium rounded-md hover:bg-secondary disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 relative overflow-hidden"
                   >
                     <span className={`transition-all duration-200 ${isSubmitting ? 'opacity-0' : 'opacity-100'}`}>
-                      {submitStatus === 'success' ? 'Message Sent!' : submitStatus === 'error' ? 'Error Sending' : 'Send Message'}
+                      {submitStatus === 'success' ? (
+                        <svg className="w-5 h-5 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                        </svg>
+                      ) : submitStatus === 'error' ? 'Error Sending' : 'Send Message'}
                     </span>
                     {isSubmitting && (
                       <div className="absolute inset-0 flex items-center justify-center">
