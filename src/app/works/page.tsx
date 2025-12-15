@@ -25,7 +25,7 @@ const projects: Project[] = [
 		tech: ["C++", "AI", "Neural Net", "AI Vision"],
 		year: "2025",
 		link: "",
-		github: "https://github.com/AccioMo/handwritten-digit-recognizer"
+		github: "https://github.com/bmo-v2/handwritten-digit-recognizer"
 		, image: "/screenshot-train.png"
 	},
 	{
@@ -36,7 +36,7 @@ const projects: Project[] = [
 		tech: ["React", "Node.js", "Django", "Daphne"],
 		year: "2024",
 		link: "",
-		github: "https://github.com/AccioMo/chatting-web-application"
+		github: "https://github.com/bmo-v2/chatting-web-application"
 		, video: "/videos/project-beta-demo.mp4"
 	},
 	{
@@ -46,8 +46,8 @@ const projects: Project[] = [
 		description: "Full-Stack Next JS Application for exploring and watching movies, using TMDB and Comsumet API to get the most updated lists.",
 		tech: ["Next.js", "TMDB", "APIs", "Redis"],
 		year: "2024",
-		link: "https://watchmen.vercel.app/",
-		github: "https://github.com/AccioMo/watchmen"
+		link: "https://watchmen-v2.vercel.app/",
+		github: "https://github.com/bmo-v2/watchmen"
 	},
 	{
 		id: 4,
@@ -66,7 +66,7 @@ const projects: Project[] = [
 		description: "End of studies project. A full-stack chatting web application with multiplayer ping-pong game, with support for tournaments, multi-level bots, and a rating system.",
 		tech: ["Next.js", "Fastify", "Docker", "PostgreSQL"],
 		year: "2025",
-		github: "https://github.com/AccioMo/transcendence"
+		github: "https://github.com/bmo-v2/transcendence"
 	}
 ];
 
