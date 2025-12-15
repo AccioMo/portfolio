@@ -22,9 +22,11 @@ interface CNNArchitecture {
 interface CNNVisualizationProps {
 	architecture: CNNArchitecture;
 	lastPredictionTime: number | null;
+	inputImage: string | null;
+	prediction: string | null;
 }
 
-export default function CNNVisualization({ architecture, lastPredictionTime }: CNNVisualizationProps) {
+export default function CNNVisualization({ architecture, lastPredictionTime, inputImage, prediction }: CNNVisualizationProps) {
 	const [timestamp, setTimestamp] = useState(Date.now());
 
 	useEffect(() => {
@@ -47,7 +49,7 @@ export default function CNNVisualization({ architecture, lastPredictionTime }: C
 	};
 
 	return (
-		<div className="w-full mx-auto p-4 sm:p-8 bg-black/40 backdrop-blur-md rounded-2xl border border-white/10 overflow-x-auto shadow-2xl">
+		<div className="w-full m-auto p-4 sm:p-8 rounded-2xl border border-white/10 overflow-x-auto">
 			<h3 className="text-2xl font-light tracking-wide mb-8 text-white/90 text-center uppercase font-mono">
 				Neural Network A<span className="text-primary">c</span>tivation
 			</h3>
@@ -55,11 +57,15 @@ export default function CNNVisualization({ architecture, lastPredictionTime }: C
 			<div className="flex flex-row items-center gap-6 sm:gap-12 min-w-max pb-4 px-4 justify-center">
 				{/* Input Node */}
 				<div className="flex flex-col items-center gap-3 group">
-					<div className="w-20 h-20 border border-white/20 bg-gradient-to-br from-gray-900 to-black rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.05)] group-hover:border-primary/50 transition-colors duration-500">
-						<div className="text-xs text-center text-white/60 font-mono leading-tight">
-							INPUT<br />
-							<span className="text-white/90 font-bold">{architecture.input.width}x{architecture.input.height}</span>
-						</div>
+					<div className="w-20 h-20 border border-white/20 bg-transparent rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(255,255,255,0.05)] group-hover:border-primary/50 transition-colors duration-500 overflow-hidden relative">
+						{inputImage ? (
+							<img src={inputImage} alt="Input" className="w-full h-full object-contain pixelated" />
+						) : (
+							<div className="text-xs text-center text-white/60 font-mono leading-tight">
+								INPUT<br />
+								<span className="text-white/90 font-bold">{architecture.input.width}x{architecture.input.height}</span>
+							</div>
+						)}
 					</div>
 				</div>
 
@@ -132,13 +138,21 @@ export default function CNNVisualization({ architecture, lastPredictionTime }: C
 
 					{/* Output Layer */}
 					<div className="flex flex-col items-center gap-2">
-						<div className="relative h-32 w-10 bg-gradient-to-b from-primary/10 to-transparent rounded-full border border-primary/30 flex flex-col justify-around py-2 px-1">
+						<div className="relative h-44 w-10 bg-transparent rounded-full border border-primary/30 flex flex-col justify-around py-2 px-1">
 							{Array.from({ length: 10 }).map((_, i) => (
-								<div key={i} className="w-full text-[8px] text-center text-primary/80 font-mono">{i}</div>
+								<div
+									key={i}
+									className={`w-full text-[8px] text-center font-mono transition-all duration-300 ${prediction === i.toString()
+										? 'text-primary font-bold scale-125'
+										: 'text-primary/40'
+										}`}
+								>
+									{i}
+								</div>
 							))}
 						</div>
 						<div className="text-[10px] text-primary/80 font-mono uppercase font-bold">
-							{architecture.output_layer.units} Output
+							Output
 						</div>
 					</div>
 				</div>

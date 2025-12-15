@@ -24,9 +24,9 @@ const projects: Project[] = [
 		description: "Convolutional Neural Network for recognizing handwritten digits, built in C++ with multiple optimizations.",
 		tech: ["C++", "AI", "Neural Net", "AI Vision"],
 		year: "2025",
-		link: "",
-		github: "https://github.com/bmo-v2/handwritten-digit-recognizer"
-		, image: "/screenshot-train.png"
+		link: "/demo",
+		github: "https://github.com/bmo-v2/handwritten-digit-recognizer",
+		image: "/screenshot-train.png"
 	},
 	{
 		id: 2,
@@ -74,7 +74,6 @@ export default function Works() {
 	const [activeProject, setActiveProject] = useState(0);
 	const containerRef = useRef<HTMLDivElement>(null);
 	const projectRefs = useRef<(HTMLDivElement | null)[]>([]);
-	const pathname = typeof window !== 'undefined' ? window.location.pathname : '';
 
 	useEffect(() => {
 		const container = containerRef.current;
@@ -115,7 +114,7 @@ export default function Works() {
 	};
 
 	return (
-		<div className="h-[100dvh] text-primary overflow-hidden animate-fade-in" data-project-area="true">
+		<div className="h-[100dvh] text-primary overflow-hidden animate-fade-in">
 
 			{/* Navigation dots - Desktop: right side, Mobile: bottom center */}
 			<div className="hidden md:flex absolute right-4 lg:right-6 top-1/2 transform -translate-y-1/2 z-40 flex-col space-y-4 lg:space-y-6">
@@ -179,7 +178,7 @@ export default function Works() {
 					>
 
 						<div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center z-10 animate-fade-in"
-							data-project-area="true" style={{ animationDelay: `${index * 0.2}s` }}>
+							style={{ animationDelay: `${index * 0.2}s` }}>
 
 							<div className="space-y-6 md:space-y-8">
 								<div className="space-y-3 md:space-y-4">

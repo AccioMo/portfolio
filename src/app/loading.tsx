@@ -1,11 +1,8 @@
 
 export default function Loading() {
-  return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="relative w-12 h-12">
-        <div className="absolute inset-0 border-2 border-secondary/20 rounded-full"></div>
-        <div className="absolute inset-0 border-2 border-primary border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    </div>
-  )
+    return (
+        <div className="flex flex-col items-center justify-center min-h-screen">
+            <div className="w-1 h-1 bg-[var(--primary)] rounded-full animate-pulse"></div>
+        </div>
+    );
 }

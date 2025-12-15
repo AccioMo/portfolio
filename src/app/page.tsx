@@ -83,7 +83,7 @@ export default function Home() {
 	}, []);
 
 	return (
-		<div className="relative min-h-[100dvh] flex flex-col items-center justify-center animate-fade-in">
+		<div className="relative min-h-[100dvh] flex flex-col items-center justify-center animate-fade-in" data-project-area="true">
 			<section className="py-8 sm:py-12 md:py-16 px-4 sm:px-6 flex items-center justify-center select-none">
 				<div className="container relative mx-auto text-center">
 					<h2

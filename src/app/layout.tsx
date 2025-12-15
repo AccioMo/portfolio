@@ -3,8 +3,6 @@ import { Ibarra_Real_Nova, Barlow_Condensed, Comfortaa } from "next/font/google"
 import NavBar from '@/components/NavBar';
 import "./globals.css";
 import GlobalEffects from "../components/GlobalEffects";
-import StarField from '@/components/StarField';
-import VideoBackground from "@/components/VideoBackground";
 import StarrySky from "@/components/StarrySky";
 
 const ibarraRealNova = Ibarra_Real_Nova({
@@ -45,7 +43,7 @@ export default function RootLayout({
 				<StarrySky>
 					<NavBar logo={true} />
 					<GlobalEffects>
-						<div className="relative px-4 sm:px-8 md:px-12 lg:px-20 m-auto">
+						<div className="relative m-auto">
 							{children}
 						</div>
 					</GlobalEffects>

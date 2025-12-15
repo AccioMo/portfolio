@@ -94,7 +94,7 @@ export default function Contact() {
   ];
 
   return (
-    <div className="min-h-screen flex text-primary animate-fade-in" data-project-area="true">
+    <div className="min-h-screen flex text-primary animate-fade-in">
       <section className="my-12 py-8 md:py-12 flex m-auto items-center justify-center px-4 sm:px-6 lg:px-8 w-full">
         <div className="max-w-3xl mx-auto w-full">
           <div className="text-center mb-6 md:mb-8">

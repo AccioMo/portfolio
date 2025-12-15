@@ -38,7 +38,7 @@ export async function POST(request: NextRequest) {
 			.removeAlpha()
 			.toFile(processedFilePath);
 
-		const cnnExecutable = path.join(process.cwd(), 'public', 'cnn', 'cnn.exe');
+		const cnnExecutable = path.join(process.cwd(), 'public', 'cnn', 'cnn');
 		const dialsBinPath = path.join(process.cwd(), 'public', 'cnn', 'dials.bin');
 
 		const { stdout, stderr } = await execAsync(`"${cnnExecutable}" "${processedFilePath}" "${dialsBinPath}"`, {

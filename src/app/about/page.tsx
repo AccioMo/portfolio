@@ -113,8 +113,7 @@ export default function About() {
 	];
 
 	return (
-		<div className="h-[100dvh] relative text-primary animate-fade-in"
-			data-project-area="true">
+		<div className="h-[100dvh] relative text-primary animate-fade-in">
 
 			{/* Navigation dots - Desktop: right side, Mobile: bottom center */}
 			<div className="hidden md:flex absolute right-4 lg:right-6 top-1/2 transform -translate-y-1/2 z-40 flex-col space-y-4 lg:space-y-6">
@@ -200,7 +199,6 @@ export default function About() {
 					ref={el => { sectionRefs.current[1] = el as HTMLDivElement; }}
 					className="min-h-screen flex items-center justify-center py-20 px-4 sm:px-8 lg:px-16"
 					style={{ scrollSnapAlign: 'start' }}
-					data-project-area="true"
 				>
 					<div className="max-w-6xl mx-auto w-full">
 						<h2 className="text-2xl sm:text-3xl md:text-4xl font-light mb-10 md:mb-16 text-center text-primary">
@@ -250,7 +248,6 @@ export default function About() {
 					ref={el => { sectionRefs.current[2] = el as HTMLDivElement; }}
 					className="min-h-screen flex items-center justify-center py-20 px-4 sm:px-8 lg:px-16"
 					style={{ scrollSnapAlign: 'start' }}
-					data-project-area="true"
 				>
 					<div className="max-w-4xl mx-auto w-full">
 						<h2 className="text-2xl sm:text-3xl md:text-4xl font-light mb-10 md:mb-16 text-center text-primary">
@@ -289,7 +286,6 @@ export default function About() {
 					ref={el => { sectionRefs.current[3] = el as HTMLDivElement; }}
 					className="min-h-screen flex items-center justify-center py-20 px-4 sm:px-8 lg:px-16"
 					style={{ scrollSnapAlign: 'start' }}
-					data-project-area="true"
 				>
 					<div className="max-w-4xl mx-auto text-center w-full">
 						<h2 className="text-2xl sm:text-3xl md:text-4xl font-light mb-8 md:mb-12 text-primary">
