@@ -79,15 +79,15 @@ export default function About() {
 		},
 		{
 			category: "Tools",
-			items: ["Docker", "Git", "AWS | they banned me :(", "Azure | closed my account :(("]
+			items: ["Docker", "Git", "AWS", "Azure"]
 		},
 		{
 			category: "AI (APIs)",
-			items: ["Gemini", "OpenAI", "Claude", "Anthropic"]
+			items: ["Gemini", "OpenAI", "Claude"]
 		},
 		{
 			category: "AI (Building)",
-			items: ["scikit-learn", "TensorFlow", "PyTorch", "NumPy"]
+			items: ["scikit-learn", "TensorFlow", "pandas"]
 		}
 	];
 
