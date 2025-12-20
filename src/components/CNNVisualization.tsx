@@ -24,9 +24,10 @@ interface CNNVisualizationProps {
 	lastPredictionTime: number | null;
 	inputImage: string | null;
 	prediction: string | null;
+	activations?: Record<string, string>;
 }
 
-export default function CNNVisualization({ architecture, lastPredictionTime, inputImage, prediction }: CNNVisualizationProps) {
+export default function CNNVisualization({ architecture, lastPredictionTime, inputImage, prediction, activations }: CNNVisualizationProps) {
 	const [timestamp, setTimestamp] = useState(Date.now());
 
 	useEffect(() => {
@@ -42,10 +43,21 @@ export default function CNNVisualization({ architecture, lastPredictionTime, inp
 		// Direct mapping based on 16/32 structure
 		const prefix = layerIndex;
 
-		return Array.from({ length: filterCount }).map((_, i) => ({
-			src: `/cnn/outputs/${prefix}-channel_${i}.png?t=${timestamp}`,
-			alt: `L${layerIndex} F${i}`
-		}));
+		return Array.from({ length: filterCount }).map((_, i) => {
+			const filename = `${prefix}-channel_${i}.png`;
+			// Use provided activations if available (for Vercel/dynamic)
+			if (activations && activations[filename]) {
+				return {
+					src: activations[filename],
+					alt: `L${layerIndex} F${i}`
+				};
+			}
+			// Fallback to public folder (standard version)
+			return {
+				src: `/cnn/outputs/${filename}?t=${timestamp}`,
+				alt: `L${layerIndex} F${i}`
+			};
+		});
 	};
 
 	return (

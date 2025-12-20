@@ -27,6 +27,7 @@ export default function CNNDemoPage() {
     const [processedImage, setProcessedImage] = useState<string | null>(null);
     const [predictionLog, setPredictionLog] = useState<string[]>([]);
     const [lastPredictionTime, setLastPredictionTime] = useState<number | null>(null);
+    const [activations, setActivations] = useState<Record<string, string>>({});
     const [showVisualization, setShowVisualization] = useState(false);
 
     // Cleanup on unmount
@@ -79,6 +80,7 @@ export default function CNNDemoPage() {
                 setPrediction(bestDigit);
                 setPredictionLog(lines.length > 0 ? lines : [data.output]); // Fallback to raw output if regex fails
                 setProcessedImage(data.inputImage);
+                setActivations(data.activations || {});
                 setLastPredictionTime(Date.now());
                 setShowVisualization(true);
 
@@ -99,6 +101,7 @@ export default function CNNDemoPage() {
         setPrediction(null);
         setProcessedImage(null);
         setPredictionLog([]);
+        setActivations({});
         setShowVisualization(false);
         setLastPredictionTime(null);
     };
@@ -227,6 +230,7 @@ export default function CNNDemoPage() {
                             lastPredictionTime={lastPredictionTime}
                             inputImage={processedImage}
                             prediction={prediction}
+                            activations={activations}
                         />
 
                         {/* Footer Action */}
